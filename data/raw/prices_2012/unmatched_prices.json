@@ -1,0 +1,1073 @@
+[
+  {
+    "name": "Altria Group Inc.",
+    "normalized": "altriagroup",
+    "suggestions": [
+      [
+        0.7058823529411765,
+        "MO",
+        "Altria"
+      ],
+      [
+        0.7,
+        "C",
+        "CitiGroup"
+      ],
+      [
+        0.6666666666666666,
+        "XL",
+        "XL Capital"
+      ]
+    ]
+  },
+  {
+    "name": "Capital One Financial Corp.",
+    "normalized": "capitalonefinancial",
+    "suggestions": [
+      [
+        0.7027027027027027,
+        "PFG",
+        "Principal Financial"
+      ],
+      [
+        0.6896551724137931,
+        "COF",
+        "Capital One"
+      ],
+      [
+        0.6857142857142857,
+        "RF",
+        "Regions Financial"
+      ]
+    ]
+  },
+  {
+    "name": "Goldman Sachs Group Inc. (The)",
+    "normalized": "goldmansachsgroup",
+    "suggestions": [
+      [
+        0.8275862068965517,
+        "GS",
+        "Goldman Sachs"
+      ],
+      [
+        0.6206896551724138,
+        "OMC",
+        "Omnicom"
+      ],
+      [
+        0.5,
+        "XL",
+        "XL Capital"
+      ]
+    ]
+  },
+  {
+    "name": "PNC Financial Services Grou p Inc. (The)",
+    "normalized": "pncfinancialservicesgroup",
+    "suggestions": [
+      [
+        0.8888888888888888,
+        "PNC",
+        "PNC Financial"
+      ],
+      [
+        0.72,
+        "DFS",
+        "Discover Financial Services"
+      ],
+      [
+        0.7083333333333334,
+        "PFG",
+        "Principal Financial"
+      ]
+    ]
+  },
+  {
+    "name": "Molson Coors Brewing Co. Class B NVS",
+    "normalized": "molsoncoorsbrewing",
+    "suggestions": [
+      [
+        0.7586206896551724,
+        "TAP",
+        "Molson Coors"
+      ],
+      [
+        0.48484848484848486,
+        "JCI",
+        "Johnson Controls Inc."
+      ],
+      [
+        0.48,
+        "GLW",
+        "Corning Incorporated"
+      ]
+    ]
+  },
+  {
+    "name": "Biogen Idec Inc.",
+    "normalized": "biogenidec",
+    "suggestions": [
+      [
+        0.75,
+        "BIIB",
+        "Biogen"
+      ],
+      [
+        0.47619047619047616,
+        "PGR",
+        "Progressive Corporation"
+      ],
+      [
+        0.47058823529411764,
+        "OMC",
+        "Omnicom"
+      ]
+    ]
+  },
+  {
+    "name": "Air Products and Chemicals Inc.",
+    "normalized": "airproductsandchemicals",
+    "suggestions": [
+      [
+        0.9302325581395349,
+        "APD",
+        "Air Products & Chemicals"
+      ],
+      [
+        0.631578947368421,
+        "EMN",
+        "Eastman Chemical"
+      ],
+      [
+        0.5294117647058824,
+        "DOW",
+        "Dow Chemical"
+      ]
+    ]
+  },
+  {
+    "name": "CF Industries Holdings Inc.",
+    "normalized": "cfindustriesholdings",
+    "suggestions": [
+      [
+        0.75,
+        "CF",
+        "CF Industries"
+      ],
+      [
+        0.6060606060606061,
+        "PPG",
+        "PPG"
+      ],
+      [
+        0.5882352941176471,
+        "ZMH",
+        "Zimmer Holdings"
+      ]
+    ]
+  },
+  {
+    "name": "E.I. du Pont de Nemours and Co.",
+    "normalized": "eidupontdenemoursand",
+    "suggestions": [
+      [
+        0.5625,
+        "KMI",
+        "Kinder Morgan"
+      ],
+      [
+        0.5142857142857142,
+        "FCX",
+        "Freeport-McMoran"
+      ],
+      [
+        0.5,
+        "IRM",
+        "Iron Mountain"
+      ]
+    ]
+  },
+  {
+    "name": "LyondellBasell Industries NV Class A",
+    "normalized": "lyondellbasellindustries",
+    "suggestions": [
+      [
+        0.7368421052631579,
+        "LYB",
+        "LyondellBasell"
+      ],
+      [
+        0.6153846153846154,
+        "ROP",
+        "Roper Industries"
+      ],
+      [
+        0.6,
+        "NBR",
+        "Nabors"
+      ]
+    ]
+  },
+  {
+    "name": "Robert Half International Inc.",
+    "normalized": "roberthalfinternational",
+    "suggestions": [
+      [
+        0.7619047619047619,
+        "BAX",
+        "Baxter"
+      ],
+      [
+        0.7272727272727273,
+        "MDLZ",
+        "Mondelez"
+      ],
+      [
+        0.7272727272727273,
+        "MAR",
+        "Marriott"
+      ]
+    ]
+  },
+  {
+    "name": "Estee Lauder Companies Inc. (The) Class A",
+    "normalized": "esteelaudercompanies",
+    "suggestions": [
+      [
+        0.9743589743589743,
+        "EL",
+        "Estee Lauder"
+      ],
+      [
+        0.7368421052631579,
+        "TRV",
+        "Travelers Companies"
+      ],
+      [
+        0.631578947368421,
+        "PDCO",
+        "Patterson Companies"
+      ]
+    ]
+  },
+  {
+    "name": "E*TRADE Financial Corp.",
+    "normalized": "etradefinancial",
+    "suggestions": [
+      [
+        0.75,
+        "HIG",
+        "Hartford Financial"
+      ],
+      [
+        0.7058823529411765,
+        "PRU",
+        "Prudential"
+      ],
+      [
+        0.7058823529411765,
+        "AMP",
+        "Ameriprise"
+      ]
+    ]
+  },
+  {
+    "name": "NASDAQ OMX Group Inc. (The)",
+    "normalized": "nasdaqomxgroup",
+    "suggestions": [
+      [
+        0.782608695652174,
+        "NDAQ",
+        "NASDAQ OMX"
+      ],
+      [
+        0.6086956521739131,
+        "UNM",
+        "Unum"
+      ],
+      [
+        0.5714285714285714,
+        "XL",
+        "XL Capital"
+      ]
+    ]
+  },
+  {
+    "name": "T. Rowe Price Group Inc.",
+    "normalized": "trowepricegroup",
+    "suggestions": [
+      [
+        0.8,
+        "TROW",
+        "T Rowe Price"
+      ],
+      [
+        0.6206896551724138,
+        "WEC",
+        "Wisconsin Energy"
+      ],
+      [
+        0.6086956521739131,
+        "CME",
+        "CME Group"
+      ]
+    ]
+  },
+  {
+    "name": "H.J. Heinz Co.",
+    "normalized": "hjheinz",
+    "suggestions": [
+      [
+        0.8333333333333334,
+        "HNZ",
+        "Heinz"
+      ],
+      [
+        0.46153846153846156,
+        "BA",
+        "Boeing"
+      ],
+      [
+        0.42857142857142855,
+        "VZ",
+        "Verizon"
+      ]
+    ]
+  },
+  {
+    "name": "McCormick & Co. Inc. NVS",
+    "normalized": "mccormickcoincnvs",
+    "suggestions": [
+      [
+        0.6923076923076923,
+        "MKC",
+        "McCormick"
+      ],
+      [
+        0.5128205128205128,
+        "PCS",
+        "MetroPCS"
+      ],
+      [
+        0.5,
+        "BDX",
+        "Becton Dickinson"
+      ]
+    ]
+  },
+  {
+    "name": "Becton, Dickinson and Co.",
+    "normalized": "bectondickinsonand",
+    "suggestions": [
+      [
+        0.9090909090909091,
+        "BDX",
+        "Becton Dickinson"
+      ],
+      [
+        0.5,
+        "EA",
+        "Electronic Arts"
+      ],
+      [
+        0.4864864864864865,
+        "STZ",
+        "Constellation Brands"
+      ]
+    ]
+  },
+  {
+    "name": "DaVita HealthCare Partners Inc.",
+    "normalized": "davitahealthcarepartners",
+    "suggestions": [
+      [
+        0.631578947368421,
+        "HCN",
+        "Health Care REIT"
+      ],
+      [
+        0.5714285714285714,
+        "CVH",
+        "Coventry Health Care"
+      ],
+      [
+        0.5555555555555556,
+        "THC",
+        "Tenet Healthcare"
+      ]
+    ]
+  },
+  {
+    "name": "Laboratory Corp. of America Holdings",
+    "normalized": "laboratorycorpofamericaholdings",
+    "suggestions": [
+      [
+        0.7540983606557377,
+        "LH",
+        "Laboratory Corporation of America"
+      ],
+      [
+        0.5454545454545454,
+        "LLL",
+        "L-3 Communications"
+      ],
+      [
+        0.4888888888888889,
+        "ZMH",
+        "Zimmer Holdings"
+      ]
+    ]
+  },
+  {
+    "name": "Harman International Industries Inc.",
+    "normalized": "harmaninternationalindustries",
+    "suggestions": [
+      [
+        0.8163265306122449,
+        "HAR",
+        "Harman International"
+      ],
+      [
+        0.6545454545454545,
+        "AIG",
+        "American International Group"
+      ],
+      [
+        0.6530612244897959,
+        "CAM",
+        "Cameron International"
+      ]
+    ]
+  },
+  {
+    "name": "Newell Rubbermaid Inc.",
+    "normalized": "newellrubbermaid",
+    "suggestions": [
+      [
+        0.7692307692307693,
+        "NWL",
+        "Rubbermaid"
+      ],
+      [
+        0.5263157894736842,
+        "HON",
+        "Honeywell International"
+      ],
+      [
+        0.5142857142857142,
+        "NFX",
+        "Newfield Exploration"
+      ]
+    ]
+  },
+  {
+    "name": "ACE Ltd.",
+    "normalized": "ace",
+    "suggestions": [
+      [
+        0.6666666666666666,
+        "ORCL",
+        "Oracle"
+      ],
+      [
+        0.6666666666666666,
+        "APA",
+        "Apache Corporation"
+      ],
+      [
+        0.6666666666666666,
+        "AES",
+        "AES Corporation"
+      ]
+    ]
+  },
+  {
+    "name": "Hartford Financial Services Grou p Inc. (The)",
+    "normalized": "hartfordfinancialservicesgroup",
+    "suggestions": [
+      [
+        0.723404255319149,
+        "HIG",
+        "Hartford Financial"
+      ],
+      [
+        0.68,
+        "PNC",
+        "PNC Financial"
+      ],
+      [
+        0.6545454545454545,
+        "DFS",
+        "Discover Financial Services"
+      ]
+    ]
+  },
+  {
+    "name": "Marsh & McLennan Companies Inc.",
+    "normalized": "marshmclennancompanies",
+    "suggestions": [
+      [
+        0.7428571428571429,
+        "MMC",
+        "March & McLennan"
+      ],
+      [
+        0.65,
+        "PDCO",
+        "Patterson Companies"
+      ],
+      [
+        0.6,
+        "TRV",
+        "Travelers Companies"
+      ]
+    ]
+  },
+  {
+    "name": "Starwood Hotels & Resorts Worldwide Inc.",
+    "normalized": "starwoodhotelsresortsworldwide",
+    "suggestions": [
+      [
+        0.8235294117647058,
+        "HOT",
+        "Starwood Hotels"
+      ],
+      [
+        0.6382978723404256,
+        "HST",
+        "Host Hotels"
+      ],
+      [
+        0.5217391304347826,
+        "WYN",
+        "Wyndham"
+      ]
+    ]
+  },
+  {
+    "name": "Eaton Corp. PLC",
+    "normalized": "eatoncorp",
+    "suggestions": [
+      [
+        0.7142857142857143,
+        "ETN",
+        "Eaton"
+      ],
+      [
+        0.6666666666666666,
+        "KLAC",
+        "KLA-Tencor"
+      ],
+      [
+        0.5714285714285714,
+        "OMC",
+        "Omnicom"
+      ]
+    ]
+  },
+  {
+    "name": "Cablevision NY Group Class A",
+    "normalized": "cablevisionnygroup",
+    "suggestions": [
+      [
+        0.7586206896551724,
+        "CVC",
+        "Cablevision"
+      ],
+      [
+        0.5925925925925926,
+        "CBG",
+        "CBRE"
+      ],
+      [
+        0.5925925925925926,
+        "C",
+        "CitiGroup"
+      ]
+    ]
+  },
+  {
+    "name": "Discovery Communications Inc. Series A",
+    "normalized": "discoverycommunicationsincseriesa",
+    "suggestions": [
+      [
+        0.8,
+        "DISCA",
+        "Discover Communications"
+      ],
+      [
+        0.6181818181818182,
+        "FTR",
+        "Frontier Communications"
+      ],
+      [
+        0.5964912280701754,
+        "WIN",
+        "Windstream Communications"
+      ]
+    ]
+  },
+  {
+    "name": "McGraw-Hill Companies Inc. (The)",
+    "normalized": "mcgrawhillcompanies",
+    "suggestions": [
+      [
+        0.7222222222222222,
+        "WMB",
+        "Williams Companies"
+      ],
+      [
+        0.6896551724137931,
+        "MHP",
+        "McGraw-Hill"
+      ],
+      [
+        0.6486486486486487,
+        "TRV",
+        "Travelers Companies"
+      ]
+    ]
+  },
+  {
+    "name": "Washington Post Co. (The) Class B",
+    "normalized": "washingtonpost",
+    "suggestions": [
+      [
+        0.9032258064516129,
+        "WPO",
+        "Washington Post Co B"
+      ],
+      [
+        0.5185185185185185,
+        "SPG",
+        "Simon Property"
+      ],
+      [
+        0.47058823529411764,
+        "HBAN",
+        "Huntington Bancshares"
+      ]
+    ]
+  },
+  {
+    "name": "Freeport-McMoRan Copper & Gold Inc.",
+    "normalized": "freeportmcmorancoppergold",
+    "suggestions": [
+      [
+        0.75,
+        "FCX",
+        "Freeport-McMoran"
+      ],
+      [
+        0.45,
+        "TSO",
+        "Tesoro Petroleum"
+      ],
+      [
+        0.43243243243243246,
+        "SRE",
+        "Sempra Energy"
+      ]
+    ]
+  },
+  {
+    "name": "Rowan Companies PLC",
+    "normalized": "rowancompanies",
+    "suggestions": [
+      [
+        0.75,
+        "PDCO",
+        "Patterson Companies"
+      ],
+      [
+        0.7272727272727273,
+        "RDC",
+        "Rowan"
+      ],
+      [
+        0.7096774193548387,
+        "WMB",
+        "Williams Companies"
+      ]
+    ]
+  },
+  {
+    "name": "Tesoro Corp.",
+    "normalized": "tesoro",
+    "suggestions": [
+      [
+        0.6153846153846154,
+        "TXT",
+        "Textron"
+      ],
+      [
+        0.5714285714285714,
+        "TSO",
+        "Tesoro Petroleum"
+      ],
+      [
+        0.5714285714285714,
+        "MSI",
+        "Motorola"
+      ]
+    ]
+  },
+  {
+    "name": "DENTSPLY International Inc.",
+    "normalized": "dentsplyinternational",
+    "suggestions": [
+      [
+        0.7894736842105263,
+        "TYC",
+        "Tyco"
+      ],
+      [
+        0.7619047619047619,
+        "MDLZ",
+        "Mondelez"
+      ],
+      [
+        0.75,
+        "EIX",
+        "Edison International"
+      ]
+    ]
+  },
+  {
+    "name": "Eli Lilly and Co.",
+    "normalized": "elilillyand",
+    "suggestions": [
+      [
+        0.8421052631578947,
+        "LLY",
+        "Eli Lilly"
+      ],
+      [
+        0.6,
+        "LO",
+        "Lorillard"
+      ],
+      [
+        0.5217391304347826,
+        "NWL",
+        "Rubbermaid"
+      ]
+    ]
+  },
+  {
+    "name": "Express Scripts Holding Co.",
+    "normalized": "expressscriptsholding",
+    "suggestions": [
+      [
+        0.8,
+        "ESRX",
+        "Express Scripts"
+      ],
+      [
+        0.5882352941176471,
+        "POM",
+        "Pepco"
+      ],
+      [
+        0.5142857142857142,
+        "ZMH",
+        "Zimmer Holdings"
+      ]
+    ]
+  },
+  {
+    "name": "Mead Johnson Nutrition Co. Class A",
+    "normalized": "meadjohnsonnutrition",
+    "suggestions": [
+      [
+        0.7096774193548387,
+        "MJN",
+        "Mead Johnson"
+      ],
+      [
+        0.6285714285714286,
+        "JCI",
+        "Johnson Controls Inc."
+      ],
+      [
+        0.6153846153846154,
+        "EIX",
+        "Edison International"
+      ]
+    ]
+  },
+  {
+    "name": "Apartment Investment and Management Co. Class A",
+    "normalized": "apartmentinvestmentandmanagement",
+    "suggestions": [
+      [
+        0.9508196721311475,
+        "AIV",
+        "Apartment Investment & Management"
+      ],
+      [
+        0.5957446808510638,
+        "WM",
+        "Waste Management"
+      ],
+      [
+        0.4642857142857143,
+        "ICE",
+        "Intercontinental Exchange"
+      ]
+    ]
+  },
+  {
+    "name": "Costco Wholesale Corp.",
+    "normalized": "costcowholesale",
+    "suggestions": [
+      [
+        0.56,
+        "HST",
+        "Host Hotels"
+      ],
+      [
+        0.5517241379310345,
+        "CA",
+        "CA Technologies"
+      ],
+      [
+        0.5333333333333333,
+        "FTI",
+        "FMC Technologies Inc."
+      ]
+    ]
+  },
+  {
+    "name": "CVS Caremark Corp.",
+    "normalized": "cvscaremark",
+    "suggestions": [
+      [
+        0.5882352941176471,
+        "KMX",
+        "Carmax"
+      ],
+      [
+        0.5,
+        "TMK",
+        "Torchmark"
+      ],
+      [
+        0.5,
+        "SCG",
+        "SCANA"
+      ]
+    ]
+  },
+  {
+    "name": "Limited Brands Inc.",
+    "normalized": "limitedbrands",
+    "suggestions": [
+      [
+        0.7,
+        "LTD",
+        "L Brands Inc."
+      ],
+      [
+        0.6363636363636364,
+        "YUM",
+        "Yum! Brands"
+      ],
+      [
+        0.6086956521739131,
+        "ACE",
+        "ACE Limited"
+      ]
+    ]
+  },
+  {
+    "name": "Lowe’s Companies Inc.",
+    "normalized": "lowescompanies",
+    "suggestions": [
+      [
+        0.75,
+        "TRV",
+        "Travelers Companies"
+      ],
+      [
+        0.7096774193548387,
+        "WMB",
+        "Williams Companies"
+      ],
+      [
+        0.6923076923076923,
+        "TJX",
+        "TJX"
+      ]
+    ]
+  },
+  {
+    "name": "Wal-Mart Stores Inc.",
+    "normalized": "walmartstores",
+    "suggestions": [
+      [
+        0.7,
+        "WMT",
+        "Wall-Mart"
+      ],
+      [
+        0.6451612903225806,
+        "FDO",
+        "Family Dollar"
+      ],
+      [
+        0.6086956521739131,
+        "ROST",
+        "Ross Stores"
+      ]
+    ]
+  },
+  {
+    "name": "Citrix Systems Inc.",
+    "normalized": "citrixsystems",
+    "suggestions": [
+      [
+        0.75,
+        "FLIR",
+        "FLIR Systems"
+      ],
+      [
+        0.6451612903225806,
+        "CVC",
+        "Cablevision"
+      ],
+      [
+        0.631578947368421,
+        "CTXS",
+        "Citrix"
+      ]
+    ]
+  },
+  {
+    "name": "Cisco Systems Inc.",
+    "normalized": "ciscosystems",
+    "suggestions": [
+      [
+        0.7333333333333333,
+        "CVC",
+        "Cablevision"
+      ],
+      [
+        0.6956521739130435,
+        "FLIR",
+        "FLIR Systems"
+      ],
+      [
+        0.6666666666666666,
+        "ADBE",
+        "Adobe Systems"
+      ]
+    ]
+  },
+  {
+    "name": "Crown Castle International Cor p.",
+    "normalized": "crowncastleinternational",
+    "suggestions": [
+      [
+        0.7727272727272727,
+        "CAM",
+        "Cameron International"
+      ],
+      [
+        0.7555555555555555,
+        "MDLZ",
+        "Mondelez"
+      ],
+      [
+        0.7317073170731707,
+        "TYC",
+        "Tyco"
+      ]
+    ]
+  },
+  {
+    "name": "Verizon Communications Inc.",
+    "normalized": "verizoncommunications",
+    "suggestions": [
+      [
+        0.7906976744186046,
+        "PCS",
+        "MetroPCS"
+      ],
+      [
+        0.7906976744186046,
+        "DISCA",
+        "Discover Communications"
+      ],
+      [
+        0.7567567567567568,
+        "LLL",
+        "L-3 Communications"
+      ]
+    ]
+  },
+  {
+    "name": "Windstream Corp.",
+    "normalized": "windstream",
+    "suggestions": [
+      [
+        0.6363636363636364,
+        "CF",
+        "CF Industries"
+      ],
+      [
+        0.631578947368421,
+        "JWN",
+        "Nordstrom"
+      ],
+      [
+        0.6086956521739131,
+        "PPG",
+        "PPG"
+      ]
+    ]
+  },
+  {
+    "name": "C.H. Robinson Worldwide Inc.",
+    "normalized": "chrobinsonworldwide",
+    "suggestions": [
+      [
+        0.6896551724137931,
+        "CHRW",
+        "CH Robinson"
+      ],
+      [
+        0.5714285714285714,
+        "WYN",
+        "Wyndham"
+      ],
+      [
+        0.4864864864864865,
+        "ED",
+        "Consolidated Edison"
+      ]
+    ]
+  },
+  {
+    "name": "Expeditors International of Washington Inc.",
+    "normalized": "expeditorsinternationalofwashington",
+    "suggestions": [
+      [
+        0.7931034482758621,
+        "EXPD",
+        "Expeditors International"
+      ],
+      [
+        0.6296296296296297,
+        "EIX",
+        "Edison International"
+      ],
+      [
+        0.6,
+        "PM",
+        "Philip Morris"
+      ]
+    ]
+  }
+]

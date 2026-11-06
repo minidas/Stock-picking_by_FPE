@@ -1,0 +1,174 @@
+{
+  "forecast_scoring": {
+    "all_mature_forecasts": 63,
+    "scored_forecasts": 47,
+    "evaluation_years": [
+      1973,
+      2019
+    ],
+    "conditional_positive_eps_90_interval_coverage": 0.9787234042553191,
+    "approx_independent_six_year_blocks": 7,
+    "baselines": "Expanding event rate with Beta(1,1) smoothing; only outcomes at least 7 years old; minimum 10 mature labels",
+    "maximum_buy_probability_all_origins": 0.3320190163906174,
+    "buy_probability_at_least_70pct_count": 0,
+    "below_6": {
+      "events": 4,
+      "event_rate": 0.0851063829787234,
+      "brier": 0.058284300924096,
+      "causal_base_rate_brier": 0.084728253069944,
+      "brier_difference_95_moving_block_ci": [
+        -0.05989693227094476,
+        -0.005828979265717724
+      ],
+      "reliability": [
+        {
+          "bin": "0.0-0.1",
+          "n": 26,
+          "mean_probability": 0.05948035677879172,
+          "event_frequency": 0.0
+        },
+        {
+          "bin": "0.1-0.2",
+          "n": 12,
+          "mean_probability": 0.13500397120993354,
+          "event_frequency": 0.0
+        },
+        {
+          "bin": "0.2-0.3",
+          "n": 4,
+          "mean_probability": 0.25505508771817664,
+          "event_frequency": 0.5
+        },
+        {
+          "bin": "0.3-0.4",
+          "n": 5,
+          "mean_probability": 0.3145355568056275,
+          "event_frequency": 0.4
+        }
+      ],
+      "nonoverlap_brier_by_six_offsets": [
+        {
+          "offset": 0,
+          "n": 8,
+          "brier": 0.020670095178525767
+        },
+        {
+          "offset": 1,
+          "n": 8,
+          "brier": 0.07110986701009407
+        },
+        {
+          "offset": 2,
+          "n": 8,
+          "brier": 0.0877248913495504
+        },
+        {
+          "offset": 3,
+          "n": 8,
+          "brier": 0.07051209721918064
+        },
+        {
+          "offset": 4,
+          "n": 8,
+          "brier": 0.019222334828581884
+        },
+        {
+          "offset": 5,
+          "n": 7,
+          "brier": 0.08363540839214996
+        }
+      ]
+    },
+    "above_6_5": {
+      "events": 42,
+      "event_rate": 0.8936170212765957,
+      "brier": 0.07581285708209813,
+      "causal_base_rate_brier": 0.10749600731055463,
+      "brier_difference_95_moving_block_ci": [
+        -0.07726597134239513,
+        -0.0021827557423336067
+      ],
+      "reliability": [
+        {
+          "bin": "0.6-0.7",
+          "n": 8,
+          "mean_probability": 0.6414352360383506,
+          "event_frequency": 0.5
+        },
+        {
+          "bin": "0.7-0.8",
+          "n": 5,
+          "mean_probability": 0.7720562045795628,
+          "event_frequency": 1.0
+        },
+        {
+          "bin": "0.8-0.9",
+          "n": 22,
+          "mean_probability": 0.8676646118735915,
+          "event_frequency": 0.9545454545454546
+        },
+        {
+          "bin": "0.9-1.0",
+          "n": 12,
+          "mean_probability": 0.9265363958420022,
+          "event_frequency": 1.0
+        }
+      ],
+      "nonoverlap_brier_by_six_offsets": [
+        {
+          "offset": 0,
+          "n": 8,
+          "brier": 0.11263010047547452
+        },
+        {
+          "offset": 1,
+          "n": 8,
+          "brier": 0.07082994545146774
+        },
+        {
+          "offset": 2,
+          "n": 8,
+          "brier": 0.08773503528045852
+        },
+        {
+          "offset": 3,
+          "n": 8,
+          "brier": 0.0689160896854123
+        },
+        {
+          "offset": 4,
+          "n": 8,
+          "brier": 0.03296467591145118
+        },
+        {
+          "offset": 5,
+          "n": 7,
+          "brier": 0.08265678691778543
+        }
+      ]
+    }
+  },
+  "strategy_diagnostic": {
+    "period": [
+      "1958-01-31",
+      "2025-12-31"
+    ],
+    "threshold": 0.7,
+    "one_way_cost_bps": 10,
+    "cash_nominal_return": 0,
+    "strategy": {
+      "cagr": 0.0,
+      "max_drawdown": 0.0,
+      "terminal_wealth": 1.0
+    },
+    "buy_and_hold": {
+      "cagr": 0.10899692649312498,
+      "max_drawdown": -0.4903888596273541,
+      "terminal_wealth": 1125.949978912247
+    },
+    "position_changes": 0,
+    "entries": 0,
+    "invested_month_fraction": 0.0,
+    "insufficient_trades_for_strategy_validation": true
+  }
+}

@@ -1,0 +1,369 @@
+{
+  "scope": "aggregate index / historical fallback only; not 2012 constituent screening",
+  "source": {
+    "source_page": "https://shillerdata.com/",
+    "url": "https://img1.wsimg.com/blobby/go/e5e77e0b-59d1-44d9-ab25-4763ac982e53/downloads/1449043e-a1ed-4e2e-8e9c-7b9a2a064493/ie_data.xls?ver=1791297298731",
+    "sha256": "98a54927942e842ec07ffe73000998e793953708c345b6b27bb363e9ada8366a",
+    "downloaded_at": "2026-11-06T05:30:21.827437+00:00"
+  },
+  "model_sha256": "213c1a2abc513b476b6e91a7f1f0600d2c5b03f15339f147fed8c7860c1443f0",
+  "parameters_optimized": false,
+  "blind_holdout": false,
+  "index_2012_distribution": {
+    "decision_date": "2012-12-31",
+    "price": 1422.29,
+    "positive_eps_mean": 133.9605253191351,
+    "positive_eps_median": 21.97302725267573,
+    "eps90": [
+      0.9629360317906973,
+      501.3977156395096
+    ],
+    "terminal_log_sd": 1.9014360374130093,
+    "p_loss": 0.02857142857142857,
+    "annual_log_sigma": 0.5191101289899736,
+    "required_buy_threshold_for_70pct": 196.71738047474494
+  },
+  "economics": [
+    {
+      "terminal_pe": 12,
+      "required_annual_price_return": 0.08,
+      "fpe_threshold": 7.562035522597255
+    },
+    {
+      "terminal_pe": 12,
+      "required_annual_price_return": 0.1,
+      "fpe_threshold": 6.773687160645326
+    },
+    {
+      "terminal_pe": 12,
+      "required_annual_price_return": 0.12,
+      "fpe_threshold": 6.079573454127847
+    },
+    {
+      "terminal_pe": 15,
+      "required_annual_price_return": 0.08,
+      "fpe_threshold": 9.452544403246568
+    },
+    {
+      "terminal_pe": 15,
+      "required_annual_price_return": 0.1,
+      "fpe_threshold": 8.467108950806658
+    },
+    {
+      "terminal_pe": 15,
+      "required_annual_price_return": 0.12,
+      "fpe_threshold": 7.599466817659809
+    },
+    {
+      "terminal_pe": 18,
+      "required_annual_price_return": 0.08,
+      "fpe_threshold": 11.343053283895882
+    },
+    {
+      "terminal_pe": 18,
+      "required_annual_price_return": 0.1,
+      "fpe_threshold": 10.160530740967989
+    },
+    {
+      "terminal_pe": 18,
+      "required_annual_price_return": 0.12,
+      "fpe_threshold": 9.119360181191771
+    }
+  ],
+  "threshold_pairs": [
+    {
+      "buy_threshold": 6,
+      "sell_threshold": 6.5,
+      "p_buy_2012": 0.10247701240370595,
+      "p_sell_2012": 0.8612929364095121,
+      "candidate_2012": "sell_review",
+      "windows": [
+        {
+          "first_year": 1958,
+          "last_year": 2012,
+          "starts_in_cash": true,
+          "one_way_cost_bps": 10,
+          "cash_return": 0.0,
+          "entries": 0,
+          "position_changes": 0,
+          "invested_month_fraction": 0.0,
+          "strategy": {
+            "cagr": 0.0,
+            "max_drawdown": 0.0,
+            "terminal_wealth": 1.0
+          },
+          "buy_and_hold": {
+            "cagr": 0.0998217309361582,
+            "max_drawdown": -0.4903888596273541,
+            "terminal_wealth": 185.9014519429843
+          }
+        },
+        {
+          "first_year": 2013,
+          "last_year": 2025,
+          "starts_in_cash": true,
+          "one_way_cost_bps": 10,
+          "cash_return": 0.0,
+          "entries": 0,
+          "position_changes": 0,
+          "invested_month_fraction": 0.0,
+          "strategy": {
+            "cagr": 0.0,
+            "max_drawdown": 0.0,
+            "terminal_wealth": 1.0
+          },
+          "buy_and_hold": {
+            "cagr": 0.14583098500390745,
+            "max_drawdown": -0.1926324939155205,
+            "terminal_wealth": 5.80283996153909
+          }
+        }
+      ]
+    },
+    {
+      "buy_threshold": 8,
+      "sell_threshold": 10,
+      "p_buy_2012": 0.1318804309935047,
+      "p_sell_2012": 0.8130891323785046,
+      "candidate_2012": "sell_review",
+      "windows": [
+        {
+          "first_year": 1958,
+          "last_year": 2012,
+          "starts_in_cash": true,
+          "one_way_cost_bps": 10,
+          "cash_return": 0.0,
+          "entries": 0,
+          "position_changes": 0,
+          "invested_month_fraction": 0.0,
+          "strategy": {
+            "cagr": 0.0,
+            "max_drawdown": 0.0,
+            "terminal_wealth": 1.0
+          },
+          "buy_and_hold": {
+            "cagr": 0.0998217309361582,
+            "max_drawdown": -0.4903888596273541,
+            "terminal_wealth": 185.9014519429843
+          }
+        },
+        {
+          "first_year": 2013,
+          "last_year": 2025,
+          "starts_in_cash": true,
+          "one_way_cost_bps": 10,
+          "cash_return": 0.0,
+          "entries": 0,
+          "position_changes": 0,
+          "invested_month_fraction": 0.0,
+          "strategy": {
+            "cagr": 0.0,
+            "max_drawdown": 0.0,
+            "terminal_wealth": 1.0
+          },
+          "buy_and_hold": {
+            "cagr": 0.14583098500390745,
+            "max_drawdown": -0.1926324939155205,
+            "terminal_wealth": 5.80283996153909
+          }
+        }
+      ]
+    },
+    {
+      "buy_threshold": 10,
+      "sell_threshold": 12,
+      "p_buy_2012": 0.15833943905006687,
+      "p_sell_2012": 0.7890723260178312,
+      "candidate_2012": "none",
+      "windows": [
+        {
+          "first_year": 1958,
+          "last_year": 2012,
+          "starts_in_cash": true,
+          "one_way_cost_bps": 10,
+          "cash_return": 0.0,
+          "entries": 0,
+          "position_changes": 0,
+          "invested_month_fraction": 0.0,
+          "strategy": {
+            "cagr": 0.0,
+            "max_drawdown": 0.0,
+            "terminal_wealth": 1.0
+          },
+          "buy_and_hold": {
+            "cagr": 0.0998217309361582,
+            "max_drawdown": -0.4903888596273541,
+            "terminal_wealth": 185.9014519429843
+          }
+        },
+        {
+          "first_year": 2013,
+          "last_year": 2025,
+          "starts_in_cash": true,
+          "one_way_cost_bps": 10,
+          "cash_return": 0.0,
+          "entries": 0,
+          "position_changes": 0,
+          "invested_month_fraction": 0.0,
+          "strategy": {
+            "cagr": 0.0,
+            "max_drawdown": 0.0,
+            "terminal_wealth": 1.0
+          },
+          "buy_and_hold": {
+            "cagr": 0.14583098500390745,
+            "max_drawdown": -0.1926324939155205,
+            "terminal_wealth": 5.80283996153909
+          }
+        }
+      ]
+    },
+    {
+      "buy_threshold": 12,
+      "sell_threshold": 15,
+      "p_buy_2012": 0.1823562454107402,
+      "p_sell_2012": 0.756787602943346,
+      "candidate_2012": "none",
+      "windows": [
+        {
+          "first_year": 1958,
+          "last_year": 2012,
+          "starts_in_cash": true,
+          "one_way_cost_bps": 10,
+          "cash_return": 0.0,
+          "entries": 0,
+          "position_changes": 0,
+          "invested_month_fraction": 0.0,
+          "strategy": {
+            "cagr": 0.0,
+            "max_drawdown": 0.0,
+            "terminal_wealth": 1.0
+          },
+          "buy_and_hold": {
+            "cagr": 0.0998217309361582,
+            "max_drawdown": -0.4903888596273541,
+            "terminal_wealth": 185.9014519429843
+          }
+        },
+        {
+          "first_year": 2013,
+          "last_year": 2025,
+          "starts_in_cash": true,
+          "one_way_cost_bps": 10,
+          "cash_return": 0.0,
+          "entries": 0,
+          "position_changes": 0,
+          "invested_month_fraction": 0.0,
+          "strategy": {
+            "cagr": 0.0,
+            "max_drawdown": 0.0,
+            "terminal_wealth": 1.0
+          },
+          "buy_and_hold": {
+            "cagr": 0.14583098500390745,
+            "max_drawdown": -0.1926324939155205,
+            "terminal_wealth": 5.80283996153909
+          }
+        }
+      ]
+    },
+    {
+      "buy_threshold": 15,
+      "sell_threshold": 18,
+      "p_buy_2012": 0.21464096848522546,
+      "p_sell_2012": 0.7281388851713239,
+      "candidate_2012": "none",
+      "windows": [
+        {
+          "first_year": 1958,
+          "last_year": 2012,
+          "starts_in_cash": true,
+          "one_way_cost_bps": 10,
+          "cash_return": 0.0,
+          "entries": 1,
+          "position_changes": 2,
+          "invested_month_fraction": 0.45454545454545453,
+          "strategy": {
+            "cagr": 0.07289026114600183,
+            "max_drawdown": -0.26037361742994103,
+            "terminal_wealth": 47.642593683103044
+          },
+          "buy_and_hold": {
+            "cagr": 0.0998217309361582,
+            "max_drawdown": -0.4903888596273541,
+            "terminal_wealth": 185.9014519429843
+          }
+        },
+        {
+          "first_year": 2013,
+          "last_year": 2025,
+          "starts_in_cash": true,
+          "one_way_cost_bps": 10,
+          "cash_return": 0.0,
+          "entries": 0,
+          "position_changes": 0,
+          "invested_month_fraction": 0.0,
+          "strategy": {
+            "cagr": 0.0,
+            "max_drawdown": 0.0,
+            "terminal_wealth": 1.0
+          },
+          "buy_and_hold": {
+            "cagr": 0.14583098500390745,
+            "max_drawdown": -0.1926324939155205,
+            "terminal_wealth": 5.80283996153909
+          }
+        }
+      ]
+    },
+    {
+      "buy_threshold": 20,
+      "sell_threshold": 25,
+      "p_buy_2012": 0.26072535018220944,
+      "p_sell_2012": 0.6718168236482464,
+      "candidate_2012": "none",
+      "windows": [
+        {
+          "first_year": 1958,
+          "last_year": 2012,
+          "starts_in_cash": true,
+          "one_way_cost_bps": 10,
+          "cash_return": 0.0,
+          "entries": 1,
+          "position_changes": 2,
+          "invested_month_fraction": 0.6363636363636364,
+          "strategy": {
+            "cagr": 0.07175427769633913,
+            "max_drawdown": -0.49038885962735423,
+            "terminal_wealth": 44.949976790502475
+          },
+          "buy_and_hold": {
+            "cagr": 0.0998217309361582,
+            "max_drawdown": -0.4903888596273541,
+            "terminal_wealth": 185.9014519429843
+          }
+        },
+        {
+          "first_year": 2013,
+          "last_year": 2025,
+          "starts_in_cash": true,
+          "one_way_cost_bps": 10,
+          "cash_return": 0.0,
+          "entries": 0,
+          "position_changes": 0,
+          "invested_month_fraction": 0.0,
+          "strategy": {
+            "cagr": 0.0,
+            "max_drawdown": 0.0,
+            "terminal_wealth": 1.0
+          },
+          "buy_and_hold": {
+            "cagr": 0.14583098500390745,
+            "max_drawdown": -0.1926324939155205,
+            "terminal_wealth": 5.80283996153909
+          }
+        }
+      ]
+    }
+  ]
+}

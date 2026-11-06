@@ -1,0 +1,2 @@
+# Preserve downloaded evidence bytes and the hashes in its manifests on Windows.
+data/raw/** -text

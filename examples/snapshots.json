@@ -1,0 +1,329 @@
+{
+  "description": "All securities and numbers are synthetic; these are not S&P 500 market observations.",
+  "snapshots": [
+    {
+      "symbol": "DEMO_VALUE",
+      "synthetic": true,
+      "as_of": "2026-11-06",
+      "price": 29.25,
+      "price_date": "2026-11-05",
+      "currency": "USD",
+      "eps0": 10,
+      "eps_period_end": "2025-12-31",
+      "eps_available_at": "2026-02-15",
+      "eps_basis": "GAAP diluted annual",
+      "share_basis": "synthetic shares at 2026-11-06; no splits",
+      "source": {
+        "provider": "SYNTHETIC DEMONSTRATION ONLY",
+        "not_market_data": true
+      },
+      "history": [
+        {
+          "period_end": "2018-12-31",
+          "available_at": "2019-02-15",
+          "eps": 5.5
+        },
+        {
+          "period_end": "2019-12-31",
+          "available_at": "2020-02-15",
+          "eps": 6
+        },
+        {
+          "period_end": "2020-12-31",
+          "available_at": "2021-02-15",
+          "eps": 6.8
+        },
+        {
+          "period_end": "2021-12-31",
+          "available_at": "2022-02-15",
+          "eps": 7.5
+        },
+        {
+          "period_end": "2022-12-31",
+          "available_at": "2023-02-15",
+          "eps": 8
+        },
+        {
+          "period_end": "2023-12-31",
+          "available_at": "2024-02-15",
+          "eps": 8.6
+        },
+        {
+          "period_end": "2024-12-31",
+          "available_at": "2025-02-15",
+          "eps": 9.3
+        },
+        {
+          "period_end": "2025-12-31",
+          "available_at": "2026-02-15",
+          "eps": 10
+        }
+      ],
+      "consensus": [
+        {
+          "target_date": "2026-12-31",
+          "available_at": "2026-10-30",
+          "eps_mean": 11,
+          "eps_std": 1.1,
+          "analysts": 20,
+          "eps_basis": "GAAP diluted annual",
+          "share_basis": "synthetic shares at 2026-11-06; no splits"
+        },
+        {
+          "target_date": "2027-12-31",
+          "available_at": "2026-10-30",
+          "eps_mean": 12.2,
+          "eps_std": 1.22,
+          "analysts": 20,
+          "eps_basis": "GAAP diluted annual",
+          "share_basis": "synthetic shares at 2026-11-06; no splits"
+        },
+        {
+          "target_date": "2028-12-31",
+          "available_at": "2026-10-30",
+          "eps_mean": 13.4,
+          "eps_std": 1.34,
+          "analysts": 20,
+          "eps_basis": "GAAP diluted annual",
+          "share_basis": "synthetic shares at 2026-11-06; no splits"
+        }
+      ]
+    },
+    {
+      "symbol": "DEMO_EXPENSIVE",
+      "synthetic": true,
+      "as_of": "2026-11-06",
+      "price": 500,
+      "price_date": "2026-11-05",
+      "currency": "USD",
+      "eps0": 10,
+      "eps_period_end": "2025-12-31",
+      "eps_available_at": "2026-02-15",
+      "eps_basis": "GAAP diluted annual",
+      "share_basis": "synthetic shares at 2026-11-06; no splits",
+      "source": {
+        "provider": "SYNTHETIC DEMONSTRATION ONLY",
+        "not_market_data": true
+      },
+      "history": [
+        {
+          "period_end": "2018-12-31",
+          "available_at": "2019-02-15",
+          "eps": 5.5
+        },
+        {
+          "period_end": "2019-12-31",
+          "available_at": "2020-02-15",
+          "eps": 6
+        },
+        {
+          "period_end": "2020-12-31",
+          "available_at": "2021-02-15",
+          "eps": 6.8
+        },
+        {
+          "period_end": "2021-12-31",
+          "available_at": "2022-02-15",
+          "eps": 7.5
+        },
+        {
+          "period_end": "2022-12-31",
+          "available_at": "2023-02-15",
+          "eps": 8
+        },
+        {
+          "period_end": "2023-12-31",
+          "available_at": "2024-02-15",
+          "eps": 8.6
+        },
+        {
+          "period_end": "2024-12-31",
+          "available_at": "2025-02-15",
+          "eps": 9.3
+        },
+        {
+          "period_end": "2025-12-31",
+          "available_at": "2026-02-15",
+          "eps": 10
+        }
+      ],
+      "consensus": [
+        {
+          "target_date": "2026-12-31",
+          "available_at": "2026-10-30",
+          "eps_mean": 11,
+          "eps_std": 1.1,
+          "analysts": 20,
+          "eps_basis": "GAAP diluted annual",
+          "share_basis": "synthetic shares at 2026-11-06; no splits"
+        },
+        {
+          "target_date": "2027-12-31",
+          "available_at": "2026-10-30",
+          "eps_mean": 12.2,
+          "eps_std": 1.22,
+          "analysts": 20,
+          "eps_basis": "GAAP diluted annual",
+          "share_basis": "synthetic shares at 2026-11-06; no splits"
+        },
+        {
+          "target_date": "2028-12-31",
+          "available_at": "2026-10-30",
+          "eps_mean": 13.4,
+          "eps_std": 1.34,
+          "analysts": 20,
+          "eps_basis": "GAAP diluted annual",
+          "share_basis": "synthetic shares at 2026-11-06; no splits"
+        }
+      ]
+    },
+    {
+      "symbol": "DEMO_HISTORY_ONLY",
+      "synthetic": true,
+      "as_of": "2026-11-06",
+      "price": 80,
+      "price_date": "2026-11-05",
+      "currency": "USD",
+      "eps0": 4,
+      "eps_period_end": "2025-12-31",
+      "eps_available_at": "2026-02-15",
+      "eps_basis": "GAAP diluted annual",
+      "share_basis": "synthetic shares at 2026-11-06; no splits",
+      "source": {
+        "provider": "SYNTHETIC DEMONSTRATION ONLY",
+        "not_market_data": true
+      },
+      "history": [
+        {
+          "period_end": "2018-12-31",
+          "available_at": "2019-02-15",
+          "eps": 2
+        },
+        {
+          "period_end": "2019-12-31",
+          "available_at": "2020-02-15",
+          "eps": 2.3
+        },
+        {
+          "period_end": "2020-12-31",
+          "available_at": "2021-02-15",
+          "eps": 2.5
+        },
+        {
+          "period_end": "2021-12-31",
+          "available_at": "2022-02-15",
+          "eps": 2.7
+        },
+        {
+          "period_end": "2022-12-31",
+          "available_at": "2023-02-15",
+          "eps": 3
+        },
+        {
+          "period_end": "2023-12-31",
+          "available_at": "2024-02-15",
+          "eps": 3.3
+        },
+        {
+          "period_end": "2024-12-31",
+          "available_at": "2025-02-15",
+          "eps": 3.7
+        },
+        {
+          "period_end": "2025-12-31",
+          "available_at": "2026-02-15",
+          "eps": 4
+        }
+      ],
+      "consensus": []
+    },
+    {
+      "symbol": "DEMO_LOSS",
+      "synthetic": true,
+      "as_of": "2026-11-06",
+      "price": 20,
+      "price_date": "2026-11-05",
+      "currency": "USD",
+      "eps0": -1,
+      "eps_period_end": "2025-12-31",
+      "eps_available_at": "2026-02-15",
+      "eps_basis": "GAAP diluted annual",
+      "share_basis": "synthetic shares at 2026-11-06; no splits",
+      "source": {
+        "provider": "SYNTHETIC DEMONSTRATION ONLY",
+        "not_market_data": true
+      },
+      "history": [
+        {
+          "period_end": "2018-12-31",
+          "available_at": "2019-02-15",
+          "eps": 1.2
+        },
+        {
+          "period_end": "2019-12-31",
+          "available_at": "2020-02-15",
+          "eps": 0.5
+        },
+        {
+          "period_end": "2020-12-31",
+          "available_at": "2021-02-15",
+          "eps": -0.7
+        },
+        {
+          "period_end": "2021-12-31",
+          "available_at": "2022-02-15",
+          "eps": 1.5
+        },
+        {
+          "period_end": "2022-12-31",
+          "available_at": "2023-02-15",
+          "eps": 1
+        },
+        {
+          "period_end": "2023-12-31",
+          "available_at": "2024-02-15",
+          "eps": 0.4
+        },
+        {
+          "period_end": "2024-12-31",
+          "available_at": "2025-02-15",
+          "eps": -0.2
+        },
+        {
+          "period_end": "2025-12-31",
+          "available_at": "2026-02-15",
+          "eps": -1
+        }
+      ],
+      "consensus": [
+        {
+          "target_date": "2026-12-31",
+          "available_at": "2026-10-30",
+          "eps_mean": 0.2,
+          "eps_std": 0.020000000000000004,
+          "analysts": 20,
+          "eps_basis": "GAAP diluted annual",
+          "share_basis": "synthetic shares at 2026-11-06; no splits"
+        },
+        {
+          "target_date": "2027-12-31",
+          "available_at": "2026-10-30",
+          "eps_mean": 0.8,
+          "eps_std": 0.08000000000000002,
+          "analysts": 20,
+          "eps_basis": "GAAP diluted annual",
+          "share_basis": "synthetic shares at 2026-11-06; no splits"
+        },
+        {
+          "target_date": "2028-12-31",
+          "available_at": "2026-10-30",
+          "eps_mean": 1.1,
+          "eps_std": 0.11000000000000001,
+          "analysts": 20,
+          "eps_basis": "GAAP diluted annual",
+          "share_basis": "synthetic shares at 2026-11-06; no splits"
+        }
+      ]
+    }
+  ]
+}

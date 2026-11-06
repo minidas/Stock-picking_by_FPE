@@ -1,0 +1,26 @@
+{
+  "baseline_sha256": "REPLACE_WITH_HASH_FROM_AGENT_QUEUE",
+  "events_by_symbol": {
+    "DEMO_VALUE": [
+      {
+        "event_id": "synthetic-capacity-expansion-001",
+        "published_at": "2026-11-03",
+        "source_url": "https://example.com/synthetic-capacity-expansion",
+        "summary": "SYNTHETIC ONLY: new production capacity announced after consensus snapshot.",
+        "rationale": "Demonstrates a modest, confidence-weighted incremental profit impact; not actual news.",
+        "already_in_consensus": false,
+        "confidence": 0.6,
+        "annual_log_growth_delta": [
+          0,
+          0.01,
+          0.02,
+          0.01,
+          0,
+          0
+        ],
+        "variance_multiplier": 1.15,
+        "loss_probability_delta": 0
+      }
+    ]
+  }
+}

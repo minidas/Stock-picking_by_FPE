@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.env
+vendor/
+data/private/
+outputs/
+.pytest_cache/
+# Large HTTP byte-range cache; keep locally, rebuild online only if needed.
+data/raw/sec_2012_bulk/range_blocks/*.bin
+# Expiring download URLs are refreshed by the downloader.
+data/raw/sec_2012_bulk/duckdb_resolved_url*.txt

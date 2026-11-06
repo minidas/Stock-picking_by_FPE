@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "stocking-six-year"
+version = "0.1.0"
+description = "Auditable six-year earnings probability research pipeline"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24", "scipy>=1.10", "requests>=2.31"]
+
+[project.optional-dependencies]
+research = ["pandas>=2.0", "xlrd>=2.0,<3", "matplotlib>=3.8,<4", "pypdf>=5,<7", "duckdb==2.0.0"]
+
+[project.scripts]
+stocking = "stocking.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

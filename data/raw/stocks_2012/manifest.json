@@ -1,0 +1,272 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-11-06T08:44:56.777137+00:00",
+  "input_path": "C:\\Users\\minidas\\Desktop\\stocking\\data\\research_2012_snapshots.json",
+  "input_sha256": "101471be0212027c3f9fe6630456d4b5972a625f109a0851c9e3f344d4a051c2",
+  "scope": "original source document bytes for four historical stocks; not a complete market raw dataset",
+  "notes": [
+    "All retrieval timestamps are current retrieval times, not historical publication dates.",
+    "Fallback reports are explicitly labelled and do not replace original source attribution or declared cutoff dates.",
+    "Error responses and challenge pages are not saved as financial documents."
+  ],
+  "sources": [
+    {
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000119312512444068/d411355d10k.htm",
+      "references": [
+        {
+          "symbol": "AAPL",
+          "role": "financial_statement"
+        }
+      ],
+      "attempts": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/320193/000119312512444068/d411355d10k.htm",
+          "attempted_at": "2026-11-06T07:54:40.729571+00:00",
+          "http_status": 403,
+          "final_url": "https://www.sec.gov/Archives/edgar/data/320193/000119312512444068/d411355d10k.htm",
+          "status": "error",
+          "error_type": "HTTPError",
+          "error": "403 Client Error: Forbidden for url: https://www.sec.gov/Archives/edgar/data/320193/000119312512444068/d411355d10k.htm"
+        },
+        {
+          "url": "https://www.annualreports.com/HostedData/AnnualReportArchive/a/NASDAQ_AAPL_2012.pdf",
+          "attempted_at": "2026-11-06T07:54:41.546623+00:00",
+          "http_status": 200,
+          "final_url": "https://www.annualreports.com/HostedData/AnnualReportArchive/a/NASDAQ_AAPL_2012.pdf",
+          "status": "success",
+          "retrieved_at": "2026-11-06T07:54:43.758468+00:00",
+          "path": "www.annualreports.com_NASDAQ_AAPL_2012_0b384e365819de4e.pdf",
+          "sha256": "0b384e365819de4e3d83f80652141259b13b9059f7f4bb5d4852ce31573d77d8",
+          "bytes": 395852,
+          "content_type": "application/pdf",
+          "file_type": "pdf"
+        }
+      ],
+      "path": "www.annualreports.com_NASDAQ_AAPL_2012_0b384e365819de4e.pdf",
+      "sha256": "0b384e365819de4e3d83f80652141259b13b9059f7f4bb5d4852ce31573d77d8",
+      "bytes": 395852,
+      "file_type": "pdf",
+      "content_type": "application/pdf",
+      "retrieved_at": "2026-11-06T07:54:43.758468+00:00",
+      "final_url": "https://www.annualreports.com/HostedData/AnnualReportArchive/a/NASDAQ_AAPL_2012.pdf",
+      "download_url": "https://www.annualreports.com/HostedData/AnnualReportArchive/a/NASDAQ_AAPL_2012.pdf",
+      "status": "fallback_success",
+      "fallback_verification": "Apple Form 10-K, fiscal year ended September 29, 2012; cover verified 2026-11-06 through web search indexed PDF text",
+      "fallback_relationship": "same-fiscal-year company report mirror; not byte-identical SEC HTML",
+      "cache_verified_at": "2026-11-06T08:44:56.793054+00:00"
+    },
+    {
+      "source_url": "https://im.ft-static.com/content/images/2a53e388-569a-11e2-aa70-00144feab49a.pdf",
+      "references": [
+        {
+          "symbol": "AAPL",
+          "role": "price"
+        },
+        {
+          "symbol": "IBM",
+          "role": "price"
+        },
+        {
+          "symbol": "COST",
+          "role": "price"
+        }
+      ],
+      "attempts": [
+        {
+          "url": "https://im.ft-static.com/content/images/2a53e388-569a-11e2-aa70-00144feab49a.pdf",
+          "attempted_at": "2026-11-06T07:54:44.064022+00:00",
+          "http_status": 200,
+          "final_url": "https://im.ft-static.com/content/images/2a53e388-569a-11e2-aa70-00144feab49a.pdf",
+          "status": "success",
+          "retrieved_at": "2026-11-06T07:54:50.246048+00:00",
+          "path": "im.ft-static.com_2a53e388-569a-11e2-aa70-00144feab49a_16cee08a88de8e90.pdf",
+          "sha256": "16cee08a88de8e90bee2438b61b5007a404305304fc57b26984be409c46d5726",
+          "bytes": 65307,
+          "content_type": "application/pdf",
+          "file_type": "pdf"
+        }
+      ],
+      "path": "im.ft-static.com_2a53e388-569a-11e2-aa70-00144feab49a_16cee08a88de8e90.pdf",
+      "sha256": "16cee08a88de8e90bee2438b61b5007a404305304fc57b26984be409c46d5726",
+      "bytes": 65307,
+      "file_type": "pdf",
+      "content_type": "application/pdf",
+      "retrieved_at": "2026-11-06T07:54:50.246048+00:00",
+      "final_url": "https://im.ft-static.com/content/images/2a53e388-569a-11e2-aa70-00144feab49a.pdf",
+      "download_url": "https://im.ft-static.com/content/images/2a53e388-569a-11e2-aa70-00144feab49a.pdf",
+      "status": "success",
+      "cache_verified_at": "2026-11-06T08:44:56.803056+00:00"
+    },
+    {
+      "source_url": "https://www.ibm.com/investor/att/pdf/IBM_Annual_Report_2011.pdf",
+      "references": [
+        {
+          "symbol": "IBM",
+          "role": "financial_statement"
+        }
+      ],
+      "attempts": [
+        {
+          "url": "https://www.ibm.com/investor/att/pdf/IBM_Annual_Report_2011.pdf",
+          "attempted_at": "2026-11-06T07:54:50.550297+00:00",
+          "http_status": 200,
+          "final_url": "https://www.ibm.com/investor/att/pdf/IBM_Annual_Report_2011.pdf",
+          "status": "success",
+          "retrieved_at": "2026-11-06T07:54:57.114831+00:00",
+          "path": "www.ibm.com_IBM_Annual_Report_2011_e87305c9d1412c3f.pdf",
+          "sha256": "e87305c9d1412c3f0f58772750649d3f120cd8abbe3517b685c2b0a622a670cb",
+          "bytes": 2427098,
+          "content_type": "application/pdf",
+          "file_type": "pdf"
+        }
+      ],
+      "path": "www.ibm.com_IBM_Annual_Report_2011_e87305c9d1412c3f.pdf",
+      "sha256": "e87305c9d1412c3f0f58772750649d3f120cd8abbe3517b685c2b0a622a670cb",
+      "bytes": 2427098,
+      "file_type": "pdf",
+      "content_type": "application/pdf",
+      "retrieved_at": "2026-11-06T07:54:57.114831+00:00",
+      "final_url": "https://www.ibm.com/investor/att/pdf/IBM_Annual_Report_2011.pdf",
+      "download_url": "https://www.ibm.com/investor/att/pdf/IBM_Annual_Report_2011.pdf",
+      "status": "success",
+      "cache_verified_at": "2026-11-06T08:44:56.819053+00:00"
+    },
+    {
+      "source_url": "https://www.sec.gov/Archives/edgar/data/909832/000119312512428890/d388097d10k.htm",
+      "references": [
+        {
+          "symbol": "COST",
+          "role": "financial_statement"
+        }
+      ],
+      "attempts": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/909832/000119312512428890/d388097d10k.htm",
+          "attempted_at": "2026-11-06T07:54:57.418169+00:00",
+          "http_status": 403,
+          "final_url": "https://www.sec.gov/Archives/edgar/data/909832/000119312512428890/d388097d10k.htm",
+          "status": "error",
+          "error_type": "HTTPError",
+          "error": "403 Client Error: Forbidden for url: https://www.sec.gov/Archives/edgar/data/909832/000119312512428890/d388097d10k.htm"
+        },
+        {
+          "url": "https://s201.q4cdn.com/287523651/files/doc_financials/2012/ar/2012-Annual-Report.pdf",
+          "attempted_at": "2026-11-06T07:54:58.237858+00:00",
+          "http_status": 200,
+          "final_url": "https://s201.q4cdn.com/287523651/files/doc_financials/2012/ar/2012-Annual-Report.pdf",
+          "status": "success",
+          "retrieved_at": "2026-11-06T07:55:02.864177+00:00",
+          "path": "s201.q4cdn.com_2012-Annual-Report_f50fe66a7acf1433.pdf",
+          "sha256": "f50fe66a7acf1433b6b9e61c407cce0896bd595e9635c6930de4fdf632129b8b",
+          "bytes": 3424310,
+          "content_type": "application/pdf",
+          "file_type": "pdf"
+        }
+      ],
+      "path": "s201.q4cdn.com_2012-Annual-Report_f50fe66a7acf1433.pdf",
+      "sha256": "f50fe66a7acf1433b6b9e61c407cce0896bd595e9635c6930de4fdf632129b8b",
+      "bytes": 3424310,
+      "file_type": "pdf",
+      "content_type": "application/pdf",
+      "retrieved_at": "2026-11-06T07:55:02.864177+00:00",
+      "final_url": "https://s201.q4cdn.com/287523651/files/doc_financials/2012/ar/2012-Annual-Report.pdf",
+      "download_url": "https://s201.q4cdn.com/287523651/files/doc_financials/2012/ar/2012-Annual-Report.pdf",
+      "status": "fallback_success",
+      "fallback_verification": "Costco Wholesale Annual Report 2012, year ended September 2, 2012; cover verified 2026-11-06 through web search indexed PDF text",
+      "fallback_relationship": "issuer annual report with same fiscal-year statements; may include later shareholder material, not original SEC HTML",
+      "cache_verified_at": "2026-11-06T08:44:56.836053+00:00"
+    },
+    {
+      "source_url": "https://www.annualreports.com/HostedData/AnnualReportArchive/s/NASDAQ_STX_2012.pdf",
+      "references": [
+        {
+          "symbol": "STX",
+          "role": "financial_statement"
+        }
+      ],
+      "attempts": [
+        {
+          "url": "https://www.annualreports.com/HostedData/AnnualReportArchive/s/NASDAQ_STX_2012.pdf",
+          "attempted_at": "2026-11-06T07:55:03.179366+00:00",
+          "http_status": 200,
+          "final_url": "https://www.annualreports.com/HostedData/AnnualReportArchive/s/NASDAQ_STX_2012.pdf",
+          "status": "success",
+          "retrieved_at": "2026-11-06T07:55:20.077240+00:00",
+          "path": "www.annualreports.com_NASDAQ_STX_2012_3531ef5c3cc1942a.pdf",
+          "sha256": "3531ef5c3cc1942ade4acf8018c3fe4b9200e4088c89633fca877b3126557354",
+          "bytes": 1405673,
+          "content_type": "application/pdf",
+          "file_type": "pdf"
+        }
+      ],
+      "path": "www.annualreports.com_NASDAQ_STX_2012_3531ef5c3cc1942a.pdf",
+      "sha256": "3531ef5c3cc1942ade4acf8018c3fe4b9200e4088c89633fca877b3126557354",
+      "bytes": 1405673,
+      "file_type": "pdf",
+      "content_type": "application/pdf",
+      "retrieved_at": "2026-11-06T07:55:20.077240+00:00",
+      "final_url": "https://www.annualreports.com/HostedData/AnnualReportArchive/s/NASDAQ_STX_2012.pdf",
+      "download_url": "https://www.annualreports.com/HostedData/AnnualReportArchive/s/NASDAQ_STX_2012.pdf",
+      "status": "success",
+      "cache_verified_at": "2026-11-06T08:44:56.846054+00:00"
+    },
+    {
+      "source_url": "https://www.crn.com/slide-shows/channel-programs/240145558/the-best-and-worst-technology-stocks-of-2012",
+      "references": [
+        {
+          "symbol": "STX",
+          "role": "price"
+        }
+      ],
+      "attempts": [
+        {
+          "url": "https://www.crn.com/slide-shows/channel-programs/240145558/the-best-and-worst-technology-stocks-of-2012",
+          "attempted_at": "2026-11-06T07:55:20.384591+00:00",
+          "status": "error",
+          "error_type": "ReadTimeout",
+          "error": "HTTPSConnectionPool(host='www.crn.com', port=443): Read timed out. (read timeout=10)"
+        },
+        {
+          "url": "https://www.crn.com/slide-shows/channel-programs/240145558/the-best-and-worst-technology-stocks-of-2012",
+          "attempted_at": "2026-11-06T08:26:01.648735+00:00",
+          "status": "error",
+          "error_type": "ProxyError",
+          "error": "HTTPSConnectionPool(host='www.crn.com', port=443): Max retries exceeded with url: /slide-shows/channel-programs/240145558/the-best-and-worst-technology-stocks-of-2012 (Caused by ProxyError('Unable to connect to proxy', RemoteDisconnected('Remote end closed connection without response')))"
+        },
+        {
+          "url": "https://www.crn.com/slide-shows/channel-programs/240145558/the-best-and-worst-technology-stocks-of-2012",
+          "attempted_at": "2026-11-06T08:40:44.516131+00:00",
+          "status": "success",
+          "transport": "Windows curl.exe --location --fail, exit code 0",
+          "retrieved_at": "2026-11-06T08:44:23.131218+00:00",
+          "path": "www.crn.com_the-best-and-worst-technology-stocks-of-2012_4283a0a09739aefe.html",
+          "sha256": "4283a0a09739aefe5b6d605a8779b18a278a6c5c31a1d8bef6cb418cad239005",
+          "bytes": 53488,
+          "content_type": "text/html (verified document)",
+          "file_type": "html",
+          "content_verified": [
+            "Expected article title",
+            "Seagate section contains 2012 price 30.42"
+          ]
+        }
+      ],
+      "status": "success",
+      "path": "www.crn.com_the-best-and-worst-technology-stocks-of-2012_4283a0a09739aefe.html",
+      "sha256": "4283a0a09739aefe5b6d605a8779b18a278a6c5c31a1d8bef6cb418cad239005",
+      "bytes": 53488,
+      "file_type": "html",
+      "content_type": "text/html (verified document)",
+      "retrieved_at": "2026-11-06T08:44:23.131218+00:00",
+      "download_url": "https://www.crn.com/slide-shows/channel-programs/240145558/the-best-and-worst-technology-stocks-of-2012",
+      "transport": "curl.exe",
+      "cache_verified_at": "2026-11-06T08:44:57.058255+00:00"
+    }
+  ],
+  "summary": {
+    "unique_sources": 6,
+    "original_endpoint_success": 4,
+    "verified_fallback_success": 2,
+    "unresolved_sources": 0
+  },
+  "completed_at": "2026-11-06T08:44:57.058255+00:00"
+}
