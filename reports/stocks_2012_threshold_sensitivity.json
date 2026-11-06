@@ -1,0 +1,4033 @@
+{
+  "report_kind": "uncalibrated_stock_threshold_sensitivity",
+  "sample_count": 4,
+  "snapshots_with_consensus": 0,
+  "outcome_labels_used": 0,
+  "limitations": [
+    "Small manually checked stock sample; not the full 2012 constituent universe",
+    "No historical institutional consensus in the default input",
+    "Annual EPS rather than reconstructed latest-quarter TTM",
+    "No realized six-year outcomes, return backtest, parameter fitting, or calibration",
+    "Input snapshots and code hashes do not replace archived original provider documents",
+    "Core model buy eligibility is shown; this script does not run export risk filters or AI review"
+  ],
+  "provenance": {
+    "input_path": "C:\\Users\\minidas\\OneDrive\\Desktop\\stocking\\Stock-picking_by_FPE\\data\\research_2012_snapshots.json",
+    "input_sha256": "536a66293a9021058627d2f34d23a764bde058dcd1056edf96e08a50bfbc7876",
+    "input_document": {
+      "as_of": "2012-12-31",
+      "scope": "manually audited four-stock annual-history-only diagnostic; not consensus-based screening and not full-constituent inference",
+      "snapshots": [
+        {
+          "symbol": "AAPL",
+          "as_of": "2012-12-31",
+          "price": 532.2,
+          "price_date": "2012-12-31",
+          "currency": "USD",
+          "eps_basis": "GAAP_diluted_annual_as_reported_at_cutoff",
+          "share_basis": "pre_2013_nominal_shares",
+          "eps0": 44.15,
+          "eps_period_end": "2012-09-29",
+          "eps_available_at": "2012-10-31",
+          "source": {
+            "financial_statement": "https://www.sec.gov/Archives/edgar/data/320193/000119312512444068/d411355d10k.htm",
+            "financial_statement_availability": "https://www.sec.gov/Archives/edgar/data/320193/000119312512444068/0001193125-12-444068-index.htm",
+            "price": "https://im.ft-static.com/content/images/2a53e388-569a-11e2-aa70-00144feab49a.pdf",
+            "price_precision": "USD 0.1 as printed in FT year-end table",
+            "membership_secondary_confirmation": "https://gist.github.com/alexchinco/1ef9cb653334839f3c24",
+            "limitations": [
+              "Manual illustrative subset; not full 2012 S&P 500 scan",
+              "Annual EPS anchors, not reconstructed latest quarterly TTM",
+              "No historical institutional consensus; empty consensus intentionally",
+              "Price is historical reconstruction and is not dividend-adjusted",
+              "Historical EPS version taken from annual report publicly available before decision date; all history rows share that report availability"
+            ]
+          },
+          "history": [
+            {
+              "period_end": "2008-09-27",
+              "available_at": "2012-10-31",
+              "eps": 6.78
+            },
+            {
+              "period_end": "2009-09-26",
+              "available_at": "2012-10-31",
+              "eps": 9.08
+            },
+            {
+              "period_end": "2010-09-25",
+              "available_at": "2012-10-31",
+              "eps": 15.15
+            },
+            {
+              "period_end": "2011-09-24",
+              "available_at": "2012-10-31",
+              "eps": 27.68
+            },
+            {
+              "period_end": "2012-09-29",
+              "available_at": "2012-10-31",
+              "eps": 44.15
+            }
+          ],
+          "consensus": []
+        },
+        {
+          "symbol": "IBM",
+          "as_of": "2012-12-31",
+          "price": 191.6,
+          "price_date": "2012-12-31",
+          "currency": "USD",
+          "eps_basis": "GAAP_diluted_annual_as_reported_at_cutoff",
+          "share_basis": "pre_2013_nominal_shares",
+          "eps0": 13.06,
+          "eps_period_end": "2011-12-31",
+          "eps_available_at": "2012-02-28",
+          "source": {
+            "financial_statement": "https://www.ibm.com/investor/att/pdf/IBM_Annual_Report_2011.pdf",
+            "financial_statement_availability": "https://www.sec.gov/Archives/edgar/data/51143/000104746912001742/0001047469-12-001742-index.htm",
+            "price": "https://im.ft-static.com/content/images/2a53e388-569a-11e2-aa70-00144feab49a.pdf",
+            "price_precision": "USD 0.1 as printed in FT year-end table",
+            "membership_secondary_confirmation": "https://gist.github.com/alexchinco/1ef9cb653334839f3c24",
+            "limitations": [
+              "Manual illustrative subset; not full 2012 S&P 500 scan",
+              "Annual EPS anchors, not reconstructed latest quarterly TTM",
+              "No historical institutional consensus; empty consensus intentionally",
+              "Price is historical reconstruction and is not dividend-adjusted",
+              "Historical EPS version taken from annual report publicly available before decision date; all history rows share that report availability"
+            ]
+          },
+          "history": [
+            {
+              "period_end": "2007-12-31",
+              "available_at": "2012-02-28",
+              "eps": 7.15
+            },
+            {
+              "period_end": "2008-12-31",
+              "available_at": "2012-02-28",
+              "eps": 8.89
+            },
+            {
+              "period_end": "2009-12-31",
+              "available_at": "2012-02-28",
+              "eps": 10.01
+            },
+            {
+              "period_end": "2010-12-31",
+              "available_at": "2012-02-28",
+              "eps": 11.52
+            },
+            {
+              "period_end": "2011-12-31",
+              "available_at": "2012-02-28",
+              "eps": 13.06
+            }
+          ],
+          "consensus": []
+        },
+        {
+          "symbol": "COST",
+          "as_of": "2012-12-31",
+          "price": 98.7,
+          "price_date": "2012-12-31",
+          "currency": "USD",
+          "eps_basis": "GAAP_diluted_annual_as_reported_at_cutoff",
+          "share_basis": "pre_2013_nominal_shares",
+          "eps0": 3.89,
+          "eps_period_end": "2012-09-02",
+          "eps_available_at": "2012-10-19",
+          "source": {
+            "financial_statement": "https://www.sec.gov/Archives/edgar/data/909832/000119312512428890/d388097d10k.htm",
+            "financial_statement_availability": "https://www.sec.gov/Archives/edgar/data/909832/000119312512428890/0001193125-12-428890-index.htm",
+            "price": "https://im.ft-static.com/content/images/2a53e388-569a-11e2-aa70-00144feab49a.pdf",
+            "price_precision": "USD 0.1 as printed in FT year-end table",
+            "membership_secondary_confirmation": "https://gist.github.com/alexchinco/1ef9cb653334839f3c24",
+            "limitations": [
+              "Manual illustrative subset; not full 2012 S&P 500 scan",
+              "Annual EPS anchors, not reconstructed latest quarterly TTM",
+              "No historical institutional consensus; empty consensus intentionally",
+              "Price is historical reconstruction and is not dividend-adjusted",
+              "Historical EPS version taken from annual report publicly available before decision date; all history rows share that report availability"
+            ]
+          },
+          "history": [
+            {
+              "period_end": "2008-08-31",
+              "available_at": "2012-10-19",
+              "eps": 2.89
+            },
+            {
+              "period_end": "2009-08-30",
+              "available_at": "2012-10-19",
+              "eps": 2.47
+            },
+            {
+              "period_end": "2010-08-29",
+              "available_at": "2012-10-19",
+              "eps": 2.92
+            },
+            {
+              "period_end": "2011-08-28",
+              "available_at": "2012-10-19",
+              "eps": 3.3
+            },
+            {
+              "period_end": "2012-09-02",
+              "available_at": "2012-10-19",
+              "eps": 3.89
+            }
+          ],
+          "consensus": []
+        },
+        {
+          "symbol": "STX",
+          "as_of": "2012-12-31",
+          "price": 30.42,
+          "price_date": "2012-12-31",
+          "currency": "USD",
+          "eps_basis": "GAAP_diluted_annual_as_reported_at_cutoff",
+          "share_basis": "pre_2013_nominal_shares",
+          "eps0": 6.49,
+          "eps_period_end": "2012-06-29",
+          "eps_available_at": "2012-08-09",
+          "source": {
+            "financial_statement": "https://www.annualreports.com/HostedData/AnnualReportArchive/s/NASDAQ_STX_2012.pdf",
+            "financial_statement_availability": "https://financialfilings.com/filings/seagate-technology/annual-report/2012/28135794/",
+            "price": "https://www.crn.com/slide-shows/channel-programs/240145558/the-best-and-worst-technology-stocks-of-2012",
+            "price_precision": "USD 0.01 reported in CRN historical year-end review",
+            "membership_secondary_confirmation": "https://gist.github.com/alexchinco/1ef9cb653334839f3c24",
+            "limitations": [
+              "Manual illustrative subset; not full 2012 S&P 500 scan",
+              "Annual EPS anchors, not reconstructed latest quarterly TTM",
+              "No historical institutional consensus; empty consensus intentionally",
+              "Price is historical reconstruction and is not dividend-adjusted",
+              "Historical EPS version taken from annual report publicly available before decision date; all history rows share that report availability"
+            ]
+          },
+          "history": [
+            {
+              "period_end": "2008-06-27",
+              "available_at": "2012-08-09",
+              "eps": 2.33
+            },
+            {
+              "period_end": "2009-07-03",
+              "available_at": "2012-08-09",
+              "eps": -6.4
+            },
+            {
+              "period_end": "2010-07-02",
+              "available_at": "2012-08-09",
+              "eps": 3.14
+            },
+            {
+              "period_end": "2011-07-01",
+              "available_at": "2012-08-09",
+              "eps": 1.09
+            },
+            {
+              "period_end": "2012-06-29",
+              "available_at": "2012-08-09",
+              "eps": 6.49
+            }
+          ],
+          "consensus": []
+        }
+      ]
+    },
+    "model_path": "src/stocking/model.py",
+    "model_sha256": "7535cd22d7a6d644e613c9bdb3c0e98377af4bd1c8d90c3d12890e9568ede248",
+    "script_path": "scripts/analyze_stock_thresholds.py",
+    "script_sha256": "d64ba66708a3a0ea1895aaddbfc2520e9e84df9588f0444c32a095c51995374c",
+    "python_version": "3.14.8",
+    "numpy_version": "2.5.4",
+    "scipy_version": "1.18.1"
+  },
+  "default_config": {
+    "long_run_log_growth": 0.04,
+    "history_shrinkage_years": 6.0,
+    "min_annual_log_sigma": 0.2,
+    "max_annual_log_sigma": 0.8,
+    "persistent_log_sigma": 0.08,
+    "year_correlation": 0.35,
+    "consensus_weight_floor": 0.7,
+    "consensus_weight_cap": 0.95,
+    "consensus_prior_analysts": 2.0,
+    "growth_fade_years": 2.0,
+    "loss_prior_probability": 0.06,
+    "loss_prior_strength": 10.0,
+    "buy_probability": 0.7,
+    "sell_probability": 0.8,
+    "buy_fpe_threshold": 6.0,
+    "sell_fpe_threshold": 6.5,
+    "max_buy_loss_probability": 0.1,
+    "sell_loss_probability": 0.25,
+    "max_price_age_days": 7,
+    "max_eps_age_days": 550,
+    "max_consensus_age_days": 180,
+    "event_window_days": 180,
+    "allow_history_only_candidates": false
+  },
+  "thresholds": [
+    6.0,
+    8.5,
+    10.0,
+    12.0,
+    16.0
+  ],
+  "auxiliary_sell_threshold_rule": "max(default sell threshold, buy threshold + 0.5); sell strategy not evaluated",
+  "user_selected_annual_price_return": 0.1,
+  "economic_formula": "T = terminal_PE / (1 + annual_price_return)^6; excludes dividends, costs and taxes",
+  "economic_scenarios": [
+    {
+      "terminal_pe_assumption": 12,
+      "annual_price_return_assumption": 0.08,
+      "six_year_fpe_threshold": 7.562035522597255
+    },
+    {
+      "terminal_pe_assumption": 12,
+      "annual_price_return_assumption": 0.1,
+      "six_year_fpe_threshold": 6.773687160645326
+    },
+    {
+      "terminal_pe_assumption": 12,
+      "annual_price_return_assumption": 0.12,
+      "six_year_fpe_threshold": 6.079573454127847
+    },
+    {
+      "terminal_pe_assumption": 12,
+      "annual_price_return_assumption": 0.15,
+      "six_year_fpe_threshold": 5.187931150938677
+    },
+    {
+      "terminal_pe_assumption": 15,
+      "annual_price_return_assumption": 0.08,
+      "six_year_fpe_threshold": 9.452544403246568
+    },
+    {
+      "terminal_pe_assumption": 15,
+      "annual_price_return_assumption": 0.1,
+      "six_year_fpe_threshold": 8.467108950806658
+    },
+    {
+      "terminal_pe_assumption": 15,
+      "annual_price_return_assumption": 0.12,
+      "six_year_fpe_threshold": 7.599466817659809
+    },
+    {
+      "terminal_pe_assumption": 15,
+      "annual_price_return_assumption": 0.15,
+      "six_year_fpe_threshold": 6.484913938673347
+    },
+    {
+      "terminal_pe_assumption": 18,
+      "annual_price_return_assumption": 0.08,
+      "six_year_fpe_threshold": 11.343053283895882
+    },
+    {
+      "terminal_pe_assumption": 18,
+      "annual_price_return_assumption": 0.1,
+      "six_year_fpe_threshold": 10.160530740967989
+    },
+    {
+      "terminal_pe_assumption": 18,
+      "annual_price_return_assumption": 0.12,
+      "six_year_fpe_threshold": 9.119360181191771
+    },
+    {
+      "terminal_pe_assumption": 18,
+      "annual_price_return_assumption": 0.15,
+      "six_year_fpe_threshold": 7.781896726408016
+    },
+    {
+      "terminal_pe_assumption": 20,
+      "annual_price_return_assumption": 0.08,
+      "six_year_fpe_threshold": 12.603392537662092
+    },
+    {
+      "terminal_pe_assumption": 20,
+      "annual_price_return_assumption": 0.1,
+      "six_year_fpe_threshold": 11.289478601075544
+    },
+    {
+      "terminal_pe_assumption": 20,
+      "annual_price_return_assumption": 0.12,
+      "six_year_fpe_threshold": 10.132622423546412
+    },
+    {
+      "terminal_pe_assumption": 20,
+      "annual_price_return_assumption": 0.15,
+      "six_year_fpe_threshold": 8.646551918231129
+    }
+  ],
+  "results": [
+    {
+      "symbol": "AAPL",
+      "input_snapshot": {
+        "symbol": "AAPL",
+        "as_of": "2012-12-31",
+        "price": 532.2,
+        "price_date": "2012-12-31",
+        "currency": "USD",
+        "eps_basis": "GAAP_diluted_annual_as_reported_at_cutoff",
+        "share_basis": "pre_2013_nominal_shares",
+        "eps0": 44.15,
+        "eps_period_end": "2012-09-29",
+        "eps_available_at": "2012-10-31",
+        "source": {
+          "financial_statement": "https://www.sec.gov/Archives/edgar/data/320193/000119312512444068/d411355d10k.htm",
+          "financial_statement_availability": "https://www.sec.gov/Archives/edgar/data/320193/000119312512444068/0001193125-12-444068-index.htm",
+          "price": "https://im.ft-static.com/content/images/2a53e388-569a-11e2-aa70-00144feab49a.pdf",
+          "price_precision": "USD 0.1 as printed in FT year-end table",
+          "membership_secondary_confirmation": "https://gist.github.com/alexchinco/1ef9cb653334839f3c24",
+          "limitations": [
+            "Manual illustrative subset; not full 2012 S&P 500 scan",
+            "Annual EPS anchors, not reconstructed latest quarterly TTM",
+            "No historical institutional consensus; empty consensus intentionally",
+            "Price is historical reconstruction and is not dividend-adjusted",
+            "Historical EPS version taken from annual report publicly available before decision date; all history rows share that report availability"
+          ]
+        },
+        "history": [
+          {
+            "period_end": "2008-09-27",
+            "available_at": "2012-10-31",
+            "eps": 6.78
+          },
+          {
+            "period_end": "2009-09-26",
+            "available_at": "2012-10-31",
+            "eps": 9.08
+          },
+          {
+            "period_end": "2010-09-25",
+            "available_at": "2012-10-31",
+            "eps": 15.15
+          },
+          {
+            "period_end": "2011-09-24",
+            "available_at": "2012-10-31",
+            "eps": 27.68
+          },
+          {
+            "period_end": "2012-09-29",
+            "available_at": "2012-10-31",
+            "eps": 44.15
+          }
+        ],
+        "consensus": []
+      },
+      "baseline": {
+        "model_version": "1.1.0",
+        "symbol": "AAPL",
+        "as_of": "2012-12-31",
+        "target_date": "2018-12-31",
+        "price": 532.2,
+        "price_date": "2012-12-31",
+        "eps0": 44.15,
+        "eps_period_end": "2012-09-29",
+        "eps_available_at": "2012-10-31",
+        "currency": "USD",
+        "eps_basis": "GAAP_diluted_annual_as_reported_at_cutoff",
+        "share_basis": "pre_2013_nominal_shares",
+        "config": {
+          "long_run_log_growth": 0.04,
+          "history_shrinkage_years": 6.0,
+          "min_annual_log_sigma": 0.2,
+          "max_annual_log_sigma": 0.8,
+          "persistent_log_sigma": 0.08,
+          "year_correlation": 0.35,
+          "consensus_weight_floor": 0.7,
+          "consensus_weight_cap": 0.95,
+          "consensus_prior_analysts": 2.0,
+          "growth_fade_years": 2.0,
+          "loss_prior_probability": 0.06,
+          "loss_prior_strength": 10.0,
+          "buy_probability": 0.7,
+          "sell_probability": 0.8,
+          "buy_fpe_threshold": 6.0,
+          "sell_fpe_threshold": 6.5,
+          "max_buy_loss_probability": 0.1,
+          "sell_loss_probability": 0.25,
+          "max_price_age_days": 7.0,
+          "max_eps_age_days": 550.0,
+          "max_consensus_age_days": 180.0,
+          "event_window_days": 180.0,
+          "allow_history_only_candidates": false
+        },
+        "probability_status": "uncalibrated_model_probability",
+        "status": "ready",
+        "events": [],
+        "annual_target_dates": [
+          "2013-12-31",
+          "2014-12-31",
+          "2015-12-31",
+          "2016-12-31",
+          "2017-12-31",
+          "2018-12-31"
+        ],
+        "interval_years": [
+          1.2539614092007365,
+          0.9993360575508052,
+          0.9993360575508055,
+          1.0020739645577934,
+          0.9993360575508055,
+          0.9993360575508055
+        ],
+        "annual_log_growth_mean": [
+          0.14871940294898825,
+          0.06821255523507123,
+          0.028468806749943013,
+          0.002819333242105877,
+          -0.014979658423992567,
+          -0.028115314787163358
+        ],
+        "annual_log_growth_covariance": [
+          [
+            0.03829890829694324,
+            0.018906338268874927,
+            0.010777218394106225,
+            0.007929932074090009,
+            0.006936209253278013,
+            0.006587673238647305
+          ],
+          [
+            0.018906338268874927,
+            0.04642657534246577,
+            0.020409301369863016,
+            0.011296552461308697,
+            0.00811613941780822,
+            0.007000648796232877
+          ],
+          [
+            0.010777218394106225,
+            0.020409301369863016,
+            0.046426575342465755,
+            0.02039014988945342,
+            0.011303255479452056,
+            0.00811613941780822
+          ],
+          [
+            0.007929932074090009,
+            0.011296552461308697,
+            0.02039014988945342,
+            0.046317213114754126,
+            0.02039014988945342,
+            0.011296552461308697
+          ],
+          [
+            0.006936209253278013,
+            0.00811613941780822,
+            0.011303255479452056,
+            0.02039014988945342,
+            0.046426575342465755,
+            0.020409301369863013
+          ],
+          [
+            0.006587673238647305,
+            0.007000648796232877,
+            0.00811613941780822,
+            0.011296552461308697,
+            0.020409301369863013,
+            0.046426575342465755
+          ]
+        ],
+        "loss_probability": 0.04,
+        "history_growth_observations": 4,
+        "historical_log_growth_center": 0.2186622168121049,
+        "annual_log_sigma": 0.2,
+        "consensus_anchors": [],
+        "flags": [
+          "history_only_no_institution_consensus"
+        ],
+        "terminal_log_eps_mean": 4.030457310082353,
+        "terminal_log_eps_variance": 0.6978440037552137,
+        "annual": [
+          {
+            "year": 1,
+            "target_date": "2013-12-31",
+            "interval_years": 1.2539614092007365,
+            "annualized_log_growth_mean": 0.14871940294898825,
+            "annualized_log_growth_variance": 0.03829890829694324,
+            "annualized_growth_mean": 0.18278148707906933,
+            "annualized_growth_variance": 0.05461833740710184,
+            "positive_conditional_eps_mean": 54.827521707434926
+          },
+          {
+            "year": 2,
+            "target_date": "2014-12-31",
+            "interval_years": 0.9993360575508052,
+            "annualized_log_growth_mean": 0.06821255523507123,
+            "annualized_log_growth_variance": 0.04642657534246577,
+            "annualized_growth_mean": 0.09573551711818272,
+            "annualized_growth_variance": 0.05705563366573953,
+            "positive_conditional_eps_mean": 61.51211246847971
+          },
+          {
+            "year": 3,
+            "target_date": "2015-12-31",
+            "interval_years": 0.9993360575508055,
+            "annualized_log_growth_mean": 0.028468806749943013,
+            "annualized_log_growth_variance": 0.046426575342465755,
+            "annualized_growth_mean": 0.053040921711741996,
+            "annualized_growth_variance": 0.05269598802444465,
+            "positive_conditional_eps_mean": 67.0041084074071
+          },
+          {
+            "year": 4,
+            "target_date": "2016-12-31",
+            "interval_years": 1.0020739645577934,
+            "annualized_log_growth_mean": 0.002819333242105877,
+            "annualized_log_growth_variance": 0.046317213114754126,
+            "annualized_growth_mean": 0.02631830743605375,
+            "annualized_growth_variance": 0.04993476916324171,
+            "positive_conditional_eps_mean": 71.70279104157486
+          },
+          {
+            "year": 5,
+            "target_date": "2017-12-31",
+            "interval_years": 0.9993360575508055,
+            "annualized_log_growth_mean": -0.014979658423992567,
+            "annualized_log_growth_variance": 0.046426575342465755,
+            "annualized_growth_mean": 0.00826761879426516,
+            "annualized_growth_variance": 0.048310184311059254,
+            "positive_conditional_eps_mean": 75.88711347801996
+          },
+          {
+            "year": 6,
+            "target_date": "2018-12-31",
+            "interval_years": 0.9993360575508055,
+            "annualized_log_growth_mean": -0.028115314787163358,
+            "annualized_log_growth_variance": 0.046426575342465755,
+            "annualized_growth_mean": -0.004890031789483875,
+            "annualized_growth_variance": 0.04705753871848311,
+            "positive_conditional_eps_mean": 79.78849426837495
+          }
+        ]
+      },
+      "default_evaluation": {
+        "symbol": "AAPL",
+        "as_of": "2012-12-31",
+        "target_date": "2018-12-31",
+        "status": "ready",
+        "probability_status": "uncalibrated_model_probability",
+        "flags": [
+          "history_only_no_institution_consensus"
+        ],
+        "buy_fpe_threshold": 6.0,
+        "sell_fpe_threshold": 6.5,
+        "candidate": "none",
+        "p_below_6": 0.2813491892668052,
+        "p_above_6_5_positive": 0.6462195238242066,
+        "p_loss": 0.04,
+        "p_between_6_6_5": 0.03243128690898822,
+        "p_risk_or_above_6_5": 0.6862195238242066,
+        "p_below_buy_threshold": 0.2813491892668052,
+        "p_above_sell_threshold_positive": 0.6462195238242066,
+        "p_between_thresholds": 0.03243128690898822,
+        "p_risk_or_above_sell_threshold": 0.6862195238242066,
+        "positive_conditional_eps_mean": 79.78849426837488,
+        "positive_conditional_eps_median": 56.28664581297323,
+        "positive_conditional_eps_interval_90": [
+          14.244843532519468,
+          222.40935743818173
+        ],
+        "positive_conditional_ratio_median": 9.45517346633819,
+        "positive_conditional_ratio_interval_90": [
+          2.3928849313272442,
+          37.360887733518716
+        ],
+        "annual": [
+          {
+            "year": 1,
+            "target_date": "2013-12-31",
+            "interval_years": 1.2539614092007365,
+            "annualized_log_growth_mean": 0.14871940294898825,
+            "annualized_log_growth_variance": 0.03829890829694324,
+            "annualized_growth_mean": 0.18278148707906933,
+            "annualized_growth_variance": 0.05461833740710184,
+            "positive_conditional_eps_mean": 54.827521707434926
+          },
+          {
+            "year": 2,
+            "target_date": "2014-12-31",
+            "interval_years": 0.9993360575508052,
+            "annualized_log_growth_mean": 0.06821255523507123,
+            "annualized_log_growth_variance": 0.04642657534246577,
+            "annualized_growth_mean": 0.09573551711818272,
+            "annualized_growth_variance": 0.05705563366573953,
+            "positive_conditional_eps_mean": 61.51211246847971
+          },
+          {
+            "year": 3,
+            "target_date": "2015-12-31",
+            "interval_years": 0.9993360575508055,
+            "annualized_log_growth_mean": 0.028468806749943013,
+            "annualized_log_growth_variance": 0.046426575342465755,
+            "annualized_growth_mean": 0.053040921711741996,
+            "annualized_growth_variance": 0.05269598802444465,
+            "positive_conditional_eps_mean": 67.0041084074071
+          },
+          {
+            "year": 4,
+            "target_date": "2016-12-31",
+            "interval_years": 1.0020739645577934,
+            "annualized_log_growth_mean": 0.002819333242105877,
+            "annualized_log_growth_variance": 0.046317213114754126,
+            "annualized_growth_mean": 0.02631830743605375,
+            "annualized_growth_variance": 0.04993476916324171,
+            "positive_conditional_eps_mean": 71.70279104157486
+          },
+          {
+            "year": 5,
+            "target_date": "2017-12-31",
+            "interval_years": 0.9993360575508055,
+            "annualized_log_growth_mean": -0.014979658423992567,
+            "annualized_log_growth_variance": 0.046426575342465755,
+            "annualized_growth_mean": 0.00826761879426516,
+            "annualized_growth_variance": 0.048310184311059254,
+            "positive_conditional_eps_mean": 75.88711347801996
+          },
+          {
+            "year": 6,
+            "target_date": "2018-12-31",
+            "interval_years": 0.9993360575508055,
+            "annualized_log_growth_mean": -0.028115314787163358,
+            "annualized_log_growth_variance": 0.046426575342465755,
+            "annualized_growth_mean": -0.004890031789483875,
+            "annualized_growth_variance": 0.04705753871848311,
+            "positive_conditional_eps_mean": 79.78849426837495
+          }
+        ],
+        "event_count": 0
+      },
+      "distribution_summary": {
+        "positive_conditional_eps_mean": 79.78849426837488,
+        "positive_conditional_eps_median": 56.28664581297323,
+        "positive_conditional_eps_std": 80.16324809198976,
+        "terminal_log_eps_std": 0.835370578698588,
+        "positive_conditional_eps_interval_90": [
+          14.244843532519468,
+          222.40935743818173
+        ]
+      },
+      "history_shrinkage": {
+        "valid_growth_observations": 4,
+        "observed_growth_median_weight": 0.4,
+        "long_run_prior_weight": 0.6,
+        "long_run_log_growth": 0.04,
+        "historical_log_growth_center_after_shrinkage": 0.2186622168121049,
+        "annual_log_sigma": 0.2
+      },
+      "minimum_threshold_for_buy_probability": {
+        "threshold": 15.742817195183033,
+        "status": "finite_probability_boundary"
+      },
+      "threshold_scenarios": [
+        {
+          "buy_fpe_threshold": 6.0,
+          "configuration_overrides": {
+            "buy_fpe_threshold": 6.0,
+            "sell_fpe_threshold": 6.5
+          },
+          "p_below_threshold": 0.2813491892668052,
+          "p_loss": 0.04,
+          "probability_condition_passes": false,
+          "loss_condition_passes": true,
+          "probability_and_loss_conditions_pass": false,
+          "consensus_gate_passes": false,
+          "formal_buy_eligible": false,
+          "evaluation": {
+            "symbol": "AAPL",
+            "as_of": "2012-12-31",
+            "target_date": "2018-12-31",
+            "status": "ready",
+            "probability_status": "uncalibrated_model_probability",
+            "flags": [
+              "history_only_no_institution_consensus"
+            ],
+            "buy_fpe_threshold": 6.0,
+            "sell_fpe_threshold": 6.5,
+            "candidate": "none",
+            "p_below_6": 0.2813491892668052,
+            "p_above_6_5_positive": 0.6462195238242066,
+            "p_loss": 0.04,
+            "p_between_6_6_5": 0.03243128690898822,
+            "p_risk_or_above_6_5": 0.6862195238242066,
+            "p_below_buy_threshold": 0.2813491892668052,
+            "p_above_sell_threshold_positive": 0.6462195238242066,
+            "p_between_thresholds": 0.03243128690898822,
+            "p_risk_or_above_sell_threshold": 0.6862195238242066,
+            "positive_conditional_eps_mean": 79.78849426837488,
+            "positive_conditional_eps_median": 56.28664581297323,
+            "positive_conditional_eps_interval_90": [
+              14.244843532519468,
+              222.40935743818173
+            ],
+            "positive_conditional_ratio_median": 9.45517346633819,
+            "positive_conditional_ratio_interval_90": [
+              2.3928849313272442,
+              37.360887733518716
+            ],
+            "annual": [
+              {
+                "year": 1,
+                "target_date": "2013-12-31",
+                "interval_years": 1.2539614092007365,
+                "annualized_log_growth_mean": 0.14871940294898825,
+                "annualized_log_growth_variance": 0.03829890829694324,
+                "annualized_growth_mean": 0.18278148707906933,
+                "annualized_growth_variance": 0.05461833740710184,
+                "positive_conditional_eps_mean": 54.827521707434926
+              },
+              {
+                "year": 2,
+                "target_date": "2014-12-31",
+                "interval_years": 0.9993360575508052,
+                "annualized_log_growth_mean": 0.06821255523507123,
+                "annualized_log_growth_variance": 0.04642657534246577,
+                "annualized_growth_mean": 0.09573551711818272,
+                "annualized_growth_variance": 0.05705563366573953,
+                "positive_conditional_eps_mean": 61.51211246847971
+              },
+              {
+                "year": 3,
+                "target_date": "2015-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": 0.028468806749943013,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": 0.053040921711741996,
+                "annualized_growth_variance": 0.05269598802444465,
+                "positive_conditional_eps_mean": 67.0041084074071
+              },
+              {
+                "year": 4,
+                "target_date": "2016-12-31",
+                "interval_years": 1.0020739645577934,
+                "annualized_log_growth_mean": 0.002819333242105877,
+                "annualized_log_growth_variance": 0.046317213114754126,
+                "annualized_growth_mean": 0.02631830743605375,
+                "annualized_growth_variance": 0.04993476916324171,
+                "positive_conditional_eps_mean": 71.70279104157486
+              },
+              {
+                "year": 5,
+                "target_date": "2017-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.014979658423992567,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": 0.00826761879426516,
+                "annualized_growth_variance": 0.048310184311059254,
+                "positive_conditional_eps_mean": 75.88711347801996
+              },
+              {
+                "year": 6,
+                "target_date": "2018-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.028115314787163358,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": -0.004890031789483875,
+                "annualized_growth_variance": 0.04705753871848311,
+                "positive_conditional_eps_mean": 79.78849426837495
+              }
+            ],
+            "event_count": 0
+          }
+        },
+        {
+          "buy_fpe_threshold": 8.5,
+          "configuration_overrides": {
+            "buy_fpe_threshold": 8.5,
+            "sell_fpe_threshold": 9.0
+          },
+          "p_below_threshold": 0.4313077476973828,
+          "p_loss": 0.04,
+          "probability_condition_passes": false,
+          "loss_condition_passes": true,
+          "probability_and_loss_conditions_pass": false,
+          "consensus_gate_passes": false,
+          "formal_buy_eligible": false,
+          "evaluation": {
+            "symbol": "AAPL",
+            "as_of": "2012-12-31",
+            "target_date": "2018-12-31",
+            "status": "ready",
+            "probability_status": "uncalibrated_model_probability",
+            "flags": [
+              "history_only_no_institution_consensus"
+            ],
+            "buy_fpe_threshold": 8.5,
+            "sell_fpe_threshold": 9.0,
+            "candidate": "none",
+            "p_below_6": 0.2813491892668052,
+            "p_above_6_5_positive": 0.6462195238242066,
+            "p_loss": 0.04,
+            "p_between_6_6_5": 0.03243128690898822,
+            "p_risk_or_above_6_5": 0.6862195238242066,
+            "p_below_buy_threshold": 0.4313077476973828,
+            "p_above_sell_threshold_positive": 0.5026061490302417,
+            "p_between_thresholds": 0.026086103272375483,
+            "p_risk_or_above_sell_threshold": 0.5426061490302417,
+            "positive_conditional_eps_mean": 79.78849426837488,
+            "positive_conditional_eps_median": 56.28664581297323,
+            "positive_conditional_eps_interval_90": [
+              14.244843532519468,
+              222.40935743818173
+            ],
+            "positive_conditional_ratio_median": 9.45517346633819,
+            "positive_conditional_ratio_interval_90": [
+              2.3928849313272442,
+              37.360887733518716
+            ],
+            "annual": [
+              {
+                "year": 1,
+                "target_date": "2013-12-31",
+                "interval_years": 1.2539614092007365,
+                "annualized_log_growth_mean": 0.14871940294898825,
+                "annualized_log_growth_variance": 0.03829890829694324,
+                "annualized_growth_mean": 0.18278148707906933,
+                "annualized_growth_variance": 0.05461833740710184,
+                "positive_conditional_eps_mean": 54.827521707434926
+              },
+              {
+                "year": 2,
+                "target_date": "2014-12-31",
+                "interval_years": 0.9993360575508052,
+                "annualized_log_growth_mean": 0.06821255523507123,
+                "annualized_log_growth_variance": 0.04642657534246577,
+                "annualized_growth_mean": 0.09573551711818272,
+                "annualized_growth_variance": 0.05705563366573953,
+                "positive_conditional_eps_mean": 61.51211246847971
+              },
+              {
+                "year": 3,
+                "target_date": "2015-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": 0.028468806749943013,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": 0.053040921711741996,
+                "annualized_growth_variance": 0.05269598802444465,
+                "positive_conditional_eps_mean": 67.0041084074071
+              },
+              {
+                "year": 4,
+                "target_date": "2016-12-31",
+                "interval_years": 1.0020739645577934,
+                "annualized_log_growth_mean": 0.002819333242105877,
+                "annualized_log_growth_variance": 0.046317213114754126,
+                "annualized_growth_mean": 0.02631830743605375,
+                "annualized_growth_variance": 0.04993476916324171,
+                "positive_conditional_eps_mean": 71.70279104157486
+              },
+              {
+                "year": 5,
+                "target_date": "2017-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.014979658423992567,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": 0.00826761879426516,
+                "annualized_growth_variance": 0.048310184311059254,
+                "positive_conditional_eps_mean": 75.88711347801996
+              },
+              {
+                "year": 6,
+                "target_date": "2018-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.028115314787163358,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": -0.004890031789483875,
+                "annualized_growth_variance": 0.04705753871848311,
+                "positive_conditional_eps_mean": 79.78849426837495
+              }
+            ],
+            "event_count": 0
+          }
+        },
+        {
+          "buy_fpe_threshold": 10.0,
+          "configuration_overrides": {
+            "buy_fpe_threshold": 10.0,
+            "sell_fpe_threshold": 10.5
+          },
+          "p_below_threshold": 0.5056651250478849,
+          "p_loss": 0.04,
+          "probability_condition_passes": false,
+          "loss_condition_passes": true,
+          "probability_and_loss_conditions_pass": false,
+          "consensus_gate_passes": false,
+          "formal_buy_eligible": false,
+          "evaluation": {
+            "symbol": "AAPL",
+            "as_of": "2012-12-31",
+            "target_date": "2018-12-31",
+            "status": "ready",
+            "probability_status": "uncalibrated_model_probability",
+            "flags": [
+              "history_only_no_institution_consensus"
+            ],
+            "buy_fpe_threshold": 10.0,
+            "sell_fpe_threshold": 10.5,
+            "candidate": "none",
+            "p_below_6": 0.2813491892668052,
+            "p_above_6_5_positive": 0.6462195238242066,
+            "p_loss": 0.04,
+            "p_between_6_6_5": 0.03243128690898822,
+            "p_risk_or_above_6_5": 0.6862195238242066,
+            "p_below_buy_threshold": 0.5056651250478849,
+            "p_above_sell_threshold_positive": 0.43207304305513966,
+            "p_between_thresholds": 0.022261831896975448,
+            "p_risk_or_above_sell_threshold": 0.47207304305513964,
+            "positive_conditional_eps_mean": 79.78849426837488,
+            "positive_conditional_eps_median": 56.28664581297323,
+            "positive_conditional_eps_interval_90": [
+              14.244843532519468,
+              222.40935743818173
+            ],
+            "positive_conditional_ratio_median": 9.45517346633819,
+            "positive_conditional_ratio_interval_90": [
+              2.3928849313272442,
+              37.360887733518716
+            ],
+            "annual": [
+              {
+                "year": 1,
+                "target_date": "2013-12-31",
+                "interval_years": 1.2539614092007365,
+                "annualized_log_growth_mean": 0.14871940294898825,
+                "annualized_log_growth_variance": 0.03829890829694324,
+                "annualized_growth_mean": 0.18278148707906933,
+                "annualized_growth_variance": 0.05461833740710184,
+                "positive_conditional_eps_mean": 54.827521707434926
+              },
+              {
+                "year": 2,
+                "target_date": "2014-12-31",
+                "interval_years": 0.9993360575508052,
+                "annualized_log_growth_mean": 0.06821255523507123,
+                "annualized_log_growth_variance": 0.04642657534246577,
+                "annualized_growth_mean": 0.09573551711818272,
+                "annualized_growth_variance": 0.05705563366573953,
+                "positive_conditional_eps_mean": 61.51211246847971
+              },
+              {
+                "year": 3,
+                "target_date": "2015-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": 0.028468806749943013,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": 0.053040921711741996,
+                "annualized_growth_variance": 0.05269598802444465,
+                "positive_conditional_eps_mean": 67.0041084074071
+              },
+              {
+                "year": 4,
+                "target_date": "2016-12-31",
+                "interval_years": 1.0020739645577934,
+                "annualized_log_growth_mean": 0.002819333242105877,
+                "annualized_log_growth_variance": 0.046317213114754126,
+                "annualized_growth_mean": 0.02631830743605375,
+                "annualized_growth_variance": 0.04993476916324171,
+                "positive_conditional_eps_mean": 71.70279104157486
+              },
+              {
+                "year": 5,
+                "target_date": "2017-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.014979658423992567,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": 0.00826761879426516,
+                "annualized_growth_variance": 0.048310184311059254,
+                "positive_conditional_eps_mean": 75.88711347801996
+              },
+              {
+                "year": 6,
+                "target_date": "2018-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.028115314787163358,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": -0.004890031789483875,
+                "annualized_growth_variance": 0.04705753871848311,
+                "positive_conditional_eps_mean": 79.78849426837495
+              }
+            ],
+            "event_count": 0
+          }
+        },
+        {
+          "buy_fpe_threshold": 12.0,
+          "configuration_overrides": {
+            "buy_fpe_threshold": 12.0,
+            "sell_fpe_threshold": 12.5
+          },
+          "p_below_threshold": 0.5878070172798375,
+          "p_loss": 0.04,
+          "probability_condition_passes": false,
+          "loss_condition_passes": true,
+          "probability_and_loss_conditions_pass": false,
+          "consensus_gate_passes": false,
+          "formal_buy_eligible": false,
+          "evaluation": {
+            "symbol": "AAPL",
+            "as_of": "2012-12-31",
+            "target_date": "2018-12-31",
+            "status": "ready",
+            "probability_status": "uncalibrated_model_probability",
+            "flags": [
+              "history_only_no_institution_consensus"
+            ],
+            "buy_fpe_threshold": 12.0,
+            "sell_fpe_threshold": 12.5,
+            "candidate": "none",
+            "p_below_6": 0.2813491892668052,
+            "p_above_6_5_positive": 0.6462195238242066,
+            "p_loss": 0.04,
+            "p_between_6_6_5": 0.03243128690898822,
+            "p_risk_or_above_6_5": 0.6862195238242066,
+            "p_below_buy_threshold": 0.5878070172798375,
+            "p_above_sell_threshold_positive": 0.3543559280358659,
+            "p_between_thresholds": 0.017837054684296527,
+            "p_risk_or_above_sell_threshold": 0.3943559280358659,
+            "positive_conditional_eps_mean": 79.78849426837488,
+            "positive_conditional_eps_median": 56.28664581297323,
+            "positive_conditional_eps_interval_90": [
+              14.244843532519468,
+              222.40935743818173
+            ],
+            "positive_conditional_ratio_median": 9.45517346633819,
+            "positive_conditional_ratio_interval_90": [
+              2.3928849313272442,
+              37.360887733518716
+            ],
+            "annual": [
+              {
+                "year": 1,
+                "target_date": "2013-12-31",
+                "interval_years": 1.2539614092007365,
+                "annualized_log_growth_mean": 0.14871940294898825,
+                "annualized_log_growth_variance": 0.03829890829694324,
+                "annualized_growth_mean": 0.18278148707906933,
+                "annualized_growth_variance": 0.05461833740710184,
+                "positive_conditional_eps_mean": 54.827521707434926
+              },
+              {
+                "year": 2,
+                "target_date": "2014-12-31",
+                "interval_years": 0.9993360575508052,
+                "annualized_log_growth_mean": 0.06821255523507123,
+                "annualized_log_growth_variance": 0.04642657534246577,
+                "annualized_growth_mean": 0.09573551711818272,
+                "annualized_growth_variance": 0.05705563366573953,
+                "positive_conditional_eps_mean": 61.51211246847971
+              },
+              {
+                "year": 3,
+                "target_date": "2015-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": 0.028468806749943013,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": 0.053040921711741996,
+                "annualized_growth_variance": 0.05269598802444465,
+                "positive_conditional_eps_mean": 67.0041084074071
+              },
+              {
+                "year": 4,
+                "target_date": "2016-12-31",
+                "interval_years": 1.0020739645577934,
+                "annualized_log_growth_mean": 0.002819333242105877,
+                "annualized_log_growth_variance": 0.046317213114754126,
+                "annualized_growth_mean": 0.02631830743605375,
+                "annualized_growth_variance": 0.04993476916324171,
+                "positive_conditional_eps_mean": 71.70279104157486
+              },
+              {
+                "year": 5,
+                "target_date": "2017-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.014979658423992567,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": 0.00826761879426516,
+                "annualized_growth_variance": 0.048310184311059254,
+                "positive_conditional_eps_mean": 75.88711347801996
+              },
+              {
+                "year": 6,
+                "target_date": "2018-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.028115314787163358,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": -0.004890031789483875,
+                "annualized_growth_variance": 0.04705753871848311,
+                "positive_conditional_eps_mean": 79.78849426837495
+              }
+            ],
+            "event_count": 0
+          }
+        },
+        {
+          "buy_fpe_threshold": 16.0,
+          "configuration_overrides": {
+            "buy_fpe_threshold": 16.0,
+            "sell_fpe_threshold": 16.5
+          },
+          "p_below_threshold": 0.7061300527669319,
+          "p_loss": 0.04,
+          "probability_condition_passes": true,
+          "loss_condition_passes": true,
+          "probability_and_loss_conditions_pass": true,
+          "consensus_gate_passes": false,
+          "formal_buy_eligible": false,
+          "evaluation": {
+            "symbol": "AAPL",
+            "as_of": "2012-12-31",
+            "target_date": "2018-12-31",
+            "status": "ready",
+            "probability_status": "uncalibrated_model_probability",
+            "flags": [
+              "history_only_no_institution_consensus"
+            ],
+            "buy_fpe_threshold": 16.0,
+            "sell_fpe_threshold": 16.5,
+            "candidate": "none",
+            "p_below_6": 0.2813491892668052,
+            "p_above_6_5_positive": 0.6462195238242066,
+            "p_loss": 0.04,
+            "p_between_6_6_5": 0.03243128690898822,
+            "p_risk_or_above_6_5": 0.6862195238242066,
+            "p_below_buy_threshold": 0.7061300527669319,
+            "p_above_sell_threshold_positive": 0.24243519721414059,
+            "p_between_thresholds": 0.01143475001892752,
+            "p_risk_or_above_sell_threshold": 0.28243519721414057,
+            "positive_conditional_eps_mean": 79.78849426837488,
+            "positive_conditional_eps_median": 56.28664581297323,
+            "positive_conditional_eps_interval_90": [
+              14.244843532519468,
+              222.40935743818173
+            ],
+            "positive_conditional_ratio_median": 9.45517346633819,
+            "positive_conditional_ratio_interval_90": [
+              2.3928849313272442,
+              37.360887733518716
+            ],
+            "annual": [
+              {
+                "year": 1,
+                "target_date": "2013-12-31",
+                "interval_years": 1.2539614092007365,
+                "annualized_log_growth_mean": 0.14871940294898825,
+                "annualized_log_growth_variance": 0.03829890829694324,
+                "annualized_growth_mean": 0.18278148707906933,
+                "annualized_growth_variance": 0.05461833740710184,
+                "positive_conditional_eps_mean": 54.827521707434926
+              },
+              {
+                "year": 2,
+                "target_date": "2014-12-31",
+                "interval_years": 0.9993360575508052,
+                "annualized_log_growth_mean": 0.06821255523507123,
+                "annualized_log_growth_variance": 0.04642657534246577,
+                "annualized_growth_mean": 0.09573551711818272,
+                "annualized_growth_variance": 0.05705563366573953,
+                "positive_conditional_eps_mean": 61.51211246847971
+              },
+              {
+                "year": 3,
+                "target_date": "2015-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": 0.028468806749943013,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": 0.053040921711741996,
+                "annualized_growth_variance": 0.05269598802444465,
+                "positive_conditional_eps_mean": 67.0041084074071
+              },
+              {
+                "year": 4,
+                "target_date": "2016-12-31",
+                "interval_years": 1.0020739645577934,
+                "annualized_log_growth_mean": 0.002819333242105877,
+                "annualized_log_growth_variance": 0.046317213114754126,
+                "annualized_growth_mean": 0.02631830743605375,
+                "annualized_growth_variance": 0.04993476916324171,
+                "positive_conditional_eps_mean": 71.70279104157486
+              },
+              {
+                "year": 5,
+                "target_date": "2017-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.014979658423992567,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": 0.00826761879426516,
+                "annualized_growth_variance": 0.048310184311059254,
+                "positive_conditional_eps_mean": 75.88711347801996
+              },
+              {
+                "year": 6,
+                "target_date": "2018-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.028115314787163358,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": -0.004890031789483875,
+                "annualized_growth_variance": 0.04705753871848311,
+                "positive_conditional_eps_mean": 79.78849426837495
+              }
+            ],
+            "event_count": 0
+          }
+        }
+      ]
+    },
+    {
+      "symbol": "IBM",
+      "input_snapshot": {
+        "symbol": "IBM",
+        "as_of": "2012-12-31",
+        "price": 191.6,
+        "price_date": "2012-12-31",
+        "currency": "USD",
+        "eps_basis": "GAAP_diluted_annual_as_reported_at_cutoff",
+        "share_basis": "pre_2013_nominal_shares",
+        "eps0": 13.06,
+        "eps_period_end": "2011-12-31",
+        "eps_available_at": "2012-02-28",
+        "source": {
+          "financial_statement": "https://www.ibm.com/investor/att/pdf/IBM_Annual_Report_2011.pdf",
+          "financial_statement_availability": "https://www.sec.gov/Archives/edgar/data/51143/000104746912001742/0001047469-12-001742-index.htm",
+          "price": "https://im.ft-static.com/content/images/2a53e388-569a-11e2-aa70-00144feab49a.pdf",
+          "price_precision": "USD 0.1 as printed in FT year-end table",
+          "membership_secondary_confirmation": "https://gist.github.com/alexchinco/1ef9cb653334839f3c24",
+          "limitations": [
+            "Manual illustrative subset; not full 2012 S&P 500 scan",
+            "Annual EPS anchors, not reconstructed latest quarterly TTM",
+            "No historical institutional consensus; empty consensus intentionally",
+            "Price is historical reconstruction and is not dividend-adjusted",
+            "Historical EPS version taken from annual report publicly available before decision date; all history rows share that report availability"
+          ]
+        },
+        "history": [
+          {
+            "period_end": "2007-12-31",
+            "available_at": "2012-02-28",
+            "eps": 7.15
+          },
+          {
+            "period_end": "2008-12-31",
+            "available_at": "2012-02-28",
+            "eps": 8.89
+          },
+          {
+            "period_end": "2009-12-31",
+            "available_at": "2012-02-28",
+            "eps": 10.01
+          },
+          {
+            "period_end": "2010-12-31",
+            "available_at": "2012-02-28",
+            "eps": 11.52
+          },
+          {
+            "period_end": "2011-12-31",
+            "available_at": "2012-02-28",
+            "eps": 13.06
+          }
+        ],
+        "consensus": []
+      },
+      "baseline": {
+        "model_version": "1.1.0",
+        "symbol": "IBM",
+        "as_of": "2012-12-31",
+        "target_date": "2018-12-31",
+        "price": 191.6,
+        "price_date": "2012-12-31",
+        "eps0": 13.06,
+        "eps_period_end": "2011-12-31",
+        "eps_available_at": "2012-02-28",
+        "currency": "USD",
+        "eps_basis": "GAAP_diluted_annual_as_reported_at_cutoff",
+        "share_basis": "pre_2013_nominal_shares",
+        "config": {
+          "long_run_log_growth": 0.04,
+          "history_shrinkage_years": 6.0,
+          "min_annual_log_sigma": 0.2,
+          "max_annual_log_sigma": 0.8,
+          "persistent_log_sigma": 0.08,
+          "year_correlation": 0.35,
+          "consensus_weight_floor": 0.7,
+          "consensus_weight_cap": 0.95,
+          "consensus_prior_analysts": 2.0,
+          "growth_fade_years": 2.0,
+          "loss_prior_probability": 0.06,
+          "loss_prior_strength": 10.0,
+          "buy_probability": 0.7,
+          "sell_probability": 0.8,
+          "buy_fpe_threshold": 6.0,
+          "sell_fpe_threshold": 6.5,
+          "max_buy_loss_probability": 0.1,
+          "sell_loss_probability": 0.25,
+          "max_price_age_days": 7.0,
+          "max_eps_age_days": 550.0,
+          "max_consensus_age_days": 180.0,
+          "event_window_days": 180.0,
+          "allow_history_only_candidates": false
+        },
+        "probability_status": "uncalibrated_model_probability",
+        "status": "ready",
+        "events": [],
+        "annual_target_dates": [
+          "2013-12-31",
+          "2014-12-31",
+          "2015-12-31",
+          "2016-12-31",
+          "2017-12-31",
+          "2018-12-31"
+        ],
+        "interval_years": [
+          2.001410022108599,
+          0.9993360575508055,
+          0.999336057550805,
+          1.0020739645577939,
+          0.9993360575508055,
+          0.9993360575508055
+        ],
+        "annual_log_growth_mean": [
+          0.03712192645357408,
+          -0.0050475884447925,
+          -0.016801410483811705,
+          -0.026142155331080195,
+          -0.03429267252475933,
+          -0.041668942477686065
+        ],
+        "annual_log_growth_covariance": [
+          [
+            0.026385909712722304,
+            0.016299293980417982,
+            0.009864752893146294,
+            0.007611005735322246,
+            0.006824432229410421,
+            0.006548551280293647
+          ],
+          [
+            0.016299293980417982,
+            0.046426575342465755,
+            0.020409301369863016,
+            0.011296552461308697,
+            0.00811613941780822,
+            0.0070006487962328764
+          ],
+          [
+            0.009864752893146294,
+            0.020409301369863016,
+            0.046426575342465776,
+            0.02039014988945342,
+            0.011303255479452056,
+            0.00811613941780822
+          ],
+          [
+            0.007611005735322246,
+            0.011296552461308697,
+            0.02039014988945342,
+            0.046317213114754105,
+            0.020390149889453417,
+            0.011296552461308697
+          ],
+          [
+            0.006824432229410421,
+            0.00811613941780822,
+            0.011303255479452056,
+            0.020390149889453417,
+            0.046426575342465755,
+            0.020409301369863013
+          ],
+          [
+            0.006548551280293647,
+            0.0070006487962328764,
+            0.00811613941780822,
+            0.011296552461308697,
+            0.020409301369863013,
+            0.046426575342465755
+          ]
+        ],
+        "loss_probability": 0.04,
+        "history_growth_observations": 4,
+        "historical_log_growth_center": 0.07722924726102642,
+        "annual_log_sigma": 0.2,
+        "consensus_anchors": [],
+        "flags": [
+          "history_only_no_institution_consensus"
+        ],
+        "terminal_log_eps_mean": 2.5199082729452664,
+        "terminal_log_eps_variance": 0.803779906603561,
+        "annual": [
+          {
+            "year": 1,
+            "target_date": "2013-12-31",
+            "interval_years": 2.001410022108599,
+            "annualized_log_growth_mean": 0.03712192645357408,
+            "annualized_log_growth_variance": 0.026385909712722304,
+            "annualized_growth_mean": 0.05160217411830902,
+            "annualized_growth_variance": 0.02956767994370871,
+            "positive_conditional_eps_mean": 14.830658739945218
+          },
+          {
+            "year": 2,
+            "target_date": "2014-12-31",
+            "interval_years": 0.9993360575508055,
+            "annualized_log_growth_mean": -0.0050475884447925,
+            "annualized_log_growth_variance": 0.046426575342465755,
+            "annualized_growth_mean": 0.018331699185604115,
+            "annualized_growth_variance": 0.049279419212318855,
+            "positive_conditional_eps_mean": 15.602555614078833
+          },
+          {
+            "year": 3,
+            "target_date": "2015-12-31",
+            "interval_years": 0.999336057550805,
+            "annualized_log_growth_mean": -0.016801410483811705,
+            "annualized_log_growth_variance": 0.046426575342465776,
+            "annualized_growth_mean": 0.0064324772768334735,
+            "annualized_growth_variance": 0.04813448622821353,
+            "positive_conditional_eps_mean": 16.345284668162726
+          },
+          {
+            "year": 4,
+            "target_date": "2016-12-31",
+            "interval_years": 1.0020739645577939,
+            "annualized_log_growth_mean": -0.026142155331080195,
+            "annualized_log_growth_variance": 0.046317213114754105,
+            "annualized_growth_mean": -0.0029791024151357066,
+            "annualized_growth_variance": 0.04712457182537951,
+            "positive_conditional_eps_mean": 17.081457568216052
+          },
+          {
+            "year": 5,
+            "target_date": "2017-12-31",
+            "interval_years": 0.9993360575508055,
+            "annualized_log_growth_mean": -0.03429267252475933,
+            "annualized_log_growth_variance": 0.046426575342465755,
+            "annualized_growth_mean": -0.011018234513566512,
+            "annualized_growth_variance": 0.04647973287964594,
+            "positive_conditional_eps_mean": 17.820830026481808
+          },
+          {
+            "year": 6,
+            "target_date": "2018-12-31",
+            "interval_years": 0.9993360575508055,
+            "annualized_log_growth_mean": -0.041668942477686065,
+            "annualized_log_growth_variance": 0.046426575342465755,
+            "annualized_growth_mean": -0.018286392093512134,
+            "annualized_growth_variance": 0.0457990718497603,
+            "positive_conditional_eps_mean": 18.57465888520507
+          }
+        ]
+      },
+      "default_evaluation": {
+        "symbol": "IBM",
+        "as_of": "2012-12-31",
+        "target_date": "2018-12-31",
+        "status": "ready",
+        "probability_status": "uncalibrated_model_probability",
+        "flags": [
+          "history_only_no_institution_consensus"
+        ],
+        "buy_fpe_threshold": 6.0,
+        "sell_fpe_threshold": 6.5,
+        "candidate": "none",
+        "p_below_6": 0.14040027542731512,
+        "p_above_6_5_positive": 0.7990267991065595,
+        "p_loss": 0.04,
+        "p_between_6_6_5": 0.020572925466125325,
+        "p_risk_or_above_6_5": 0.8390267991065595,
+        "p_below_buy_threshold": 0.14040027542731512,
+        "p_above_sell_threshold_positive": 0.7990267991065595,
+        "p_between_thresholds": 0.020572925466125325,
+        "p_risk_or_above_sell_threshold": 0.8390267991065595,
+        "positive_conditional_eps_mean": 18.57465888520507,
+        "positive_conditional_eps_median": 12.427456677295714,
+        "positive_conditional_eps_interval_90": [
+          2.8440666051616557,
+          54.30311624410193
+        ],
+        "positive_conditional_ratio_median": 15.41747478790594,
+        "positive_conditional_ratio_interval_90": [
+          3.5283426302594636,
+          67.36832381220184
+        ],
+        "annual": [
+          {
+            "year": 1,
+            "target_date": "2013-12-31",
+            "interval_years": 2.001410022108599,
+            "annualized_log_growth_mean": 0.03712192645357408,
+            "annualized_log_growth_variance": 0.026385909712722304,
+            "annualized_growth_mean": 0.05160217411830902,
+            "annualized_growth_variance": 0.02956767994370871,
+            "positive_conditional_eps_mean": 14.830658739945218
+          },
+          {
+            "year": 2,
+            "target_date": "2014-12-31",
+            "interval_years": 0.9993360575508055,
+            "annualized_log_growth_mean": -0.0050475884447925,
+            "annualized_log_growth_variance": 0.046426575342465755,
+            "annualized_growth_mean": 0.018331699185604115,
+            "annualized_growth_variance": 0.049279419212318855,
+            "positive_conditional_eps_mean": 15.602555614078833
+          },
+          {
+            "year": 3,
+            "target_date": "2015-12-31",
+            "interval_years": 0.999336057550805,
+            "annualized_log_growth_mean": -0.016801410483811705,
+            "annualized_log_growth_variance": 0.046426575342465776,
+            "annualized_growth_mean": 0.0064324772768334735,
+            "annualized_growth_variance": 0.04813448622821353,
+            "positive_conditional_eps_mean": 16.345284668162726
+          },
+          {
+            "year": 4,
+            "target_date": "2016-12-31",
+            "interval_years": 1.0020739645577939,
+            "annualized_log_growth_mean": -0.026142155331080195,
+            "annualized_log_growth_variance": 0.046317213114754105,
+            "annualized_growth_mean": -0.0029791024151357066,
+            "annualized_growth_variance": 0.04712457182537951,
+            "positive_conditional_eps_mean": 17.081457568216052
+          },
+          {
+            "year": 5,
+            "target_date": "2017-12-31",
+            "interval_years": 0.9993360575508055,
+            "annualized_log_growth_mean": -0.03429267252475933,
+            "annualized_log_growth_variance": 0.046426575342465755,
+            "annualized_growth_mean": -0.011018234513566512,
+            "annualized_growth_variance": 0.04647973287964594,
+            "positive_conditional_eps_mean": 17.820830026481808
+          },
+          {
+            "year": 6,
+            "target_date": "2018-12-31",
+            "interval_years": 0.9993360575508055,
+            "annualized_log_growth_mean": -0.041668942477686065,
+            "annualized_log_growth_variance": 0.046426575342465755,
+            "annualized_growth_mean": -0.018286392093512134,
+            "annualized_growth_variance": 0.0457990718497603,
+            "positive_conditional_eps_mean": 18.57465888520507
+          }
+        ],
+        "event_count": 0
+      },
+      "distribution_summary": {
+        "positive_conditional_eps_mean": 18.57465888520507,
+        "positive_conditional_eps_median": 12.427456677295714,
+        "positive_conditional_eps_std": 20.633504832454562,
+        "terminal_log_eps_std": 0.8965377329502429,
+        "positive_conditional_eps_interval_90": [
+          2.8440666051616557,
+          54.30311624410193
+        ]
+      },
+      "history_shrinkage": {
+        "valid_growth_observations": 4,
+        "observed_growth_median_weight": 0.4,
+        "long_run_prior_weight": 0.6,
+        "long_run_log_growth": 0.04,
+        "historical_log_growth_center_after_shrinkage": 0.07722924726102642,
+        "annual_log_sigma": 0.2
+      },
+      "minimum_threshold_for_buy_probability": {
+        "threshold": 26.64639152059293,
+        "status": "finite_probability_boundary"
+      },
+      "threshold_scenarios": [
+        {
+          "buy_fpe_threshold": 6.0,
+          "configuration_overrides": {
+            "buy_fpe_threshold": 6.0,
+            "sell_fpe_threshold": 6.5
+          },
+          "p_below_threshold": 0.14040027542731512,
+          "p_loss": 0.04,
+          "probability_condition_passes": false,
+          "loss_condition_passes": true,
+          "probability_and_loss_conditions_pass": false,
+          "consensus_gate_passes": false,
+          "formal_buy_eligible": false,
+          "evaluation": {
+            "symbol": "IBM",
+            "as_of": "2012-12-31",
+            "target_date": "2018-12-31",
+            "status": "ready",
+            "probability_status": "uncalibrated_model_probability",
+            "flags": [
+              "history_only_no_institution_consensus"
+            ],
+            "buy_fpe_threshold": 6.0,
+            "sell_fpe_threshold": 6.5,
+            "candidate": "none",
+            "p_below_6": 0.14040027542731512,
+            "p_above_6_5_positive": 0.7990267991065595,
+            "p_loss": 0.04,
+            "p_between_6_6_5": 0.020572925466125325,
+            "p_risk_or_above_6_5": 0.8390267991065595,
+            "p_below_buy_threshold": 0.14040027542731512,
+            "p_above_sell_threshold_positive": 0.7990267991065595,
+            "p_between_thresholds": 0.020572925466125325,
+            "p_risk_or_above_sell_threshold": 0.8390267991065595,
+            "positive_conditional_eps_mean": 18.57465888520507,
+            "positive_conditional_eps_median": 12.427456677295714,
+            "positive_conditional_eps_interval_90": [
+              2.8440666051616557,
+              54.30311624410193
+            ],
+            "positive_conditional_ratio_median": 15.41747478790594,
+            "positive_conditional_ratio_interval_90": [
+              3.5283426302594636,
+              67.36832381220184
+            ],
+            "annual": [
+              {
+                "year": 1,
+                "target_date": "2013-12-31",
+                "interval_years": 2.001410022108599,
+                "annualized_log_growth_mean": 0.03712192645357408,
+                "annualized_log_growth_variance": 0.026385909712722304,
+                "annualized_growth_mean": 0.05160217411830902,
+                "annualized_growth_variance": 0.02956767994370871,
+                "positive_conditional_eps_mean": 14.830658739945218
+              },
+              {
+                "year": 2,
+                "target_date": "2014-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.0050475884447925,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": 0.018331699185604115,
+                "annualized_growth_variance": 0.049279419212318855,
+                "positive_conditional_eps_mean": 15.602555614078833
+              },
+              {
+                "year": 3,
+                "target_date": "2015-12-31",
+                "interval_years": 0.999336057550805,
+                "annualized_log_growth_mean": -0.016801410483811705,
+                "annualized_log_growth_variance": 0.046426575342465776,
+                "annualized_growth_mean": 0.0064324772768334735,
+                "annualized_growth_variance": 0.04813448622821353,
+                "positive_conditional_eps_mean": 16.345284668162726
+              },
+              {
+                "year": 4,
+                "target_date": "2016-12-31",
+                "interval_years": 1.0020739645577939,
+                "annualized_log_growth_mean": -0.026142155331080195,
+                "annualized_log_growth_variance": 0.046317213114754105,
+                "annualized_growth_mean": -0.0029791024151357066,
+                "annualized_growth_variance": 0.04712457182537951,
+                "positive_conditional_eps_mean": 17.081457568216052
+              },
+              {
+                "year": 5,
+                "target_date": "2017-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.03429267252475933,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": -0.011018234513566512,
+                "annualized_growth_variance": 0.04647973287964594,
+                "positive_conditional_eps_mean": 17.820830026481808
+              },
+              {
+                "year": 6,
+                "target_date": "2018-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.041668942477686065,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": -0.018286392093512134,
+                "annualized_growth_variance": 0.0457990718497603,
+                "positive_conditional_eps_mean": 18.57465888520507
+              }
+            ],
+            "event_count": 0
+          }
+        },
+        {
+          "buy_fpe_threshold": 8.5,
+          "configuration_overrides": {
+            "buy_fpe_threshold": 8.5,
+            "sell_fpe_threshold": 9.0
+          },
+          "p_below_threshold": 0.2431653058185943,
+          "p_loss": 0.04,
+          "probability_condition_passes": false,
+          "loss_condition_passes": true,
+          "probability_and_loss_conditions_pass": false,
+          "consensus_gate_passes": false,
+          "formal_buy_eligible": false,
+          "evaluation": {
+            "symbol": "IBM",
+            "as_of": "2012-12-31",
+            "target_date": "2018-12-31",
+            "status": "ready",
+            "probability_status": "uncalibrated_model_probability",
+            "flags": [
+              "history_only_no_institution_consensus"
+            ],
+            "buy_fpe_threshold": 8.5,
+            "sell_fpe_threshold": 9.0,
+            "candidate": "none",
+            "p_below_6": 0.14040027542731512,
+            "p_above_6_5_positive": 0.7990267991065595,
+            "p_loss": 0.04,
+            "p_between_6_6_5": 0.020572925466125325,
+            "p_risk_or_above_6_5": 0.8390267991065595,
+            "p_below_buy_threshold": 0.2431653058185943,
+            "p_above_sell_threshold_positive": 0.6968434374672952,
+            "p_between_thresholds": 0.019991256714110506,
+            "p_risk_or_above_sell_threshold": 0.7368434374672952,
+            "positive_conditional_eps_mean": 18.57465888520507,
+            "positive_conditional_eps_median": 12.427456677295714,
+            "positive_conditional_eps_interval_90": [
+              2.8440666051616557,
+              54.30311624410193
+            ],
+            "positive_conditional_ratio_median": 15.41747478790594,
+            "positive_conditional_ratio_interval_90": [
+              3.5283426302594636,
+              67.36832381220184
+            ],
+            "annual": [
+              {
+                "year": 1,
+                "target_date": "2013-12-31",
+                "interval_years": 2.001410022108599,
+                "annualized_log_growth_mean": 0.03712192645357408,
+                "annualized_log_growth_variance": 0.026385909712722304,
+                "annualized_growth_mean": 0.05160217411830902,
+                "annualized_growth_variance": 0.02956767994370871,
+                "positive_conditional_eps_mean": 14.830658739945218
+              },
+              {
+                "year": 2,
+                "target_date": "2014-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.0050475884447925,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": 0.018331699185604115,
+                "annualized_growth_variance": 0.049279419212318855,
+                "positive_conditional_eps_mean": 15.602555614078833
+              },
+              {
+                "year": 3,
+                "target_date": "2015-12-31",
+                "interval_years": 0.999336057550805,
+                "annualized_log_growth_mean": -0.016801410483811705,
+                "annualized_log_growth_variance": 0.046426575342465776,
+                "annualized_growth_mean": 0.0064324772768334735,
+                "annualized_growth_variance": 0.04813448622821353,
+                "positive_conditional_eps_mean": 16.345284668162726
+              },
+              {
+                "year": 4,
+                "target_date": "2016-12-31",
+                "interval_years": 1.0020739645577939,
+                "annualized_log_growth_mean": -0.026142155331080195,
+                "annualized_log_growth_variance": 0.046317213114754105,
+                "annualized_growth_mean": -0.0029791024151357066,
+                "annualized_growth_variance": 0.04712457182537951,
+                "positive_conditional_eps_mean": 17.081457568216052
+              },
+              {
+                "year": 5,
+                "target_date": "2017-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.03429267252475933,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": -0.011018234513566512,
+                "annualized_growth_variance": 0.04647973287964594,
+                "positive_conditional_eps_mean": 17.820830026481808
+              },
+              {
+                "year": 6,
+                "target_date": "2018-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.041668942477686065,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": -0.018286392093512134,
+                "annualized_growth_variance": 0.0457990718497603,
+                "positive_conditional_eps_mean": 18.57465888520507
+              }
+            ],
+            "event_count": 0
+          }
+        },
+        {
+          "buy_fpe_threshold": 10.0,
+          "configuration_overrides": {
+            "buy_fpe_threshold": 10.0,
+            "sell_fpe_threshold": 10.5
+          },
+          "p_below_threshold": 0.3020082369631684,
+          "p_loss": 0.04,
+          "probability_condition_passes": false,
+          "loss_condition_passes": true,
+          "probability_and_loss_conditions_pass": false,
+          "consensus_gate_passes": false,
+          "formal_buy_eligible": false,
+          "evaluation": {
+            "symbol": "IBM",
+            "as_of": "2012-12-31",
+            "target_date": "2018-12-31",
+            "status": "ready",
+            "probability_status": "uncalibrated_model_probability",
+            "flags": [
+              "history_only_no_institution_consensus"
+            ],
+            "buy_fpe_threshold": 10.0,
+            "sell_fpe_threshold": 10.5,
+            "candidate": "none",
+            "p_below_6": 0.14040027542731512,
+            "p_above_6_5_positive": 0.7990267991065595,
+            "p_loss": 0.04,
+            "p_between_6_6_5": 0.020572925466125325,
+            "p_risk_or_above_6_5": 0.8390267991065595,
+            "p_below_buy_threshold": 0.3020082369631684,
+            "p_above_sell_threshold_positive": 0.6392065549346667,
+            "p_between_thresholds": 0.018785208102164774,
+            "p_risk_or_above_sell_threshold": 0.6792065549346668,
+            "positive_conditional_eps_mean": 18.57465888520507,
+            "positive_conditional_eps_median": 12.427456677295714,
+            "positive_conditional_eps_interval_90": [
+              2.8440666051616557,
+              54.30311624410193
+            ],
+            "positive_conditional_ratio_median": 15.41747478790594,
+            "positive_conditional_ratio_interval_90": [
+              3.5283426302594636,
+              67.36832381220184
+            ],
+            "annual": [
+              {
+                "year": 1,
+                "target_date": "2013-12-31",
+                "interval_years": 2.001410022108599,
+                "annualized_log_growth_mean": 0.03712192645357408,
+                "annualized_log_growth_variance": 0.026385909712722304,
+                "annualized_growth_mean": 0.05160217411830902,
+                "annualized_growth_variance": 0.02956767994370871,
+                "positive_conditional_eps_mean": 14.830658739945218
+              },
+              {
+                "year": 2,
+                "target_date": "2014-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.0050475884447925,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": 0.018331699185604115,
+                "annualized_growth_variance": 0.049279419212318855,
+                "positive_conditional_eps_mean": 15.602555614078833
+              },
+              {
+                "year": 3,
+                "target_date": "2015-12-31",
+                "interval_years": 0.999336057550805,
+                "annualized_log_growth_mean": -0.016801410483811705,
+                "annualized_log_growth_variance": 0.046426575342465776,
+                "annualized_growth_mean": 0.0064324772768334735,
+                "annualized_growth_variance": 0.04813448622821353,
+                "positive_conditional_eps_mean": 16.345284668162726
+              },
+              {
+                "year": 4,
+                "target_date": "2016-12-31",
+                "interval_years": 1.0020739645577939,
+                "annualized_log_growth_mean": -0.026142155331080195,
+                "annualized_log_growth_variance": 0.046317213114754105,
+                "annualized_growth_mean": -0.0029791024151357066,
+                "annualized_growth_variance": 0.04712457182537951,
+                "positive_conditional_eps_mean": 17.081457568216052
+              },
+              {
+                "year": 5,
+                "target_date": "2017-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.03429267252475933,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": -0.011018234513566512,
+                "annualized_growth_variance": 0.04647973287964594,
+                "positive_conditional_eps_mean": 17.820830026481808
+              },
+              {
+                "year": 6,
+                "target_date": "2018-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.041668942477686065,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": -0.018286392093512134,
+                "annualized_growth_variance": 0.0457990718497603,
+                "positive_conditional_eps_mean": 18.57465888520507
+              }
+            ],
+            "event_count": 0
+          }
+        },
+        {
+          "buy_fpe_threshold": 12.0,
+          "configuration_overrides": {
+            "buy_fpe_threshold": 12.0,
+            "sell_fpe_threshold": 12.5
+          },
+          "p_below_threshold": 0.3743281508762209,
+          "p_loss": 0.04,
+          "probability_condition_passes": false,
+          "loss_condition_passes": true,
+          "probability_and_loss_conditions_pass": false,
+          "consensus_gate_passes": false,
+          "formal_buy_eligible": false,
+          "evaluation": {
+            "symbol": "IBM",
+            "as_of": "2012-12-31",
+            "target_date": "2018-12-31",
+            "status": "ready",
+            "probability_status": "uncalibrated_model_probability",
+            "flags": [
+              "history_only_no_institution_consensus"
+            ],
+            "buy_fpe_threshold": 12.0,
+            "sell_fpe_threshold": 12.5,
+            "candidate": "none",
+            "p_below_6": 0.14040027542731512,
+            "p_above_6_5_positive": 0.7990267991065595,
+            "p_loss": 0.04,
+            "p_between_6_6_5": 0.020572925466125325,
+            "p_risk_or_above_6_5": 0.8390267991065595,
+            "p_below_buy_threshold": 0.3743281508762209,
+            "p_above_sell_threshold_positive": 0.5688001936277488,
+            "p_between_thresholds": 0.016871655496030313,
+            "p_risk_or_above_sell_threshold": 0.6088001936277488,
+            "positive_conditional_eps_mean": 18.57465888520507,
+            "positive_conditional_eps_median": 12.427456677295714,
+            "positive_conditional_eps_interval_90": [
+              2.8440666051616557,
+              54.30311624410193
+            ],
+            "positive_conditional_ratio_median": 15.41747478790594,
+            "positive_conditional_ratio_interval_90": [
+              3.5283426302594636,
+              67.36832381220184
+            ],
+            "annual": [
+              {
+                "year": 1,
+                "target_date": "2013-12-31",
+                "interval_years": 2.001410022108599,
+                "annualized_log_growth_mean": 0.03712192645357408,
+                "annualized_log_growth_variance": 0.026385909712722304,
+                "annualized_growth_mean": 0.05160217411830902,
+                "annualized_growth_variance": 0.02956767994370871,
+                "positive_conditional_eps_mean": 14.830658739945218
+              },
+              {
+                "year": 2,
+                "target_date": "2014-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.0050475884447925,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": 0.018331699185604115,
+                "annualized_growth_variance": 0.049279419212318855,
+                "positive_conditional_eps_mean": 15.602555614078833
+              },
+              {
+                "year": 3,
+                "target_date": "2015-12-31",
+                "interval_years": 0.999336057550805,
+                "annualized_log_growth_mean": -0.016801410483811705,
+                "annualized_log_growth_variance": 0.046426575342465776,
+                "annualized_growth_mean": 0.0064324772768334735,
+                "annualized_growth_variance": 0.04813448622821353,
+                "positive_conditional_eps_mean": 16.345284668162726
+              },
+              {
+                "year": 4,
+                "target_date": "2016-12-31",
+                "interval_years": 1.0020739645577939,
+                "annualized_log_growth_mean": -0.026142155331080195,
+                "annualized_log_growth_variance": 0.046317213114754105,
+                "annualized_growth_mean": -0.0029791024151357066,
+                "annualized_growth_variance": 0.04712457182537951,
+                "positive_conditional_eps_mean": 17.081457568216052
+              },
+              {
+                "year": 5,
+                "target_date": "2017-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.03429267252475933,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": -0.011018234513566512,
+                "annualized_growth_variance": 0.04647973287964594,
+                "positive_conditional_eps_mean": 17.820830026481808
+              },
+              {
+                "year": 6,
+                "target_date": "2018-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.041668942477686065,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": -0.018286392093512134,
+                "annualized_growth_variance": 0.0457990718497603,
+                "positive_conditional_eps_mean": 18.57465888520507
+              }
+            ],
+            "event_count": 0
+          }
+        },
+        {
+          "buy_fpe_threshold": 16.0,
+          "configuration_overrides": {
+            "buy_fpe_threshold": 16.0,
+            "sell_fpe_threshold": 16.5
+          },
+          "p_below_threshold": 0.4958384289105734,
+          "p_loss": 0.04,
+          "probability_condition_passes": false,
+          "loss_condition_passes": true,
+          "probability_and_loss_conditions_pass": false,
+          "consensus_gate_passes": false,
+          "formal_buy_eligible": false,
+          "evaluation": {
+            "symbol": "IBM",
+            "as_of": "2012-12-31",
+            "target_date": "2018-12-31",
+            "status": "ready",
+            "probability_status": "uncalibrated_model_probability",
+            "flags": [
+              "history_only_no_institution_consensus"
+            ],
+            "buy_fpe_threshold": 16.0,
+            "sell_fpe_threshold": 16.5,
+            "candidate": "none",
+            "p_below_6": 0.14040027542731512,
+            "p_above_6_5_positive": 0.7990267991065595,
+            "p_loss": 0.04,
+            "p_between_6_6_5": 0.020572925466125325,
+            "p_risk_or_above_6_5": 0.8390267991065595,
+            "p_below_buy_threshold": 0.4958384289105734,
+            "p_above_sell_threshold_positive": 0.4510396164079132,
+            "p_between_thresholds": 0.013121954681513393,
+            "p_risk_or_above_sell_threshold": 0.49103961640791316,
+            "positive_conditional_eps_mean": 18.57465888520507,
+            "positive_conditional_eps_median": 12.427456677295714,
+            "positive_conditional_eps_interval_90": [
+              2.8440666051616557,
+              54.30311624410193
+            ],
+            "positive_conditional_ratio_median": 15.41747478790594,
+            "positive_conditional_ratio_interval_90": [
+              3.5283426302594636,
+              67.36832381220184
+            ],
+            "annual": [
+              {
+                "year": 1,
+                "target_date": "2013-12-31",
+                "interval_years": 2.001410022108599,
+                "annualized_log_growth_mean": 0.03712192645357408,
+                "annualized_log_growth_variance": 0.026385909712722304,
+                "annualized_growth_mean": 0.05160217411830902,
+                "annualized_growth_variance": 0.02956767994370871,
+                "positive_conditional_eps_mean": 14.830658739945218
+              },
+              {
+                "year": 2,
+                "target_date": "2014-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.0050475884447925,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": 0.018331699185604115,
+                "annualized_growth_variance": 0.049279419212318855,
+                "positive_conditional_eps_mean": 15.602555614078833
+              },
+              {
+                "year": 3,
+                "target_date": "2015-12-31",
+                "interval_years": 0.999336057550805,
+                "annualized_log_growth_mean": -0.016801410483811705,
+                "annualized_log_growth_variance": 0.046426575342465776,
+                "annualized_growth_mean": 0.0064324772768334735,
+                "annualized_growth_variance": 0.04813448622821353,
+                "positive_conditional_eps_mean": 16.345284668162726
+              },
+              {
+                "year": 4,
+                "target_date": "2016-12-31",
+                "interval_years": 1.0020739645577939,
+                "annualized_log_growth_mean": -0.026142155331080195,
+                "annualized_log_growth_variance": 0.046317213114754105,
+                "annualized_growth_mean": -0.0029791024151357066,
+                "annualized_growth_variance": 0.04712457182537951,
+                "positive_conditional_eps_mean": 17.081457568216052
+              },
+              {
+                "year": 5,
+                "target_date": "2017-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.03429267252475933,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": -0.011018234513566512,
+                "annualized_growth_variance": 0.04647973287964594,
+                "positive_conditional_eps_mean": 17.820830026481808
+              },
+              {
+                "year": 6,
+                "target_date": "2018-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.041668942477686065,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": -0.018286392093512134,
+                "annualized_growth_variance": 0.0457990718497603,
+                "positive_conditional_eps_mean": 18.57465888520507
+              }
+            ],
+            "event_count": 0
+          }
+        }
+      ]
+    },
+    {
+      "symbol": "COST",
+      "input_snapshot": {
+        "symbol": "COST",
+        "as_of": "2012-12-31",
+        "price": 98.7,
+        "price_date": "2012-12-31",
+        "currency": "USD",
+        "eps_basis": "GAAP_diluted_annual_as_reported_at_cutoff",
+        "share_basis": "pre_2013_nominal_shares",
+        "eps0": 3.89,
+        "eps_period_end": "2012-09-02",
+        "eps_available_at": "2012-10-19",
+        "source": {
+          "financial_statement": "https://www.sec.gov/Archives/edgar/data/909832/000119312512428890/d388097d10k.htm",
+          "financial_statement_availability": "https://www.sec.gov/Archives/edgar/data/909832/000119312512428890/0001193125-12-428890-index.htm",
+          "price": "https://im.ft-static.com/content/images/2a53e388-569a-11e2-aa70-00144feab49a.pdf",
+          "price_precision": "USD 0.1 as printed in FT year-end table",
+          "membership_secondary_confirmation": "https://gist.github.com/alexchinco/1ef9cb653334839f3c24",
+          "limitations": [
+            "Manual illustrative subset; not full 2012 S&P 500 scan",
+            "Annual EPS anchors, not reconstructed latest quarterly TTM",
+            "No historical institutional consensus; empty consensus intentionally",
+            "Price is historical reconstruction and is not dividend-adjusted",
+            "Historical EPS version taken from annual report publicly available before decision date; all history rows share that report availability"
+          ]
+        },
+        "history": [
+          {
+            "period_end": "2008-08-31",
+            "available_at": "2012-10-19",
+            "eps": 2.89
+          },
+          {
+            "period_end": "2009-08-30",
+            "available_at": "2012-10-19",
+            "eps": 2.47
+          },
+          {
+            "period_end": "2010-08-29",
+            "available_at": "2012-10-19",
+            "eps": 2.92
+          },
+          {
+            "period_end": "2011-08-28",
+            "available_at": "2012-10-19",
+            "eps": 3.3
+          },
+          {
+            "period_end": "2012-09-02",
+            "available_at": "2012-10-19",
+            "eps": 3.89
+          }
+        ],
+        "consensus": []
+      },
+      "baseline": {
+        "model_version": "1.1.0",
+        "symbol": "COST",
+        "as_of": "2012-12-31",
+        "target_date": "2018-12-31",
+        "price": 98.7,
+        "price_date": "2012-12-31",
+        "eps0": 3.89,
+        "eps_period_end": "2012-09-02",
+        "eps_available_at": "2012-10-19",
+        "currency": "USD",
+        "eps_basis": "GAAP_diluted_annual_as_reported_at_cutoff",
+        "share_basis": "pre_2013_nominal_shares",
+        "config": {
+          "long_run_log_growth": 0.04,
+          "history_shrinkage_years": 6.0,
+          "min_annual_log_sigma": 0.2,
+          "max_annual_log_sigma": 0.8,
+          "persistent_log_sigma": 0.08,
+          "year_correlation": 0.35,
+          "consensus_weight_floor": 0.7,
+          "consensus_weight_cap": 0.95,
+          "consensus_prior_analysts": 2.0,
+          "growth_fade_years": 2.0,
+          "loss_prior_probability": 0.06,
+          "loss_prior_strength": 10.0,
+          "buy_probability": 0.7,
+          "sell_probability": 0.8,
+          "buy_fpe_threshold": 6.0,
+          "sell_fpe_threshold": 6.5,
+          "max_buy_loss_probability": 0.1,
+          "sell_loss_probability": 0.25,
+          "max_price_age_days": 7.0,
+          "max_eps_age_days": 550.0,
+          "max_consensus_age_days": 180.0,
+          "event_window_days": 180.0,
+          "allow_history_only_candidates": false
+        },
+        "probability_status": "uncalibrated_model_probability",
+        "status": "ready",
+        "events": [],
+        "annual_target_dates": [
+          "2013-12-31",
+          "2014-12-31",
+          "2015-12-31",
+          "2016-12-31",
+          "2017-12-31",
+          "2018-12-31"
+        ],
+        "interval_years": [
+          1.3278848983894262,
+          0.9993360575508052,
+          0.999336057550805,
+          1.0020739645577943,
+          0.9993360575508046,
+          0.9993360575508055
+        ],
+        "annual_log_growth_mean": [
+          0.04566667662962801,
+          0.008753333231104285,
+          -0.007676091042174214,
+          -0.019242456440607958,
+          -0.028527347408149616,
+          -0.03651617557380175
+        ],
+        "annual_log_growth_covariance": [
+          [
+            0.036523092783505164,
+            0.018553239064083467,
+            0.010653633672429214,
+            0.007886736552976479,
+            0.006921070124872579,
+            0.006582374543705403
+          ],
+          [
+            0.018553239064083467,
+            0.04642657534246577,
+            0.02040930136986302,
+            0.011296552461308694,
+            0.00811613941780822,
+            0.007000648796232877
+          ],
+          [
+            0.010653633672429214,
+            0.02040930136986302,
+            0.046426575342465776,
+            0.020390149889453417,
+            0.011303255479452058,
+            0.00811613941780822
+          ],
+          [
+            0.007886736552976479,
+            0.011296552461308694,
+            0.020390149889453417,
+            0.04631721311475409,
+            0.02039014988945342,
+            0.011296552461308694
+          ],
+          [
+            0.006921070124872579,
+            0.00811613941780822,
+            0.011303255479452058,
+            0.02039014988945342,
+            0.04642657534246579,
+            0.02040930136986302
+          ],
+          [
+            0.006582374543705403,
+            0.007000648796232877,
+            0.00811613941780822,
+            0.011296552461308694,
+            0.02040930136986302,
+            0.046426575342465755
+          ]
+        ],
+        "loss_probability": 0.04,
+        "history_growth_observations": 4,
+        "historical_log_growth_center": 0.08093809862247955,
+        "annual_log_sigma": 0.2,
+        "consensus_anchors": [],
+        "flags": [
+          "history_only_no_institution_consensus"
+        ],
+        "terminal_log_eps_mean": 1.335843072409315,
+        "terminal_log_eps_variance": 0.7081468178838422,
+        "annual": [
+          {
+            "year": 1,
+            "target_date": "2013-12-31",
+            "interval_years": 1.3278848983894262,
+            "annualized_log_growth_mean": 0.04566667662962801,
+            "annualized_log_growth_variance": 0.036523092783505164,
+            "annualized_growth_mean": 0.06601588061634651,
+            "annualized_growth_variance": 0.0422717203161764,
+            "positive_conditional_eps_mean": 4.268444334670163
+          },
+          {
+            "year": 2,
+            "target_date": "2014-12-31",
+            "interval_years": 0.9993360575508052,
+            "annualized_log_growth_mean": 0.008753333231104285,
+            "annualized_log_growth_variance": 0.04642657534246577,
+            "annualized_growth_mean": 0.03248304137766086,
+            "annualized_growth_variance": 0.050658567987158426,
+            "positive_conditional_eps_mean": 4.516781307112727
+          },
+          {
+            "year": 3,
+            "target_date": "2015-12-31",
+            "interval_years": 0.999336057550805,
+            "annualized_log_growth_mean": -0.007676091042174214,
+            "annualized_log_growth_variance": 0.046426575342465776,
+            "annualized_growth_mean": 0.01565852642915023,
+            "annualized_growth_variance": 0.04902103680341436,
+            "positive_conditional_eps_mean": 4.748509287236105
+          },
+          {
+            "year": 4,
+            "target_date": "2016-12-31",
+            "interval_years": 1.0020739645577943,
+            "annualized_log_growth_mean": -0.019242456440607958,
+            "annualized_log_growth_variance": 0.04631721311475409,
+            "annualized_growth_mean": 0.003923828252276255,
+            "annualized_growth_variance": 0.047779370057180026,
+            "positive_conditional_eps_mean": 4.973027812108298
+          },
+          {
+            "year": 5,
+            "target_date": "2017-12-31",
+            "interval_years": 0.9993360575508046,
+            "annualized_log_growth_mean": -0.028527347408149616,
+            "annualized_log_growth_variance": 0.04642657534246579,
+            "annualized_growth_mean": -0.005299965099107632,
+            "annualized_growth_variance": 0.047018776210063985,
+            "positive_conditional_eps_mean": 5.195016031537163
+          },
+          {
+            "year": 6,
+            "target_date": "2018-12-31",
+            "interval_years": 0.9993360575508055,
+            "annualized_log_growth_mean": -0.03651617557380175,
+            "annualized_log_growth_variance": 0.046426575342465755,
+            "annualized_growth_mean": -0.013214795549515717,
+            "annualized_growth_variance": 0.0462734961320057,
+            "positive_conditional_eps_mean": 5.419028096326612
+          }
+        ]
+      },
+      "default_evaluation": {
+        "symbol": "COST",
+        "as_of": "2012-12-31",
+        "target_date": "2018-12-31",
+        "status": "ready",
+        "probability_status": "uncalibrated_model_probability",
+        "flags": [
+          "history_only_no_institution_consensus"
+        ],
+        "buy_fpe_threshold": 6.0,
+        "sell_fpe_threshold": 6.5,
+        "candidate": "none",
+        "p_below_6": 0.039267595458788315,
+        "p_above_6_5_positive": 0.912031918888098,
+        "p_loss": 0.04,
+        "p_between_6_6_5": 0.008700485653113654,
+        "p_risk_or_above_6_5": 0.952031918888098,
+        "p_below_buy_threshold": 0.039267595458788315,
+        "p_above_sell_threshold_positive": 0.912031918888098,
+        "p_between_thresholds": 0.008700485653113654,
+        "p_risk_or_above_sell_threshold": 0.952031918888098,
+        "positive_conditional_eps_mean": 5.419028096326613,
+        "positive_conditional_eps_median": 3.8032009690004234,
+        "positive_conditional_eps_interval_90": [
+          0.9528238159561133,
+          15.180495458220124
+        ],
+        "positive_conditional_ratio_median": 25.951823425713116,
+        "positive_conditional_ratio_interval_90": [
+          6.501764074278268,
+          103.58683142377089
+        ],
+        "annual": [
+          {
+            "year": 1,
+            "target_date": "2013-12-31",
+            "interval_years": 1.3278848983894262,
+            "annualized_log_growth_mean": 0.04566667662962801,
+            "annualized_log_growth_variance": 0.036523092783505164,
+            "annualized_growth_mean": 0.06601588061634651,
+            "annualized_growth_variance": 0.0422717203161764,
+            "positive_conditional_eps_mean": 4.268444334670163
+          },
+          {
+            "year": 2,
+            "target_date": "2014-12-31",
+            "interval_years": 0.9993360575508052,
+            "annualized_log_growth_mean": 0.008753333231104285,
+            "annualized_log_growth_variance": 0.04642657534246577,
+            "annualized_growth_mean": 0.03248304137766086,
+            "annualized_growth_variance": 0.050658567987158426,
+            "positive_conditional_eps_mean": 4.516781307112727
+          },
+          {
+            "year": 3,
+            "target_date": "2015-12-31",
+            "interval_years": 0.999336057550805,
+            "annualized_log_growth_mean": -0.007676091042174214,
+            "annualized_log_growth_variance": 0.046426575342465776,
+            "annualized_growth_mean": 0.01565852642915023,
+            "annualized_growth_variance": 0.04902103680341436,
+            "positive_conditional_eps_mean": 4.748509287236105
+          },
+          {
+            "year": 4,
+            "target_date": "2016-12-31",
+            "interval_years": 1.0020739645577943,
+            "annualized_log_growth_mean": -0.019242456440607958,
+            "annualized_log_growth_variance": 0.04631721311475409,
+            "annualized_growth_mean": 0.003923828252276255,
+            "annualized_growth_variance": 0.047779370057180026,
+            "positive_conditional_eps_mean": 4.973027812108298
+          },
+          {
+            "year": 5,
+            "target_date": "2017-12-31",
+            "interval_years": 0.9993360575508046,
+            "annualized_log_growth_mean": -0.028527347408149616,
+            "annualized_log_growth_variance": 0.04642657534246579,
+            "annualized_growth_mean": -0.005299965099107632,
+            "annualized_growth_variance": 0.047018776210063985,
+            "positive_conditional_eps_mean": 5.195016031537163
+          },
+          {
+            "year": 6,
+            "target_date": "2018-12-31",
+            "interval_years": 0.9993360575508055,
+            "annualized_log_growth_mean": -0.03651617557380175,
+            "annualized_log_growth_variance": 0.046426575342465755,
+            "annualized_growth_mean": -0.013214795549515717,
+            "annualized_growth_variance": 0.0462734961320057,
+            "positive_conditional_eps_mean": 5.419028096326612
+          }
+        ],
+        "event_count": 0
+      },
+      "distribution_summary": {
+        "positive_conditional_eps_mean": 5.419028096326613,
+        "positive_conditional_eps_median": 3.8032009690004234,
+        "positive_conditional_eps_std": 5.500314566652518,
+        "terminal_log_eps_std": 0.8415145975464966,
+        "positive_conditional_eps_interval_90": [
+          0.9528238159561133,
+          15.180495458220124
+        ]
+      },
+      "history_shrinkage": {
+        "valid_growth_observations": 4,
+        "observed_growth_median_weight": 0.4,
+        "long_run_prior_weight": 0.6,
+        "long_run_log_growth": 0.04,
+        "historical_log_growth_center_after_shrinkage": 0.08093809862247955,
+        "annual_log_sigma": 0.2
+      },
+      "minimum_threshold_for_buy_probability": {
+        "threshold": 43.371983765687055,
+        "status": "finite_probability_boundary"
+      },
+      "threshold_scenarios": [
+        {
+          "buy_fpe_threshold": 6.0,
+          "configuration_overrides": {
+            "buy_fpe_threshold": 6.0,
+            "sell_fpe_threshold": 6.5
+          },
+          "p_below_threshold": 0.039267595458788315,
+          "p_loss": 0.04,
+          "probability_condition_passes": false,
+          "loss_condition_passes": true,
+          "probability_and_loss_conditions_pass": false,
+          "consensus_gate_passes": false,
+          "formal_buy_eligible": false,
+          "evaluation": {
+            "symbol": "COST",
+            "as_of": "2012-12-31",
+            "target_date": "2018-12-31",
+            "status": "ready",
+            "probability_status": "uncalibrated_model_probability",
+            "flags": [
+              "history_only_no_institution_consensus"
+            ],
+            "buy_fpe_threshold": 6.0,
+            "sell_fpe_threshold": 6.5,
+            "candidate": "none",
+            "p_below_6": 0.039267595458788315,
+            "p_above_6_5_positive": 0.912031918888098,
+            "p_loss": 0.04,
+            "p_between_6_6_5": 0.008700485653113654,
+            "p_risk_or_above_6_5": 0.952031918888098,
+            "p_below_buy_threshold": 0.039267595458788315,
+            "p_above_sell_threshold_positive": 0.912031918888098,
+            "p_between_thresholds": 0.008700485653113654,
+            "p_risk_or_above_sell_threshold": 0.952031918888098,
+            "positive_conditional_eps_mean": 5.419028096326613,
+            "positive_conditional_eps_median": 3.8032009690004234,
+            "positive_conditional_eps_interval_90": [
+              0.9528238159561133,
+              15.180495458220124
+            ],
+            "positive_conditional_ratio_median": 25.951823425713116,
+            "positive_conditional_ratio_interval_90": [
+              6.501764074278268,
+              103.58683142377089
+            ],
+            "annual": [
+              {
+                "year": 1,
+                "target_date": "2013-12-31",
+                "interval_years": 1.3278848983894262,
+                "annualized_log_growth_mean": 0.04566667662962801,
+                "annualized_log_growth_variance": 0.036523092783505164,
+                "annualized_growth_mean": 0.06601588061634651,
+                "annualized_growth_variance": 0.0422717203161764,
+                "positive_conditional_eps_mean": 4.268444334670163
+              },
+              {
+                "year": 2,
+                "target_date": "2014-12-31",
+                "interval_years": 0.9993360575508052,
+                "annualized_log_growth_mean": 0.008753333231104285,
+                "annualized_log_growth_variance": 0.04642657534246577,
+                "annualized_growth_mean": 0.03248304137766086,
+                "annualized_growth_variance": 0.050658567987158426,
+                "positive_conditional_eps_mean": 4.516781307112727
+              },
+              {
+                "year": 3,
+                "target_date": "2015-12-31",
+                "interval_years": 0.999336057550805,
+                "annualized_log_growth_mean": -0.007676091042174214,
+                "annualized_log_growth_variance": 0.046426575342465776,
+                "annualized_growth_mean": 0.01565852642915023,
+                "annualized_growth_variance": 0.04902103680341436,
+                "positive_conditional_eps_mean": 4.748509287236105
+              },
+              {
+                "year": 4,
+                "target_date": "2016-12-31",
+                "interval_years": 1.0020739645577943,
+                "annualized_log_growth_mean": -0.019242456440607958,
+                "annualized_log_growth_variance": 0.04631721311475409,
+                "annualized_growth_mean": 0.003923828252276255,
+                "annualized_growth_variance": 0.047779370057180026,
+                "positive_conditional_eps_mean": 4.973027812108298
+              },
+              {
+                "year": 5,
+                "target_date": "2017-12-31",
+                "interval_years": 0.9993360575508046,
+                "annualized_log_growth_mean": -0.028527347408149616,
+                "annualized_log_growth_variance": 0.04642657534246579,
+                "annualized_growth_mean": -0.005299965099107632,
+                "annualized_growth_variance": 0.047018776210063985,
+                "positive_conditional_eps_mean": 5.195016031537163
+              },
+              {
+                "year": 6,
+                "target_date": "2018-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.03651617557380175,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": -0.013214795549515717,
+                "annualized_growth_variance": 0.0462734961320057,
+                "positive_conditional_eps_mean": 5.419028096326612
+              }
+            ],
+            "event_count": 0
+          }
+        },
+        {
+          "buy_fpe_threshold": 8.5,
+          "configuration_overrides": {
+            "buy_fpe_threshold": 8.5,
+            "sell_fpe_threshold": 9.0
+          },
+          "p_below_threshold": 0.08866122168180719,
+          "p_loss": 0.04,
+          "probability_condition_passes": false,
+          "loss_condition_passes": true,
+          "probability_and_loss_conditions_pass": false,
+          "consensus_gate_passes": false,
+          "formal_buy_eligible": false,
+          "evaluation": {
+            "symbol": "COST",
+            "as_of": "2012-12-31",
+            "target_date": "2018-12-31",
+            "status": "ready",
+            "probability_status": "uncalibrated_model_probability",
+            "flags": [
+              "history_only_no_institution_consensus"
+            ],
+            "buy_fpe_threshold": 8.5,
+            "sell_fpe_threshold": 9.0,
+            "candidate": "none",
+            "p_below_6": 0.039267595458788315,
+            "p_above_6_5_positive": 0.912031918888098,
+            "p_loss": 0.04,
+            "p_between_6_6_5": 0.008700485653113654,
+            "p_risk_or_above_6_5": 0.952031918888098,
+            "p_below_buy_threshold": 0.08866122168180719,
+            "p_above_sell_threshold_positive": 0.8600527836938539,
+            "p_between_thresholds": 0.01128599462433888,
+            "p_risk_or_above_sell_threshold": 0.9000527836938539,
+            "positive_conditional_eps_mean": 5.419028096326613,
+            "positive_conditional_eps_median": 3.8032009690004234,
+            "positive_conditional_eps_interval_90": [
+              0.9528238159561133,
+              15.180495458220124
+            ],
+            "positive_conditional_ratio_median": 25.951823425713116,
+            "positive_conditional_ratio_interval_90": [
+              6.501764074278268,
+              103.58683142377089
+            ],
+            "annual": [
+              {
+                "year": 1,
+                "target_date": "2013-12-31",
+                "interval_years": 1.3278848983894262,
+                "annualized_log_growth_mean": 0.04566667662962801,
+                "annualized_log_growth_variance": 0.036523092783505164,
+                "annualized_growth_mean": 0.06601588061634651,
+                "annualized_growth_variance": 0.0422717203161764,
+                "positive_conditional_eps_mean": 4.268444334670163
+              },
+              {
+                "year": 2,
+                "target_date": "2014-12-31",
+                "interval_years": 0.9993360575508052,
+                "annualized_log_growth_mean": 0.008753333231104285,
+                "annualized_log_growth_variance": 0.04642657534246577,
+                "annualized_growth_mean": 0.03248304137766086,
+                "annualized_growth_variance": 0.050658567987158426,
+                "positive_conditional_eps_mean": 4.516781307112727
+              },
+              {
+                "year": 3,
+                "target_date": "2015-12-31",
+                "interval_years": 0.999336057550805,
+                "annualized_log_growth_mean": -0.007676091042174214,
+                "annualized_log_growth_variance": 0.046426575342465776,
+                "annualized_growth_mean": 0.01565852642915023,
+                "annualized_growth_variance": 0.04902103680341436,
+                "positive_conditional_eps_mean": 4.748509287236105
+              },
+              {
+                "year": 4,
+                "target_date": "2016-12-31",
+                "interval_years": 1.0020739645577943,
+                "annualized_log_growth_mean": -0.019242456440607958,
+                "annualized_log_growth_variance": 0.04631721311475409,
+                "annualized_growth_mean": 0.003923828252276255,
+                "annualized_growth_variance": 0.047779370057180026,
+                "positive_conditional_eps_mean": 4.973027812108298
+              },
+              {
+                "year": 5,
+                "target_date": "2017-12-31",
+                "interval_years": 0.9993360575508046,
+                "annualized_log_growth_mean": -0.028527347408149616,
+                "annualized_log_growth_variance": 0.04642657534246579,
+                "annualized_growth_mean": -0.005299965099107632,
+                "annualized_growth_variance": 0.047018776210063985,
+                "positive_conditional_eps_mean": 5.195016031537163
+              },
+              {
+                "year": 6,
+                "target_date": "2018-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.03651617557380175,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": -0.013214795549515717,
+                "annualized_growth_variance": 0.0462734961320057,
+                "positive_conditional_eps_mean": 5.419028096326612
+              }
+            ],
+            "event_count": 0
+          }
+        },
+        {
+          "buy_fpe_threshold": 10.0,
+          "configuration_overrides": {
+            "buy_fpe_threshold": 10.0,
+            "sell_fpe_threshold": 10.5
+          },
+          "p_below_threshold": 0.1234099738702596,
+          "p_loss": 0.04,
+          "probability_condition_passes": false,
+          "loss_condition_passes": true,
+          "probability_and_loss_conditions_pass": false,
+          "consensus_gate_passes": false,
+          "formal_buy_eligible": false,
+          "evaluation": {
+            "symbol": "COST",
+            "as_of": "2012-12-31",
+            "target_date": "2018-12-31",
+            "status": "ready",
+            "probability_status": "uncalibrated_model_probability",
+            "flags": [
+              "history_only_no_institution_consensus"
+            ],
+            "buy_fpe_threshold": 10.0,
+            "sell_fpe_threshold": 10.5,
+            "candidate": "none",
+            "p_below_6": 0.039267595458788315,
+            "p_above_6_5_positive": 0.912031918888098,
+            "p_loss": 0.04,
+            "p_between_6_6_5": 0.008700485653113654,
+            "p_risk_or_above_6_5": 0.952031918888098,
+            "p_below_buy_threshold": 0.1234099738702596,
+            "p_above_sell_threshold_positive": 0.8245210088548248,
+            "p_between_thresholds": 0.012069017274915494,
+            "p_risk_or_above_sell_threshold": 0.8645210088548249,
+            "positive_conditional_eps_mean": 5.419028096326613,
+            "positive_conditional_eps_median": 3.8032009690004234,
+            "positive_conditional_eps_interval_90": [
+              0.9528238159561133,
+              15.180495458220124
+            ],
+            "positive_conditional_ratio_median": 25.951823425713116,
+            "positive_conditional_ratio_interval_90": [
+              6.501764074278268,
+              103.58683142377089
+            ],
+            "annual": [
+              {
+                "year": 1,
+                "target_date": "2013-12-31",
+                "interval_years": 1.3278848983894262,
+                "annualized_log_growth_mean": 0.04566667662962801,
+                "annualized_log_growth_variance": 0.036523092783505164,
+                "annualized_growth_mean": 0.06601588061634651,
+                "annualized_growth_variance": 0.0422717203161764,
+                "positive_conditional_eps_mean": 4.268444334670163
+              },
+              {
+                "year": 2,
+                "target_date": "2014-12-31",
+                "interval_years": 0.9993360575508052,
+                "annualized_log_growth_mean": 0.008753333231104285,
+                "annualized_log_growth_variance": 0.04642657534246577,
+                "annualized_growth_mean": 0.03248304137766086,
+                "annualized_growth_variance": 0.050658567987158426,
+                "positive_conditional_eps_mean": 4.516781307112727
+              },
+              {
+                "year": 3,
+                "target_date": "2015-12-31",
+                "interval_years": 0.999336057550805,
+                "annualized_log_growth_mean": -0.007676091042174214,
+                "annualized_log_growth_variance": 0.046426575342465776,
+                "annualized_growth_mean": 0.01565852642915023,
+                "annualized_growth_variance": 0.04902103680341436,
+                "positive_conditional_eps_mean": 4.748509287236105
+              },
+              {
+                "year": 4,
+                "target_date": "2016-12-31",
+                "interval_years": 1.0020739645577943,
+                "annualized_log_growth_mean": -0.019242456440607958,
+                "annualized_log_growth_variance": 0.04631721311475409,
+                "annualized_growth_mean": 0.003923828252276255,
+                "annualized_growth_variance": 0.047779370057180026,
+                "positive_conditional_eps_mean": 4.973027812108298
+              },
+              {
+                "year": 5,
+                "target_date": "2017-12-31",
+                "interval_years": 0.9993360575508046,
+                "annualized_log_growth_mean": -0.028527347408149616,
+                "annualized_log_growth_variance": 0.04642657534246579,
+                "annualized_growth_mean": -0.005299965099107632,
+                "annualized_growth_variance": 0.047018776210063985,
+                "positive_conditional_eps_mean": 5.195016031537163
+              },
+              {
+                "year": 6,
+                "target_date": "2018-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.03651617557380175,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": -0.013214795549515717,
+                "annualized_growth_variance": 0.0462734961320057,
+                "positive_conditional_eps_mean": 5.419028096326612
+              }
+            ],
+            "event_count": 0
+          }
+        },
+        {
+          "buy_fpe_threshold": 12.0,
+          "configuration_overrides": {
+            "buy_fpe_threshold": 12.0,
+            "sell_fpe_threshold": 12.5
+          },
+          "p_below_threshold": 0.17248821618527124,
+          "p_loss": 0.04,
+          "probability_condition_passes": false,
+          "loss_condition_passes": true,
+          "probability_and_loss_conditions_pass": false,
+          "consensus_gate_passes": false,
+          "formal_buy_eligible": false,
+          "evaluation": {
+            "symbol": "COST",
+            "as_of": "2012-12-31",
+            "target_date": "2018-12-31",
+            "status": "ready",
+            "probability_status": "uncalibrated_model_probability",
+            "flags": [
+              "history_only_no_institution_consensus"
+            ],
+            "buy_fpe_threshold": 12.0,
+            "sell_fpe_threshold": 12.5,
+            "candidate": "none",
+            "p_below_6": 0.039267595458788315,
+            "p_above_6_5_positive": 0.912031918888098,
+            "p_loss": 0.04,
+            "p_between_6_6_5": 0.008700485653113654,
+            "p_risk_or_above_6_5": 0.952031918888098,
+            "p_below_buy_threshold": 0.17248821618527124,
+            "p_above_sell_threshold_positive": 0.7750352501496708,
+            "p_between_thresholds": 0.012476533665057965,
+            "p_risk_or_above_sell_threshold": 0.8150352501496708,
+            "positive_conditional_eps_mean": 5.419028096326613,
+            "positive_conditional_eps_median": 3.8032009690004234,
+            "positive_conditional_eps_interval_90": [
+              0.9528238159561133,
+              15.180495458220124
+            ],
+            "positive_conditional_ratio_median": 25.951823425713116,
+            "positive_conditional_ratio_interval_90": [
+              6.501764074278268,
+              103.58683142377089
+            ],
+            "annual": [
+              {
+                "year": 1,
+                "target_date": "2013-12-31",
+                "interval_years": 1.3278848983894262,
+                "annualized_log_growth_mean": 0.04566667662962801,
+                "annualized_log_growth_variance": 0.036523092783505164,
+                "annualized_growth_mean": 0.06601588061634651,
+                "annualized_growth_variance": 0.0422717203161764,
+                "positive_conditional_eps_mean": 4.268444334670163
+              },
+              {
+                "year": 2,
+                "target_date": "2014-12-31",
+                "interval_years": 0.9993360575508052,
+                "annualized_log_growth_mean": 0.008753333231104285,
+                "annualized_log_growth_variance": 0.04642657534246577,
+                "annualized_growth_mean": 0.03248304137766086,
+                "annualized_growth_variance": 0.050658567987158426,
+                "positive_conditional_eps_mean": 4.516781307112727
+              },
+              {
+                "year": 3,
+                "target_date": "2015-12-31",
+                "interval_years": 0.999336057550805,
+                "annualized_log_growth_mean": -0.007676091042174214,
+                "annualized_log_growth_variance": 0.046426575342465776,
+                "annualized_growth_mean": 0.01565852642915023,
+                "annualized_growth_variance": 0.04902103680341436,
+                "positive_conditional_eps_mean": 4.748509287236105
+              },
+              {
+                "year": 4,
+                "target_date": "2016-12-31",
+                "interval_years": 1.0020739645577943,
+                "annualized_log_growth_mean": -0.019242456440607958,
+                "annualized_log_growth_variance": 0.04631721311475409,
+                "annualized_growth_mean": 0.003923828252276255,
+                "annualized_growth_variance": 0.047779370057180026,
+                "positive_conditional_eps_mean": 4.973027812108298
+              },
+              {
+                "year": 5,
+                "target_date": "2017-12-31",
+                "interval_years": 0.9993360575508046,
+                "annualized_log_growth_mean": -0.028527347408149616,
+                "annualized_log_growth_variance": 0.04642657534246579,
+                "annualized_growth_mean": -0.005299965099107632,
+                "annualized_growth_variance": 0.047018776210063985,
+                "positive_conditional_eps_mean": 5.195016031537163
+              },
+              {
+                "year": 6,
+                "target_date": "2018-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.03651617557380175,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": -0.013214795549515717,
+                "annualized_growth_variance": 0.0462734961320057,
+                "positive_conditional_eps_mean": 5.419028096326612
+              }
+            ],
+            "event_count": 0
+          }
+        },
+        {
+          "buy_fpe_threshold": 16.0,
+          "configuration_overrides": {
+            "buy_fpe_threshold": 16.0,
+            "sell_fpe_threshold": 16.5
+          },
+          "p_below_threshold": 0.27142382645704605,
+          "p_loss": 0.04,
+          "probability_condition_passes": false,
+          "loss_condition_passes": true,
+          "probability_and_loss_conditions_pass": false,
+          "consensus_gate_passes": false,
+          "formal_buy_eligible": false,
+          "evaluation": {
+            "symbol": "COST",
+            "as_of": "2012-12-31",
+            "target_date": "2018-12-31",
+            "status": "ready",
+            "probability_status": "uncalibrated_model_probability",
+            "flags": [
+              "history_only_no_institution_consensus"
+            ],
+            "buy_fpe_threshold": 16.0,
+            "sell_fpe_threshold": 16.5,
+            "candidate": "none",
+            "p_below_6": 0.039267595458788315,
+            "p_above_6_5_positive": 0.912031918888098,
+            "p_loss": 0.04,
+            "p_between_6_6_5": 0.008700485653113654,
+            "p_risk_or_above_6_5": 0.952031918888098,
+            "p_below_buy_threshold": 0.27142382645704605,
+            "p_above_sell_threshold_positive": 0.6765807595923475,
+            "p_between_thresholds": 0.011995413950606326,
+            "p_risk_or_above_sell_threshold": 0.7165807595923476,
+            "positive_conditional_eps_mean": 5.419028096326613,
+            "positive_conditional_eps_median": 3.8032009690004234,
+            "positive_conditional_eps_interval_90": [
+              0.9528238159561133,
+              15.180495458220124
+            ],
+            "positive_conditional_ratio_median": 25.951823425713116,
+            "positive_conditional_ratio_interval_90": [
+              6.501764074278268,
+              103.58683142377089
+            ],
+            "annual": [
+              {
+                "year": 1,
+                "target_date": "2013-12-31",
+                "interval_years": 1.3278848983894262,
+                "annualized_log_growth_mean": 0.04566667662962801,
+                "annualized_log_growth_variance": 0.036523092783505164,
+                "annualized_growth_mean": 0.06601588061634651,
+                "annualized_growth_variance": 0.0422717203161764,
+                "positive_conditional_eps_mean": 4.268444334670163
+              },
+              {
+                "year": 2,
+                "target_date": "2014-12-31",
+                "interval_years": 0.9993360575508052,
+                "annualized_log_growth_mean": 0.008753333231104285,
+                "annualized_log_growth_variance": 0.04642657534246577,
+                "annualized_growth_mean": 0.03248304137766086,
+                "annualized_growth_variance": 0.050658567987158426,
+                "positive_conditional_eps_mean": 4.516781307112727
+              },
+              {
+                "year": 3,
+                "target_date": "2015-12-31",
+                "interval_years": 0.999336057550805,
+                "annualized_log_growth_mean": -0.007676091042174214,
+                "annualized_log_growth_variance": 0.046426575342465776,
+                "annualized_growth_mean": 0.01565852642915023,
+                "annualized_growth_variance": 0.04902103680341436,
+                "positive_conditional_eps_mean": 4.748509287236105
+              },
+              {
+                "year": 4,
+                "target_date": "2016-12-31",
+                "interval_years": 1.0020739645577943,
+                "annualized_log_growth_mean": -0.019242456440607958,
+                "annualized_log_growth_variance": 0.04631721311475409,
+                "annualized_growth_mean": 0.003923828252276255,
+                "annualized_growth_variance": 0.047779370057180026,
+                "positive_conditional_eps_mean": 4.973027812108298
+              },
+              {
+                "year": 5,
+                "target_date": "2017-12-31",
+                "interval_years": 0.9993360575508046,
+                "annualized_log_growth_mean": -0.028527347408149616,
+                "annualized_log_growth_variance": 0.04642657534246579,
+                "annualized_growth_mean": -0.005299965099107632,
+                "annualized_growth_variance": 0.047018776210063985,
+                "positive_conditional_eps_mean": 5.195016031537163
+              },
+              {
+                "year": 6,
+                "target_date": "2018-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.03651617557380175,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": -0.013214795549515717,
+                "annualized_growth_variance": 0.0462734961320057,
+                "positive_conditional_eps_mean": 5.419028096326612
+              }
+            ],
+            "event_count": 0
+          }
+        }
+      ]
+    },
+    {
+      "symbol": "STX",
+      "input_snapshot": {
+        "symbol": "STX",
+        "as_of": "2012-12-31",
+        "price": 30.42,
+        "price_date": "2012-12-31",
+        "currency": "USD",
+        "eps_basis": "GAAP_diluted_annual_as_reported_at_cutoff",
+        "share_basis": "pre_2013_nominal_shares",
+        "eps0": 6.49,
+        "eps_period_end": "2012-06-29",
+        "eps_available_at": "2012-08-09",
+        "source": {
+          "financial_statement": "https://www.annualreports.com/HostedData/AnnualReportArchive/s/NASDAQ_STX_2012.pdf",
+          "financial_statement_availability": "https://financialfilings.com/filings/seagate-technology/annual-report/2012/28135794/",
+          "price": "https://www.crn.com/slide-shows/channel-programs/240145558/the-best-and-worst-technology-stocks-of-2012",
+          "price_precision": "USD 0.01 reported in CRN historical year-end review",
+          "membership_secondary_confirmation": "https://gist.github.com/alexchinco/1ef9cb653334839f3c24",
+          "limitations": [
+            "Manual illustrative subset; not full 2012 S&P 500 scan",
+            "Annual EPS anchors, not reconstructed latest quarterly TTM",
+            "No historical institutional consensus; empty consensus intentionally",
+            "Price is historical reconstruction and is not dividend-adjusted",
+            "Historical EPS version taken from annual report publicly available before decision date; all history rows share that report availability"
+          ]
+        },
+        "history": [
+          {
+            "period_end": "2008-06-27",
+            "available_at": "2012-08-09",
+            "eps": 2.33
+          },
+          {
+            "period_end": "2009-07-03",
+            "available_at": "2012-08-09",
+            "eps": -6.4
+          },
+          {
+            "period_end": "2010-07-02",
+            "available_at": "2012-08-09",
+            "eps": 3.14
+          },
+          {
+            "period_end": "2011-07-01",
+            "available_at": "2012-08-09",
+            "eps": 1.09
+          },
+          {
+            "period_end": "2012-06-29",
+            "available_at": "2012-08-09",
+            "eps": 6.49
+          }
+        ],
+        "consensus": []
+      },
+      "baseline": {
+        "model_version": "1.1.0",
+        "symbol": "STX",
+        "as_of": "2012-12-31",
+        "target_date": "2018-12-31",
+        "price": 30.42,
+        "price_date": "2012-12-31",
+        "eps0": 6.49,
+        "eps_period_end": "2012-06-29",
+        "eps_available_at": "2012-08-09",
+        "currency": "USD",
+        "eps_basis": "GAAP_diluted_annual_as_reported_at_cutoff",
+        "share_basis": "pre_2013_nominal_shares",
+        "config": {
+          "long_run_log_growth": 0.04,
+          "history_shrinkage_years": 6.0,
+          "min_annual_log_sigma": 0.2,
+          "max_annual_log_sigma": 0.8,
+          "persistent_log_sigma": 0.08,
+          "year_correlation": 0.35,
+          "consensus_weight_floor": 0.7,
+          "consensus_weight_cap": 0.95,
+          "consensus_prior_analysts": 2.0,
+          "growth_fade_years": 2.0,
+          "loss_prior_probability": 0.06,
+          "loss_prior_strength": 10.0,
+          "buy_probability": 0.7,
+          "sell_probability": 0.8,
+          "buy_fpe_threshold": 6.0,
+          "sell_fpe_threshold": 6.5,
+          "max_buy_loss_probability": 0.1,
+          "sell_loss_probability": 0.25,
+          "max_price_age_days": 7.0,
+          "max_eps_age_days": 550.0,
+          "max_consensus_age_days": 180.0,
+          "event_window_days": 180.0,
+          "allow_history_only_candidates": false
+        },
+        "probability_status": "uncalibrated_model_probability",
+        "status": "ready",
+        "events": [],
+        "annual_target_dates": [
+          "2013-12-31",
+          "2014-12-31",
+          "2015-12-31",
+          "2016-12-31",
+          "2017-12-31",
+          "2018-12-31"
+        ],
+        "interval_years": [
+          1.5058488538436792,
+          0.9993360575508055,
+          0.999336057550805,
+          1.0020739645577939,
+          0.9993360575508055,
+          0.9993360575508055
+        ],
+        "annual_log_growth_mean": [
+          0.008155175709570714,
+          -0.013727783183684925,
+          -0.021495116533240165,
+          -0.027975841265472742,
+          -0.034237900160310704,
+          -0.04041734160560074
+        ],
+        "annual_log_growth_covariance": [
+          [
+            0.032963090909090914,
+            0.01781252036367003,
+            0.01039438212728451,
+            0.007796122556035332,
+            0.006889311810592352,
+            0.006571259133707323
+          ],
+          [
+            0.01781252036367003,
+            0.046426575342465755,
+            0.020409301369863016,
+            0.011296552461308697,
+            0.00811613941780822,
+            0.0070006487962328764
+          ],
+          [
+            0.01039438212728451,
+            0.020409301369863016,
+            0.046426575342465776,
+            0.02039014988945342,
+            0.011303255479452056,
+            0.00811613941780822
+          ],
+          [
+            0.007796122556035332,
+            0.011296552461308697,
+            0.02039014988945342,
+            0.046317213114754105,
+            0.020390149889453417,
+            0.011296552461308697
+          ],
+          [
+            0.006889311810592352,
+            0.00811613941780822,
+            0.011303255479452056,
+            0.020390149889453417,
+            0.046426575342465755,
+            0.020409301369863013
+          ],
+          [
+            0.006571259133707323,
+            0.0070006487962328764,
+            0.00811613941780822,
+            0.011296552461308697,
+            0.020409301369863013,
+            0.046426575342465755
+          ]
+        ],
+        "loss_probability": 0.10666666666666667,
+        "history_growth_observations": 2,
+        "historical_log_growth_center": 0.03,
+        "annual_log_sigma": 0.2,
+        "consensus_anchors": [],
+        "flags": [
+          "history_only_no_institution_consensus",
+          "sparse_earnings_history"
+        ],
+        "terminal_log_eps_mean": 1.74470394182195,
+        "terminal_log_eps_variance": 0.7330854308506096,
+        "annual": [
+          {
+            "year": 1,
+            "target_date": "2013-12-31",
+            "interval_years": 1.5058488538436792,
+            "annualized_log_growth_mean": 0.008155175709570714,
+            "annualized_log_growth_variance": 0.032963090909090914,
+            "annualized_growth_mean": 0.024942712889032374,
+            "annualized_growth_variance": 0.03520502186880998,
+            "positive_conditional_eps_mean": 6.820387089623553
+          },
+          {
+            "year": 2,
+            "target_date": "2014-12-31",
+            "interval_years": 0.9993360575508055,
+            "annualized_log_growth_mean": -0.013727783183684925,
+            "annualized_log_growth_variance": 0.046426575342465755,
+            "annualized_growth_mean": 0.00953063446591241,
+            "annualized_growth_variance": 0.04843129250733242,
+            "positive_conditional_eps_mean": 7.072296054208636
+          },
+          {
+            "year": 3,
+            "target_date": "2015-12-31",
+            "interval_years": 0.999336057550805,
+            "annualized_log_growth_mean": -0.021495116533240165,
+            "annualized_log_growth_variance": 0.046426575342465776,
+            "annualized_growth_mean": 0.001719648039757976,
+            "annualized_growth_variance": 0.047684742238653606,
+            "positive_conditional_eps_mean": 7.34420084375135
+          },
+          {
+            "year": 4,
+            "target_date": "2016-12-31",
+            "interval_years": 1.0020739645577939,
+            "annualized_log_growth_mean": -0.027975841265472742,
+            "annualized_log_growth_variance": 0.046317213114754105,
+            "annualized_growth_mean": -0.004805650441820638,
+            "annualized_growth_variance": 0.04695206501299985,
+            "positive_conditional_eps_mean": 7.634117706983243
+          },
+          {
+            "year": 5,
+            "target_date": "2017-12-31",
+            "interval_years": 0.9993360575508055,
+            "annualized_log_growth_mean": -0.034237900160310704,
+            "annualized_log_growth_variance": 0.046426575342465755,
+            "annualized_growth_mean": -0.010964064160368624,
+            "annualized_growth_variance": 0.046484824768273154,
+            "positive_conditional_eps_mean": 7.938898531495148
+          },
+          {
+            "year": 6,
+            "target_date": "2018-12-31",
+            "interval_years": 0.9993360575508055,
+            "annualized_log_growth_mean": -0.04041734160560074,
+            "annualized_log_growth_variance": 0.046426575342465755,
+            "annualized_growth_mean": -0.017056909235308792,
+            "annualized_growth_variance": 0.04591385977502478,
+            "positive_conditional_eps_mean": 8.258530426585368
+          }
+        ]
+      },
+      "default_evaluation": {
+        "symbol": "STX",
+        "as_of": "2012-12-31",
+        "target_date": "2018-12-31",
+        "status": "ready",
+        "probability_status": "uncalibrated_model_probability",
+        "flags": [
+          "history_only_no_institution_consensus",
+          "sparse_earnings_history"
+        ],
+        "buy_fpe_threshold": 6.0,
+        "sell_fpe_threshold": 6.5,
+        "candidate": "none",
+        "p_below_6": 0.4970144914634679,
+        "p_above_6_5_positive": 0.3635997832220358,
+        "p_loss": 0.10666666666666667,
+        "p_between_6_6_5": 0.032719058647829646,
+        "p_risk_or_above_6_5": 0.4702664498887025,
+        "p_below_buy_threshold": 0.4970144914634679,
+        "p_above_sell_threshold_positive": 0.3635997832220358,
+        "p_between_thresholds": 0.032719058647829646,
+        "p_risk_or_above_sell_threshold": 0.4702664498887025,
+        "positive_conditional_eps_mean": 8.258530426585367,
+        "positive_conditional_eps_median": 5.724206526376943,
+        "positive_conditional_eps_interval_90": [
+          1.3998618474353826,
+          23.40698149367119
+        ],
+        "positive_conditional_ratio_median": 5.314273665673261,
+        "positive_conditional_ratio_interval_90": [
+          1.2996122549259503,
+          21.730715824372936
+        ],
+        "annual": [
+          {
+            "year": 1,
+            "target_date": "2013-12-31",
+            "interval_years": 1.5058488538436792,
+            "annualized_log_growth_mean": 0.008155175709570714,
+            "annualized_log_growth_variance": 0.032963090909090914,
+            "annualized_growth_mean": 0.024942712889032374,
+            "annualized_growth_variance": 0.03520502186880998,
+            "positive_conditional_eps_mean": 6.820387089623553
+          },
+          {
+            "year": 2,
+            "target_date": "2014-12-31",
+            "interval_years": 0.9993360575508055,
+            "annualized_log_growth_mean": -0.013727783183684925,
+            "annualized_log_growth_variance": 0.046426575342465755,
+            "annualized_growth_mean": 0.00953063446591241,
+            "annualized_growth_variance": 0.04843129250733242,
+            "positive_conditional_eps_mean": 7.072296054208636
+          },
+          {
+            "year": 3,
+            "target_date": "2015-12-31",
+            "interval_years": 0.999336057550805,
+            "annualized_log_growth_mean": -0.021495116533240165,
+            "annualized_log_growth_variance": 0.046426575342465776,
+            "annualized_growth_mean": 0.001719648039757976,
+            "annualized_growth_variance": 0.047684742238653606,
+            "positive_conditional_eps_mean": 7.34420084375135
+          },
+          {
+            "year": 4,
+            "target_date": "2016-12-31",
+            "interval_years": 1.0020739645577939,
+            "annualized_log_growth_mean": -0.027975841265472742,
+            "annualized_log_growth_variance": 0.046317213114754105,
+            "annualized_growth_mean": -0.004805650441820638,
+            "annualized_growth_variance": 0.04695206501299985,
+            "positive_conditional_eps_mean": 7.634117706983243
+          },
+          {
+            "year": 5,
+            "target_date": "2017-12-31",
+            "interval_years": 0.9993360575508055,
+            "annualized_log_growth_mean": -0.034237900160310704,
+            "annualized_log_growth_variance": 0.046426575342465755,
+            "annualized_growth_mean": -0.010964064160368624,
+            "annualized_growth_variance": 0.046484824768273154,
+            "positive_conditional_eps_mean": 7.938898531495148
+          },
+          {
+            "year": 6,
+            "target_date": "2018-12-31",
+            "interval_years": 0.9993360575508055,
+            "annualized_log_growth_mean": -0.04041734160560074,
+            "annualized_log_growth_variance": 0.046426575342465755,
+            "annualized_growth_mean": -0.017056909235308792,
+            "annualized_growth_variance": 0.04591385977502478,
+            "positive_conditional_eps_mean": 8.258530426585368
+          }
+        ],
+        "event_count": 0
+      },
+      "distribution_summary": {
+        "positive_conditional_eps_mean": 8.258530426585367,
+        "positive_conditional_eps_median": 5.724206526376943,
+        "positive_conditional_eps_std": 8.588446846212454,
+        "terminal_log_eps_std": 0.8562040824771917,
+        "positive_conditional_eps_interval_90": [
+          1.3998618474353826,
+          23.40698149367119
+        ]
+      },
+      "history_shrinkage": {
+        "valid_growth_observations": 2,
+        "observed_growth_median_weight": 0.25,
+        "long_run_prior_weight": 0.75,
+        "long_run_log_growth": 0.04,
+        "historical_log_growth_center_after_shrinkage": 0.03,
+        "annual_log_sigma": 0.2
+      },
+      "minimum_threshold_for_buy_probability": {
+        "threshold": 10.401587938177855,
+        "status": "finite_probability_boundary"
+      },
+      "threshold_scenarios": [
+        {
+          "buy_fpe_threshold": 6.0,
+          "configuration_overrides": {
+            "buy_fpe_threshold": 6.0,
+            "sell_fpe_threshold": 6.5
+          },
+          "p_below_threshold": 0.4970144914634679,
+          "p_loss": 0.10666666666666667,
+          "probability_condition_passes": false,
+          "loss_condition_passes": false,
+          "probability_and_loss_conditions_pass": false,
+          "consensus_gate_passes": false,
+          "formal_buy_eligible": false,
+          "evaluation": {
+            "symbol": "STX",
+            "as_of": "2012-12-31",
+            "target_date": "2018-12-31",
+            "status": "ready",
+            "probability_status": "uncalibrated_model_probability",
+            "flags": [
+              "history_only_no_institution_consensus",
+              "sparse_earnings_history"
+            ],
+            "buy_fpe_threshold": 6.0,
+            "sell_fpe_threshold": 6.5,
+            "candidate": "none",
+            "p_below_6": 0.4970144914634679,
+            "p_above_6_5_positive": 0.3635997832220358,
+            "p_loss": 0.10666666666666667,
+            "p_between_6_6_5": 0.032719058647829646,
+            "p_risk_or_above_6_5": 0.4702664498887025,
+            "p_below_buy_threshold": 0.4970144914634679,
+            "p_above_sell_threshold_positive": 0.3635997832220358,
+            "p_between_thresholds": 0.032719058647829646,
+            "p_risk_or_above_sell_threshold": 0.4702664498887025,
+            "positive_conditional_eps_mean": 8.258530426585367,
+            "positive_conditional_eps_median": 5.724206526376943,
+            "positive_conditional_eps_interval_90": [
+              1.3998618474353826,
+              23.40698149367119
+            ],
+            "positive_conditional_ratio_median": 5.314273665673261,
+            "positive_conditional_ratio_interval_90": [
+              1.2996122549259503,
+              21.730715824372936
+            ],
+            "annual": [
+              {
+                "year": 1,
+                "target_date": "2013-12-31",
+                "interval_years": 1.5058488538436792,
+                "annualized_log_growth_mean": 0.008155175709570714,
+                "annualized_log_growth_variance": 0.032963090909090914,
+                "annualized_growth_mean": 0.024942712889032374,
+                "annualized_growth_variance": 0.03520502186880998,
+                "positive_conditional_eps_mean": 6.820387089623553
+              },
+              {
+                "year": 2,
+                "target_date": "2014-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.013727783183684925,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": 0.00953063446591241,
+                "annualized_growth_variance": 0.04843129250733242,
+                "positive_conditional_eps_mean": 7.072296054208636
+              },
+              {
+                "year": 3,
+                "target_date": "2015-12-31",
+                "interval_years": 0.999336057550805,
+                "annualized_log_growth_mean": -0.021495116533240165,
+                "annualized_log_growth_variance": 0.046426575342465776,
+                "annualized_growth_mean": 0.001719648039757976,
+                "annualized_growth_variance": 0.047684742238653606,
+                "positive_conditional_eps_mean": 7.34420084375135
+              },
+              {
+                "year": 4,
+                "target_date": "2016-12-31",
+                "interval_years": 1.0020739645577939,
+                "annualized_log_growth_mean": -0.027975841265472742,
+                "annualized_log_growth_variance": 0.046317213114754105,
+                "annualized_growth_mean": -0.004805650441820638,
+                "annualized_growth_variance": 0.04695206501299985,
+                "positive_conditional_eps_mean": 7.634117706983243
+              },
+              {
+                "year": 5,
+                "target_date": "2017-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.034237900160310704,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": -0.010964064160368624,
+                "annualized_growth_variance": 0.046484824768273154,
+                "positive_conditional_eps_mean": 7.938898531495148
+              },
+              {
+                "year": 6,
+                "target_date": "2018-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.04041734160560074,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": -0.017056909235308792,
+                "annualized_growth_variance": 0.04591385977502478,
+                "positive_conditional_eps_mean": 8.258530426585368
+              }
+            ],
+            "event_count": 0
+          }
+        },
+        {
+          "buy_fpe_threshold": 8.5,
+          "configuration_overrides": {
+            "buy_fpe_threshold": 8.5,
+            "sell_fpe_threshold": 9.0
+          },
+          "p_below_threshold": 0.6327859427928277,
+          "p_loss": 0.10666666666666667,
+          "probability_condition_passes": false,
+          "loss_condition_passes": false,
+          "probability_and_loss_conditions_pass": false,
+          "consensus_gate_passes": false,
+          "formal_buy_eligible": false,
+          "evaluation": {
+            "symbol": "STX",
+            "as_of": "2012-12-31",
+            "target_date": "2018-12-31",
+            "status": "ready",
+            "probability_status": "uncalibrated_model_probability",
+            "flags": [
+              "history_only_no_institution_consensus",
+              "sparse_earnings_history"
+            ],
+            "buy_fpe_threshold": 8.5,
+            "sell_fpe_threshold": 9.0,
+            "candidate": "none",
+            "p_below_6": 0.4970144914634679,
+            "p_above_6_5_positive": 0.3635997832220358,
+            "p_loss": 0.10666666666666667,
+            "p_between_6_6_5": 0.032719058647829646,
+            "p_risk_or_above_6_5": 0.4702664498887025,
+            "p_below_buy_threshold": 0.6327859427928277,
+            "p_above_sell_threshold_positive": 0.24046393720167794,
+            "p_between_thresholds": 0.020083453338827634,
+            "p_risk_or_above_sell_threshold": 0.3471306038683446,
+            "positive_conditional_eps_mean": 8.258530426585367,
+            "positive_conditional_eps_median": 5.724206526376943,
+            "positive_conditional_eps_interval_90": [
+              1.3998618474353826,
+              23.40698149367119
+            ],
+            "positive_conditional_ratio_median": 5.314273665673261,
+            "positive_conditional_ratio_interval_90": [
+              1.2996122549259503,
+              21.730715824372936
+            ],
+            "annual": [
+              {
+                "year": 1,
+                "target_date": "2013-12-31",
+                "interval_years": 1.5058488538436792,
+                "annualized_log_growth_mean": 0.008155175709570714,
+                "annualized_log_growth_variance": 0.032963090909090914,
+                "annualized_growth_mean": 0.024942712889032374,
+                "annualized_growth_variance": 0.03520502186880998,
+                "positive_conditional_eps_mean": 6.820387089623553
+              },
+              {
+                "year": 2,
+                "target_date": "2014-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.013727783183684925,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": 0.00953063446591241,
+                "annualized_growth_variance": 0.04843129250733242,
+                "positive_conditional_eps_mean": 7.072296054208636
+              },
+              {
+                "year": 3,
+                "target_date": "2015-12-31",
+                "interval_years": 0.999336057550805,
+                "annualized_log_growth_mean": -0.021495116533240165,
+                "annualized_log_growth_variance": 0.046426575342465776,
+                "annualized_growth_mean": 0.001719648039757976,
+                "annualized_growth_variance": 0.047684742238653606,
+                "positive_conditional_eps_mean": 7.34420084375135
+              },
+              {
+                "year": 4,
+                "target_date": "2016-12-31",
+                "interval_years": 1.0020739645577939,
+                "annualized_log_growth_mean": -0.027975841265472742,
+                "annualized_log_growth_variance": 0.046317213114754105,
+                "annualized_growth_mean": -0.004805650441820638,
+                "annualized_growth_variance": 0.04695206501299985,
+                "positive_conditional_eps_mean": 7.634117706983243
+              },
+              {
+                "year": 5,
+                "target_date": "2017-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.034237900160310704,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": -0.010964064160368624,
+                "annualized_growth_variance": 0.046484824768273154,
+                "positive_conditional_eps_mean": 7.938898531495148
+              },
+              {
+                "year": 6,
+                "target_date": "2018-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.04041734160560074,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": -0.017056909235308792,
+                "annualized_growth_variance": 0.04591385977502478,
+                "positive_conditional_eps_mean": 8.258530426585368
+              }
+            ],
+            "event_count": 0
+          }
+        },
+        {
+          "buy_fpe_threshold": 10.0,
+          "configuration_overrides": {
+            "buy_fpe_threshold": 10.0,
+            "sell_fpe_threshold": 10.5
+          },
+          "p_below_threshold": 0.6877351834038763,
+          "p_loss": 0.10666666666666667,
+          "probability_condition_passes": false,
+          "loss_condition_passes": false,
+          "probability_and_loss_conditions_pass": false,
+          "consensus_gate_passes": false,
+          "formal_buy_eligible": false,
+          "evaluation": {
+            "symbol": "STX",
+            "as_of": "2012-12-31",
+            "target_date": "2018-12-31",
+            "status": "ready",
+            "probability_status": "uncalibrated_model_probability",
+            "flags": [
+              "history_only_no_institution_consensus",
+              "sparse_earnings_history"
+            ],
+            "buy_fpe_threshold": 10.0,
+            "sell_fpe_threshold": 10.5,
+            "candidate": "none",
+            "p_below_6": 0.4970144914634679,
+            "p_above_6_5_positive": 0.3635997832220358,
+            "p_loss": 0.10666666666666667,
+            "p_between_6_6_5": 0.032719058647829646,
+            "p_risk_or_above_6_5": 0.4702664498887025,
+            "p_below_buy_threshold": 0.6877351834038763,
+            "p_above_sell_threshold_positive": 0.19046401642747174,
+            "p_between_thresholds": 0.01513413350198528,
+            "p_risk_or_above_sell_threshold": 0.2971306830941384,
+            "positive_conditional_eps_mean": 8.258530426585367,
+            "positive_conditional_eps_median": 5.724206526376943,
+            "positive_conditional_eps_interval_90": [
+              1.3998618474353826,
+              23.40698149367119
+            ],
+            "positive_conditional_ratio_median": 5.314273665673261,
+            "positive_conditional_ratio_interval_90": [
+              1.2996122549259503,
+              21.730715824372936
+            ],
+            "annual": [
+              {
+                "year": 1,
+                "target_date": "2013-12-31",
+                "interval_years": 1.5058488538436792,
+                "annualized_log_growth_mean": 0.008155175709570714,
+                "annualized_log_growth_variance": 0.032963090909090914,
+                "annualized_growth_mean": 0.024942712889032374,
+                "annualized_growth_variance": 0.03520502186880998,
+                "positive_conditional_eps_mean": 6.820387089623553
+              },
+              {
+                "year": 2,
+                "target_date": "2014-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.013727783183684925,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": 0.00953063446591241,
+                "annualized_growth_variance": 0.04843129250733242,
+                "positive_conditional_eps_mean": 7.072296054208636
+              },
+              {
+                "year": 3,
+                "target_date": "2015-12-31",
+                "interval_years": 0.999336057550805,
+                "annualized_log_growth_mean": -0.021495116533240165,
+                "annualized_log_growth_variance": 0.046426575342465776,
+                "annualized_growth_mean": 0.001719648039757976,
+                "annualized_growth_variance": 0.047684742238653606,
+                "positive_conditional_eps_mean": 7.34420084375135
+              },
+              {
+                "year": 4,
+                "target_date": "2016-12-31",
+                "interval_years": 1.0020739645577939,
+                "annualized_log_growth_mean": -0.027975841265472742,
+                "annualized_log_growth_variance": 0.046317213114754105,
+                "annualized_growth_mean": -0.004805650441820638,
+                "annualized_growth_variance": 0.04695206501299985,
+                "positive_conditional_eps_mean": 7.634117706983243
+              },
+              {
+                "year": 5,
+                "target_date": "2017-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.034237900160310704,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": -0.010964064160368624,
+                "annualized_growth_variance": 0.046484824768273154,
+                "positive_conditional_eps_mean": 7.938898531495148
+              },
+              {
+                "year": 6,
+                "target_date": "2018-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.04041734160560074,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": -0.017056909235308792,
+                "annualized_growth_variance": 0.04591385977502478,
+                "positive_conditional_eps_mean": 8.258530426585368
+              }
+            ],
+            "event_count": 0
+          }
+        },
+        {
+          "buy_fpe_threshold": 12.0,
+          "configuration_overrides": {
+            "buy_fpe_threshold": 12.0,
+            "sell_fpe_threshold": 12.5
+          },
+          "p_below_threshold": 0.740818948733058,
+          "p_loss": 0.10666666666666667,
+          "probability_condition_passes": true,
+          "loss_condition_passes": false,
+          "probability_and_loss_conditions_pass": false,
+          "consensus_gate_passes": false,
+          "formal_buy_eligible": false,
+          "evaluation": {
+            "symbol": "STX",
+            "as_of": "2012-12-31",
+            "target_date": "2018-12-31",
+            "status": "ready",
+            "probability_status": "uncalibrated_model_probability",
+            "flags": [
+              "history_only_no_institution_consensus",
+              "sparse_earnings_history"
+            ],
+            "buy_fpe_threshold": 12.0,
+            "sell_fpe_threshold": 12.5,
+            "candidate": "none",
+            "p_below_6": 0.4970144914634679,
+            "p_above_6_5_positive": 0.3635997832220358,
+            "p_loss": 0.10666666666666667,
+            "p_between_6_6_5": 0.032719058647829646,
+            "p_risk_or_above_6_5": 0.4702664498887025,
+            "p_below_buy_threshold": 0.740818948733058,
+            "p_above_sell_threshold_positive": 0.14195223256580006,
+            "p_between_thresholds": 0.010562152034475275,
+            "p_risk_or_above_sell_threshold": 0.24861889923246672,
+            "positive_conditional_eps_mean": 8.258530426585367,
+            "positive_conditional_eps_median": 5.724206526376943,
+            "positive_conditional_eps_interval_90": [
+              1.3998618474353826,
+              23.40698149367119
+            ],
+            "positive_conditional_ratio_median": 5.314273665673261,
+            "positive_conditional_ratio_interval_90": [
+              1.2996122549259503,
+              21.730715824372936
+            ],
+            "annual": [
+              {
+                "year": 1,
+                "target_date": "2013-12-31",
+                "interval_years": 1.5058488538436792,
+                "annualized_log_growth_mean": 0.008155175709570714,
+                "annualized_log_growth_variance": 0.032963090909090914,
+                "annualized_growth_mean": 0.024942712889032374,
+                "annualized_growth_variance": 0.03520502186880998,
+                "positive_conditional_eps_mean": 6.820387089623553
+              },
+              {
+                "year": 2,
+                "target_date": "2014-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.013727783183684925,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": 0.00953063446591241,
+                "annualized_growth_variance": 0.04843129250733242,
+                "positive_conditional_eps_mean": 7.072296054208636
+              },
+              {
+                "year": 3,
+                "target_date": "2015-12-31",
+                "interval_years": 0.999336057550805,
+                "annualized_log_growth_mean": -0.021495116533240165,
+                "annualized_log_growth_variance": 0.046426575342465776,
+                "annualized_growth_mean": 0.001719648039757976,
+                "annualized_growth_variance": 0.047684742238653606,
+                "positive_conditional_eps_mean": 7.34420084375135
+              },
+              {
+                "year": 4,
+                "target_date": "2016-12-31",
+                "interval_years": 1.0020739645577939,
+                "annualized_log_growth_mean": -0.027975841265472742,
+                "annualized_log_growth_variance": 0.046317213114754105,
+                "annualized_growth_mean": -0.004805650441820638,
+                "annualized_growth_variance": 0.04695206501299985,
+                "positive_conditional_eps_mean": 7.634117706983243
+              },
+              {
+                "year": 5,
+                "target_date": "2017-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.034237900160310704,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": -0.010964064160368624,
+                "annualized_growth_variance": 0.046484824768273154,
+                "positive_conditional_eps_mean": 7.938898531495148
+              },
+              {
+                "year": 6,
+                "target_date": "2018-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.04041734160560074,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": -0.017056909235308792,
+                "annualized_growth_variance": 0.04591385977502478,
+                "positive_conditional_eps_mean": 8.258530426585368
+              }
+            ],
+            "event_count": 0
+          }
+        },
+        {
+          "buy_fpe_threshold": 16.0,
+          "configuration_overrides": {
+            "buy_fpe_threshold": 16.0,
+            "sell_fpe_threshold": 16.5
+          },
+          "p_below_threshold": 0.8048980711953131,
+          "p_loss": 0.10666666666666667,
+          "probability_condition_passes": true,
+          "loss_condition_passes": false,
+          "probability_and_loss_conditions_pass": false,
+          "consensus_gate_passes": false,
+          "formal_buy_eligible": false,
+          "evaluation": {
+            "symbol": "STX",
+            "as_of": "2012-12-31",
+            "target_date": "2018-12-31",
+            "status": "ready",
+            "probability_status": "uncalibrated_model_probability",
+            "flags": [
+              "history_only_no_institution_consensus",
+              "sparse_earnings_history"
+            ],
+            "buy_fpe_threshold": 16.0,
+            "sell_fpe_threshold": 16.5,
+            "candidate": "none",
+            "p_below_6": 0.4970144914634679,
+            "p_above_6_5_positive": 0.3635997832220358,
+            "p_loss": 0.10666666666666667,
+            "p_between_6_6_5": 0.032719058647829646,
+            "p_risk_or_above_6_5": 0.4702664498887025,
+            "p_below_buy_threshold": 0.8048980711953131,
+            "p_above_sell_threshold_positive": 0.08297073007689512,
+            "p_between_thresholds": 0.005464532061125099,
+            "p_risk_or_above_sell_threshold": 0.18963739674356178,
+            "positive_conditional_eps_mean": 8.258530426585367,
+            "positive_conditional_eps_median": 5.724206526376943,
+            "positive_conditional_eps_interval_90": [
+              1.3998618474353826,
+              23.40698149367119
+            ],
+            "positive_conditional_ratio_median": 5.314273665673261,
+            "positive_conditional_ratio_interval_90": [
+              1.2996122549259503,
+              21.730715824372936
+            ],
+            "annual": [
+              {
+                "year": 1,
+                "target_date": "2013-12-31",
+                "interval_years": 1.5058488538436792,
+                "annualized_log_growth_mean": 0.008155175709570714,
+                "annualized_log_growth_variance": 0.032963090909090914,
+                "annualized_growth_mean": 0.024942712889032374,
+                "annualized_growth_variance": 0.03520502186880998,
+                "positive_conditional_eps_mean": 6.820387089623553
+              },
+              {
+                "year": 2,
+                "target_date": "2014-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.013727783183684925,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": 0.00953063446591241,
+                "annualized_growth_variance": 0.04843129250733242,
+                "positive_conditional_eps_mean": 7.072296054208636
+              },
+              {
+                "year": 3,
+                "target_date": "2015-12-31",
+                "interval_years": 0.999336057550805,
+                "annualized_log_growth_mean": -0.021495116533240165,
+                "annualized_log_growth_variance": 0.046426575342465776,
+                "annualized_growth_mean": 0.001719648039757976,
+                "annualized_growth_variance": 0.047684742238653606,
+                "positive_conditional_eps_mean": 7.34420084375135
+              },
+              {
+                "year": 4,
+                "target_date": "2016-12-31",
+                "interval_years": 1.0020739645577939,
+                "annualized_log_growth_mean": -0.027975841265472742,
+                "annualized_log_growth_variance": 0.046317213114754105,
+                "annualized_growth_mean": -0.004805650441820638,
+                "annualized_growth_variance": 0.04695206501299985,
+                "positive_conditional_eps_mean": 7.634117706983243
+              },
+              {
+                "year": 5,
+                "target_date": "2017-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.034237900160310704,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": -0.010964064160368624,
+                "annualized_growth_variance": 0.046484824768273154,
+                "positive_conditional_eps_mean": 7.938898531495148
+              },
+              {
+                "year": 6,
+                "target_date": "2018-12-31",
+                "interval_years": 0.9993360575508055,
+                "annualized_log_growth_mean": -0.04041734160560074,
+                "annualized_log_growth_variance": 0.046426575342465755,
+                "annualized_growth_mean": -0.017056909235308792,
+                "annualized_growth_variance": 0.04591385977502478,
+                "positive_conditional_eps_mean": 8.258530426585368
+              }
+            ],
+            "event_count": 0
+          }
+        }
+      ]
+    }
+  ]
+}

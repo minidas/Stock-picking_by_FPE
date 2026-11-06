@@ -1,0 +1,211 @@
+"""Explain CLF's archived model probability with explicitly hypothetical stresses."""
+from __future__ import annotations
+
+import argparse
+from copy import deepcopy
+from datetime import date
+import hashlib
+import json
+import math
+from pathlib import Path
+import statistics
+import sys
+
+from scipy.stats import norm
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+from stocking.model import build_baseline, evaluate
+
+Q3_SOURCE = "https://www.sec.gov/Archives/edgar/data/764065/000076406512000007/clf-2012930x10q.htm"
+
+
+def diagnose(source):
+    payload = json.loads(source.read_text(encoding="utf-8"))
+    archived = next(row for row in payload["stocks"] if row["symbol"] == "CLF")
+    snapshot = archived["input"]
+    config = archived["model"]["config"]
+    baseline = build_baseline(snapshot, config)
+    prediction = evaluate(baseline)
+    history = snapshot["history"]
+    raw_rates = [math.log(b["eps"] / a["eps"]) /
+                 ((date.fromisoformat(b["period_end"]) - date.fromisoformat(a["period_end"])).days / 365.2425)
+                 for a, b in zip(history, history[1:])]
+    clipped = [max(-1.0, min(1.0, value)) for value in raw_rates]
+    eps_values = [row["eps"] for row in history]
+    median_level, mean_level = statistics.median(eps_values), statistics.mean(eps_values)
+    approximate_q3_ttm = 11.48 - 10.22 + 5.04
+    scenarios = []
+    definitions = [
+        ("original", "原模型", 1.0, {}),
+        ("median_level", "三年中位数水平假设", median_level / snapshot["eps0"], {}),
+        ("mean_level", "三年均值水平假设", mean_level / snapshot["eps0"], {}),
+        ("approximate_q3_ttm_level", "近似2012Q3 TTM水平假设", approximate_q3_ttm / snapshot["eps0"], {}),
+        ("sigma_0_40", "仅波动下限假设为0.40", 1.0, {"min_annual_log_sigma": 0.40}),
+        ("median_level_sigma_0_40", "中位数水平及0.40波动假设", median_level / snapshot["eps0"], {"min_annual_log_sigma": 0.40}),
+    ]
+    for name, label, factor, overrides in definitions:
+        scenario_input = deepcopy(snapshot)
+        scenario_input["eps0"] *= factor
+        for row in scenario_input["history"]:
+            row["eps"] *= factor
+        assumptions = {
+            "kind": "original_observed_input" if name == "original" else "hypothetical_sensitivity_not_observed_financials",
+            "all_eps_level_multiplier": factor,
+            "scope_of_multiplier": "eps0 and every historical EPS; price unchanged; not a stock split adjustment",
+            "config_overrides": overrides,
+            "does_not_estimate_normalized_true_eps": True,
+        }
+        if name != "original":
+            scenario_input["diagnostic_counterfactual"] = assumptions
+        if name == "approximate_q3_ttm_level":
+            assumptions.update(source_url=Q3_SOURCE, approximate_ttm_formula="11.48 - 10.22 + 5.04 = 6.30",
+                               caveat="EPS periods have different diluted weighted-average shares; not exact TTM. Only the level is stressed; original dates and growth rates are retained.")
+        scenario_model = build_baseline(scenario_input, config | overrides)
+        threshold_probabilities = {
+            str(threshold): (1 - scenario_model["loss_probability"]) * float(norm.sf(
+                (math.log(scenario_model["price"] / threshold) - scenario_model["terminal_log_eps_mean"])
+                / math.sqrt(scenario_model["terminal_log_eps_variance"])))
+            for threshold in (6, 8.5)
+        }
+        scenarios.append({"name": name, "label": label, "assumptions": assumptions,
+                          "input": scenario_input, "model": scenario_model, "prediction": evaluate(scenario_model),
+                          "threshold_probabilities": threshold_probabilities})
+    return {
+        "scope": "CLF local model mechanism and hypothetical sensitivity, not causal stock-price research or outcome validation",
+        "source_path": str(source.resolve()),
+        "source_sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
+        "model_sha256": hashlib.sha256((ROOT / "src/stocking/model.py").read_bytes()).hexdigest(),
+        "script_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        "archived_input": snapshot,
+        "as_of": "2012-12-31", "target_date": "2018-12-31",
+        "sensitivity_thresholds": [6, 8.5],
+        "exact_base_config": config,
+        "formulas": {
+            "raw_growth": "g_i = log(E_i/E_(i-1)) / ((date_i-date_(i-1)).days/365.2425); clip to [-1,1]",
+            "history_shrinkage": "h = n/(n+6)*median(g_i) + 6/(n+6)*0.04",
+            "no_consensus_mean_path": "log(M_t/E0) = 0.04*t + (clip(h,-0.50,0.50)-0.04)*2*(1-exp(-t/2))",
+            "covariance": "C_ij = sigma^2*0.35^abs(i-j)/sqrt(d_i*d_j) + 0.08^2; V = d^T*C*d",
+            "terminal_log_distribution": "mu = log(M_T)-V/2; conditional log(E6) ~ N(mu,V)",
+            "loss_prior": "p_loss = (historical_nonpositive_count + 0.06*10)/(history_count+10)",
+            "probability": "p_below_K = (1-p_loss)*NormalSF((log(P0/K)-mu)/sqrt(V)); K in [6, 8.5]",
+            "level_scenario": "multiply eps0 and ALL history EPS by common factor; retain price and all original dates",
+        },
+        "additional_financial_evidence": {"source_url": Q3_SOURCE, "report_signed_at": "2012-10-25",
+                                          "nine_months_2011_diluted_eps": 10.22, "nine_months_2012_diluted_eps": 5.04,
+                                          "nine_months_2011_diluted_weighted_average_shares_thousands": 140321,
+                                          "nine_months_2012_diluted_weighted_average_shares_thousands": 142780,
+                                          "approximate_q3_2012_ttm_eps": approximate_q3_ttm,
+                                          "not_strict_ttm_due_to_changing_weighted_average_shares": True},
+        "archived_flags": archived["flags"],
+        "recomputed_matches_archived_probability": math.isclose(prediction["p_below_6"], archived["prediction"]["p_below_6"], abs_tol=1e-12),
+        "arithmetic": {
+            "price": snapshot["price"], "eps0": snapshot["eps0"],
+            "price_to_base_eps": snapshot["price"] / snapshot["eps0"],
+            "eps6_required_at_threshold_6": snapshot["price"] / 6,
+            "permitted_terminal_eps_decline_fraction_from_base": 1 - snapshot["price"] / 6 / snapshot["eps0"],
+            "raw_annualized_log_growth": raw_rates, "clipped_annualized_log_growth": clipped,
+            "clipped_growth_median": statistics.median(clipped),
+            "historical_median_weight": len(clipped) / (len(clipped) + config["history_shrinkage_years"]),
+            "shrunk_log_growth_center": baseline["historical_log_growth_center"],
+            "annual_log_sigma_used": baseline["annual_log_sigma"],
+            "two_observation_sample_sigma_for_description_only": statistics.stdev(clipped),
+            "number_of_historical_loss_years": sum(value <= 0 for value in eps_values),
+            "number_of_history_years": len(eps_values), "endpoint_loss_prior": baseline["loss_probability"],
+            "eps_period_to_target_years": sum(baseline["interval_years"]),
+            "terminal_log_eps_sigma": math.sqrt(baseline["terminal_log_eps_variance"]),
+            "three_year_eps_median": median_level, "three_year_eps_mean": mean_level,
+        },
+        "outcome_labels_used": 0,
+        "scenarios": scenarios,
+        "limitations": [
+            "The requested event concerns EPS versus today's price, not realized share-price return.",
+            "One adverse realization cannot establish statistical miscalibration of a 77% probability.",
+            "Counterfactual EPS levels are hypothetical, not corrections to the source financial statements.",
+            "The 0.40 sigma scenario is not an estimated or validated replacement parameter.",
+            "No historical consensus, strict reconstructed TTM input, commodity-price forecast or six-year outcome is added here.",
+            "Bulk share-basis comparability remains an unverified research assumption.",
+        ],
+    }
+
+
+def render(report):
+    a = report["arithmetic"]
+    lines = ["# CLF：为何得到77%的模型概率", "",
+             "分析时点固定为2012年末，预测目标为2018年末。", "",
+             "本报告只解释本地模型输入与有限假设敏感性，不认定真实历史EPS错误，也不评价真实六年终点事件。"
+             "原输入和已有筛选结果未改写。CLF使用无机构共识的历史回退情景；其股份口径仍标为未核验。", "",
+             "## 计算机制", "",
+             f"2012年末基金持仓估值给出股价 {a['price']:.4f} 美元；模型EPS基准为2011年度的 {a['eps0']:.2f} 美元，"
+             f"静态比率仅 {a['price_to_base_eps']:.4f}。K=6要求六年终点EPS高于 {a['eps6_required_at_threshold_6']:.4f}，"
+             f"即相对该基准下降约 {a['permitted_terminal_eps_decline_fraction_from_base']:.1%} 仍可达到条件。", "",
+             "输入仅为2009、2010、2011三年EPS：1.63、7.49、11.48。"
+             f"两条年化对数增长为 {a['raw_annualized_log_growth'][0]:.6f}、{a['raw_annualized_log_growth'][1]:.6f}；"
+             f"前者被截到1，中位数为 {a['clipped_growth_median']:.6f}。历史权重为2/(2+6)=25%，"
+             f"因此收缩后增长中心为25%×{a['clipped_growth_median']:.6f}+75%×0.04={a['shrunk_log_growth_center']:.6f}。"
+             "这仍是较高的正增长起点，之后以两年尺度回归长期4%对数增长；模型没有周期盈利均值回归项。", "",
+             "因为只有两条有效增长率，代码不足三条时直接使用0.20的历史波动下限。"
+             f"两条截断增长的描述性样本标准差约 {a['two_observation_sample_sigma_for_description_only']:.4f}，"
+             "但两点也不足以可靠估计长期误差，不能据此宣布0.40是真实或应采用的参数。"
+             "问题在于数据不足会触发最小波动，并不等于已经证实低风险。", "",
+             f"三个输入年份全部正盈利，终点亏损先验为(0+0.06×10)/(3+10)={a['endpoint_loss_prior']:.4%}。"
+             "这是短样本加先验的未校准估计，不含债务、商品价格、产能成本或减值等独立风险变量。", "",
+             f"EPS锚点在2011年末，而目标在2018年末，模型实际桥接约 {a['eps_period_to_target_years']:.4f} 年。"
+             "基准预测的正盈利条件均值为21.06、条件中位数为14.09，终点log(EPS)标准差为0.8965；"
+             "最终P(E6>P0/6)=77.20%。历史终点偏高、两段反弹增长、稀疏波动处理和短历史亏损先验共同推动该结果。", "",
+             "## 有限反事实敏感性", "",
+             "以下水平实验把EPS0及全部历史EPS同时按同一因子缩放，价格不变。"
+             "这样保留相邻增长率、亏损符号与增长收缩，只改变盈利水平，避免单改EPS0制造虚假增长关系。"
+             "它不是拆股换算，不是重写财报，也不是一种已经验证的周期EPS归一化方法。", "",
+             "| 假设 | 基准EPS | 历史波动参数 | 正盈利终点均值 | 正盈利终点中位数 | P(比率<6) | P(比率<8.5) | 亏损先验 |",
+             "|---|---:|---:|---:|---:|---:|---:|---:|"]
+    for scenario in report["scenarios"]:
+        pred, model = scenario["prediction"], scenario["model"]
+        lines.append(f"| {scenario['label']} | {scenario['input']['eps0']:.4f} | {model['annual_log_sigma']:.2f}"
+                     f" | {pred['positive_conditional_eps_mean']:.2f} | {pred['positive_conditional_eps_median']:.2f}"
+                     f" | {pred['p_below_6']:.2%} | {scenario['threshold_probabilities']['8.5']:.2%} | {pred['p_loss']:.2%} |")
+    lines += ["", "三年中位数为7.49，均值为6.8667。只改变这一盈利水平假设，原来的77.20%就分别降至62.49%和59.02%。"
+              "仅提高波动假设为0.40时，正盈利条件均值保持不变，但概率降至48.95%；这是更宽且更偏斜的分布作用。"
+              "这些情景说明筛选对基准盈利水平与误差参数敏感，不能证明其中某个情景是真实预测。", "",
+              f"[2012年第三季度官方10-Q]({Q3_SOURCE})报告2011与2012年前九个月稀释EPS分别为10.22和5.04，"
+              "显示决策日前已经出现盈利回落信息。简单拼接为11.48−10.22+5.04=6.30；"
+              "由于对应期间稀释加权平均股数不同，该数仅为近似TTM，不能标为严格重建的TTM。"
+              "表中只用6.30/11.48对全部EPS等比例缩放，保留原始日期和增长率，隔离盈利水平的敏感性；"
+              "没有把2011年EPS的日期偷偷改成2012Q3，也没有称之为完整更新后的预测。", "",
+              "同一近似TTM水平情景下，K=6的概率为55.48%，K=8.5为69.06%；原模型在K=8.5下为85.55%。"
+              "两列均直接用同一情景的精确终点分布参数计算，只替换估值门槛，不改变分布或原模型配置。", "",
+              "## 能与不能据此判断的内容", "",
+              "一次不利结果不能单独证明77%的概率统计失准；需要独立样本中的同类概率分组与真实同口径终点EPS标签。"
+              "此外，‘股价长期贬值’与‘六年终点EPS是否高于6.4267’不是同一事件。"
+              "即使EPS门槛实现，估值、资本结构、分配和股份变化也可能使股价收益不达标。", "",
+              "本条可以直接识别的模型限制是：只有三年历史、年度锚点距决策日一年、"
+              "缺少当时已发布的更近期TTM信息、没有显式周期盈利回归、稀疏历史采用波动下限，"
+              "以及亏损先验未接入独立财务风险数据。本次核查的Q3披露说明：最新年度锚点可通过550天时效检查，"
+              "仍可能遗漏决策日前已经发布的季度盈利回落。", "",
+              "## 精确配置与公式", "",
+              "JSON保存完整 `exact_base_config` 与逐场景配置。给定各段年长d，协方差为"
+              "`C_ij=sigma²×0.35^|i−j|/sqrt(d_i×d_j)+0.08²`，终点对数方差`V=dᵀCd`；"
+              "若正盈利条件均值为M，`mu=log(M)−V/2`，最终概率为"
+              "`(1−p_loss)×NormalSF((log(P0/K)−mu)/sqrt(V))`，其中K分别为6和8.5。所有公式及原始数值保存在JSON。", "",
+              "## 复现", "", "`python scripts/diagnose_clf_2012.py`。"
+              "JSON保留原始输入、每个明确标注的反事实输入、完整模型与概率、算术及文件SHA256。", ""]
+    for key in ("source_sha256", "model_sha256", "script_sha256"):
+        lines.append(f"- `{key}`: `{report[key]}`")
+    return "\n".join(lines) + "\n"
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--input", type=Path, default=ROOT / "outputs/stocks_2012_probability_test/all_stocks.json")
+    parser.add_argument("--output-prefix", type=Path, default=ROOT / "reports/clf_model_diagnostic")
+    args = parser.parse_args()
+    report = diagnose(args.input)
+    args.output_prefix.parent.mkdir(exist_ok=True, parents=True)
+    args.output_prefix.with_suffix(".json").write_text(json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False) + "\n", encoding="utf-8")
+    args.output_prefix.with_suffix(".md").write_text(render(report), encoding="utf-8")
+    print(json.dumps({"recomputed_matches_archived_probability": report["recomputed_matches_archived_probability"],
+                      "scenario_probabilities": {s["name"]: s["threshold_probabilities"] for s in report["scenarios"]}}, indent=2))
+
+
+if __name__ == "__main__":
+    main()

@@ -30,7 +30,7 @@ ANNUAL_FIELDS = (
 CSV_FIELDS = [
     "symbol", "company_name", "cik", "as_of", "synthetic", "export_status", "risk_assessment",
     "exclusion_reasons", "candidate", "event_review", "error", "model_reason",
-    "price", "price_date", "price_kind", "currency", "eps0", "unreviewed_annual_eps", "eps_period_end", "eps_available_at",
+    "price", "price_date", "price_kind", "currency", "eps0", "unreviewed_annual_eps", "eps_measure", "eps_period_start", "eps_period_end", "eps_available_at",
     "eps_basis", "share_basis", "target_date", "model_version", "probability_status",
     "buy_fpe_threshold", "sell_fpe_threshold", *PROBABILITY_FIELDS,
     "positive_conditional_eps_mean", "positive_conditional_eps_median",
@@ -178,7 +178,7 @@ def _csv_row(row):
     model = row.get("model") or {}
     prediction = row.get("prediction") or {}
     flat = {key: row.get(key) for key in ("symbol", "company_name", "cik", "as_of", "synthetic", "export_status", "risk_assessment", "event_review", "error")}
-    for key in ("price", "price_date", "price_kind", "currency", "eps0", "unreviewed_annual_eps", "eps_period_end", "eps_available_at", "eps_basis", "share_basis"):
+    for key in ("price", "price_date", "price_kind", "currency", "eps0", "unreviewed_annual_eps", "eps_measure", "eps_period_start", "eps_period_end", "eps_available_at", "eps_basis", "share_basis"):
         flat[key] = snapshot.get(key, model.get(key))
     for key in ("target_date", "model_version", "history_growth_observations", "annual_log_sigma"):
         flat[key] = model.get(key, prediction.get(key))

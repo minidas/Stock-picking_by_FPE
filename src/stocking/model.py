@@ -13,6 +13,8 @@ from urllib.parse import urlparse
 import numpy as np
 from scipy.stats import norm
 
+from .ttm import TTMError, validate_annual_history, validate_ttm_snapshot
+
 
 class ModelError(ValueError):
     """An input violates the model's temporal, unit, or numerical contract."""
@@ -39,6 +41,7 @@ DEFAULT_CONFIG = {
     "sell_loss_probability": 0.25,
     "max_price_age_days": 7,
     "max_eps_age_days": 550,
+    "max_ttm_age_days": 200,
     "max_consensus_age_days": 180,
     "event_window_days": 180,
     "allow_history_only_candidates": False,
@@ -87,7 +90,7 @@ def _config(overrides):
         result[key] = _number(value, key)
     for key in ("history_shrinkage_years", "min_annual_log_sigma", "max_annual_log_sigma",
                 "persistent_log_sigma", "consensus_prior_analysts", "growth_fade_years",
-                "loss_prior_strength", "max_price_age_days", "max_eps_age_days",
+                "loss_prior_strength", "max_price_age_days", "max_eps_age_days", "max_ttm_age_days",
                 "max_consensus_age_days", "event_window_days",
                 "buy_fpe_threshold", "sell_fpe_threshold"):
         if result[key] <= 0:
@@ -115,6 +118,10 @@ def _check_basis(row, snapshot):
 
 
 def _history(snapshot, asof, flags):
+    try:
+        validate_annual_history(snapshot, asof)
+    except TTMError as exc:
+        raise ModelError(str(exc)) from exc
     by_period = {}
     for row in snapshot.get("history", []):
         available = _date(row.get("available_at"), "history.available_at")
@@ -122,6 +129,8 @@ def _history(snapshot, asof, flags):
         if available > asof:
             flags.add("future_history_excluded")
             continue
+        if row.get("measure", row.get("eps_measure", "annual")) != "annual":
+            raise ModelError("History must use nonoverlapping annual EPS, not TTM or quarterly rows")
         if period > available or period > asof:
             raise ModelError("Historical EPS period cannot follow its availability date")
         _check_basis(row, snapshot)
@@ -185,6 +194,10 @@ def build_baseline(snapshot: dict, config: dict | None = None) -> dict:
     missing = [k for k in required if k not in snapshot]
     if missing:
         raise ModelError(f"Missing snapshot fields: {missing}")
+    try:
+        validate_ttm_snapshot(snapshot)
+    except TTMError as exc:
+        raise ModelError(str(exc)) from exc
     if not str(snapshot["symbol"]).strip():
         raise ModelError("symbol must be nonempty")
     for key in ("eps_basis", "share_basis"):
@@ -200,13 +213,14 @@ def build_baseline(snapshot: dict, config: dict | None = None) -> dict:
         raise ModelError("Price or base EPS is unavailable at the snapshot date")
     if (asof - price_date).days > cfg["max_price_age_days"]:
         raise ModelError("Price is stale")
-    if (asof - period).days > cfg["max_eps_age_days"]:
+    eps_age_limit = cfg["max_ttm_age_days"] if snapshot.get("eps_measure") == "ttm" else cfg["max_eps_age_days"]
+    if (asof - period).days > eps_age_limit:
         raise ModelError("Base EPS period is stale")
     price = _number(snapshot["price"], "price", positive=True)
     eps0 = _number(snapshot["eps0"], "eps0")
     flags = set()
     model = {
-        "model_version": "1.1.0", "symbol": str(snapshot["symbol"]),
+        "model_version": "1.2.0", "symbol": str(snapshot["symbol"]),
         "as_of": asof.isoformat(), "target_date": _year_after(asof, 6).isoformat(),
         "price": price, "price_date": price_date.isoformat(), "eps0": eps0,
         "eps_period_end": period.isoformat(), "eps_available_at": available.isoformat(),
@@ -215,8 +229,15 @@ def build_baseline(snapshot: dict, config: dict | None = None) -> dict:
         "probability_status": "uncalibrated_model_probability",
         "status": "ready", "events": [],
     }
+    for key in ("eps_measure", "eps_period_start", "ttm_provenance"):
+        if key in snapshot:
+            model[key] = deepcopy(snapshot[key])
+    if snapshot.get("eps_measure") == "ttm":
+        flags.add("ttm_declared_latest_period_external_completeness_unverified")
+        if snapshot["ttm_provenance"]["method"] == "four_quarter_diluted_eps_sum":
+            flags.add("ttm_quarterly_eps_sum_not_recomputed_annual_gaap")
     if eps0 <= 0:
-        return dict(model, status="abstain", reason="nonpositive_base_eps", flags=[])
+        return dict(model, status="abstain", reason="nonpositive_base_eps", flags=sorted(flags))
     history, rates = _history(snapshot, asof, flags)
     # Median is insensitive to isolated restructuring/rebound years. Annual
     # growth rates are winsorized, but no observed loss is turned into growth.

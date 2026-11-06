@@ -18,6 +18,8 @@ from typing import Any
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
+from .ttm import TTMError, validate_ttm_snapshot
+
 
 class DataError(ValueError):
     """An input fails the explicit data contract."""
@@ -119,6 +121,10 @@ def validate_snapshot(snapshot: dict, require_provenance: bool = True) -> dict:
             if identity in seen:
                 raise DataError(f"Ambiguous duplicate {collection} period/vintage")
             seen.add(identity)
+    try:
+        validate_ttm_snapshot(out)
+    except TTMError as exc:
+        raise DataError(str(exc)) from exc
     return out
 
 

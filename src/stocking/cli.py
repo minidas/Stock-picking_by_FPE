@@ -59,7 +59,8 @@ def finish_archive(args, run_dir, out, export, metadata, working):
     # Compact forecasts survive raw cleanup for later six-year outcome scoring.
     audit_fields = ["symbol", "as_of", "target_date", "export_status", "risk_assessment",
                     "candidate", "exclusion_reasons", "error", "model_version", "price", "eps0",
-                    "eps_basis", "share_basis", "buy_fpe_threshold", "sell_fpe_threshold",
+                    "eps_basis", "eps_measure", "eps_period_start", "eps_period_end", "eps_available_at",
+                    "share_basis", "buy_fpe_threshold", "sell_fpe_threshold",
                     "p_below_buy_threshold", "p_above_sell_threshold_positive", "p_below_6",
                     "p_above_6_5_positive", "p_loss", "event_review"]
     audit_path = out / "forecast_audit.csv"
@@ -84,7 +85,7 @@ def finish_archive(args, run_dir, out, export, metadata, working):
         if model.get("events"):
             event_audit[row["symbol"]] = model["events"]
     code_hashes = {name: file_hash(Path(__file__).parent / name)
-                   for name in ("model.py", "data.py", "export.py", "retention.py", "cli.py")}
+                   for name in ("model.py", "data.py", "ttm.py", "export.py", "retention.py", "cli.py")}
     finalize_run(run_dir, artifacts={"forecast_audit": audit_path},
                  metadata={**metadata, "coverage": export["coverage"], "summary": export["summary"],
                            "exclusion_policy": export["policy"], "model_configurations": configurations,

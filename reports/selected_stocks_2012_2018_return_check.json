@@ -1,0 +1,66 @@
+{
+  "scope": "Limited check of the claim that CLF alone lost value from 2012 year-end to 2018 year-end; not a complete portfolio backtest",
+  "start_date": "2012-12-31",
+  "end_date": "2018-12-31",
+  "return_type": "Company annual-report cumulative total shareholder return, including reinvested dividends",
+  "approximate": true,
+  "limitations": [
+    "Splices overlapping annual-report performance graphs, whose published values are rounded.",
+    "This is total return, not the price-only return used in the 10% research scenario.",
+    "Outcome sources were published after the decision date and must not enter the 2012 prediction inputs.",
+    "AMD is outside this limited negative-return premise check."
+  ],
+  "stocks": [
+    {
+      "symbol": "F",
+      "formula": "(122 / 100) * (65 / 100) - 1",
+      "approximate_cumulative_total_return": -0.207,
+      "evidence": [
+        {
+          "url": "https://s22.q4cdn.com/857684434/files/doc_financials/2017/annual/Final-Annual-Report-2017.pdf",
+          "section": "Stock Performance Graph",
+          "values": {"2012": 100, "2013": 122}
+        },
+        {
+          "url": "https://s22.q4cdn.com/857684434/files/doc_financials/2018/annual/2018-Annual-Report.pdf",
+          "section": "Stock Performance Graph",
+          "values": {"2013": 100, "2018": 65}
+        }
+      ]
+    },
+    {
+      "symbol": "PBI",
+      "formula": "(132 / 57) * (33 / 100) - 1",
+      "approximate_cumulative_total_return": -0.23578947368421044,
+      "evidence": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/78814/000007881414000003/pbi2013123110k.htm",
+          "section": "Stock Performance Graph",
+          "values": {"2012": 57, "2013": 132}
+        },
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/78814/000007881419000004/pbi2018123110k.htm",
+          "section": "Stock Performance Graph",
+          "values": {"2013": 100, "2018": 33}
+        }
+      ]
+    },
+    {
+      "symbol": "CLF",
+      "formula": "(69.83 / 100) * (30.63 / 100) - 1",
+      "approximate_cumulative_total_return": -0.78611071,
+      "evidence": [
+        {
+          "url": "https://www.clevelandcliffs.com/investors/sec-filings/all-sec-filings/content/0000764065-18-000035/clf-2017123110xk.htm",
+          "section": "Shareholder Return Performance",
+          "values": {"2012": 100, "2013": 69.83}
+        },
+        {
+          "url": "https://www.clevelandcliffs.com/investors/sec-filings/all-sec-filings/content/0000764065-19-000025/clf-2018123110xk.htm",
+          "section": "Shareholder Return Performance",
+          "values": {"2013": 100, "2018": 30.63}
+        }
+      ]
+    }
+  ]
+}
