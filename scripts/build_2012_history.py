@@ -122,7 +122,8 @@ def build_panels(base_rows, filings, supplements, max_years=11):
         if not identity_allowed:
             for candidate in candidates.values():
                 candidate["identity_join_allowed"] = False
-        history, audit = extend_annual_history(snapshot, list(candidates.values()), max_years=max_years)
+        history, audit = extend_annual_history(snapshot, list(candidates.values()), max_years=max_years,
+                                               conflict_policy="strict_overlap")
         old_history, old_growth = _history(snapshot, date.fromisoformat(AS_OF), set())
         audit.update(original_history_count=len(old_history), original_growth_count=len(old_growth),
                      superseded_bulk_candidates=superseded,

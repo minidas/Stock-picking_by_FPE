@@ -8,8 +8,9 @@ import sys
 
 from .data import (DataError, load_json, load_snapshots, load_memberships, coverage_report,
                    fetch_alpha_vantage, fetch_sec_companyfacts)
-from .model import ModelError, build_baseline, evaluate, apply_events, _config
+from .model import ModelError, build_baseline, evaluate, blocked_prediction, apply_events, _config
 from .export import create_exports, write_exports
+from .risk import normalize_risk_policy, policy_from_export
 from .retention import archive_run, finalize_run, cleanup_runs
 
 
@@ -51,7 +52,8 @@ def run_archive(args, inputs):
 def finish_archive(args, run_dir, out, export, metadata, working):
     if (export["summary"]["input_result_count"] > 0
             and export["summary"]["available_stock_count"] == 0
-            and export["summary"]["excluded_stock_count"] == 0):
+            and export["summary"]["excluded_stock_count"] == 0
+            and not any(row.get("model", {}).get("risk_screen") for row in export["stocks"])):
         write_json(out / "run_lifecycle.json", {
             "mode": getattr(args, "mode", "research"), "run_archive": str(run_dir),
             "status": "pending", "cleanup": None, "reason": "no_successful_stock_models"})
@@ -85,7 +87,7 @@ def finish_archive(args, run_dir, out, export, metadata, working):
         if model.get("events"):
             event_audit[row["symbol"]] = model["events"]
     code_hashes = {name: file_hash(Path(__file__).parent / name)
-                   for name in ("model.py", "data.py", "ttm.py", "export.py", "retention.py", "cli.py")}
+                   for name in ("model.py", "data.py", "ttm.py", "risk.py", "export.py", "retention.py", "cli.py")}
     finalize_run(run_dir, artifacts={"forecast_audit": audit_path},
                  metadata={**metadata, "coverage": export["coverage"], "summary": export["summary"],
                            "exclusion_policy": export["policy"], "model_configurations": configurations,
@@ -128,15 +130,17 @@ def screen(args):
         coverage = coverage_report(snapshots, load_memberships(args.universe), snapshots[0]["as_of"])
         if coverage["extra_symbols"]:
             raise DataError("Snapshots outside supplied dated universe: " + str(coverage["extra_symbols"]))
-    limit = getattr(args, "exclude_loss_probability", .25)
+    risk_path = getattr(args, "risk_policy", None)
+    policy = normalize_risk_policy(load_json(risk_path) if risk_path else None,
+                                   max_loss_probability=getattr(args, "exclude_loss_probability", None))
     # Validate policy before producing any artifacts.
-    create_exports([], {}, max_loss_probability=limit)
-    run_dir = run_archive(args, {"input": args.input, "universe": args.universe, "config": args.config})
+    create_exports([], {}, risk_policy=policy)
+    run_dir = run_archive(args, {"input": args.input, "universe": args.universe, "config": args.config, "risk_policy": risk_path})
     results, queue = [], []
     for snapshot in snapshots:
         try:
-            model = build_baseline(snapshot, config)
-            prediction = evaluate(model)
+            model = build_baseline(snapshot, config, risk_policy=policy if policy["version"] == 2 else None)
+            prediction = evaluate(model) if model["status"] == "ready" else blocked_prediction(model)
             row = {"symbol": snapshot["symbol"], "as_of": snapshot["as_of"],
                    "synthetic": snapshot.get("synthetic", False), "input": snapshot, "model": model,
                    "prediction": prediction}
@@ -145,7 +149,7 @@ def screen(args):
             results.append({"symbol": snapshot["symbol"], "as_of": snapshot["as_of"],
                             "input": snapshot, "synthetic": snapshot.get("synthetic", False),
                             "error": str(exc), "prediction": {"candidate": "abstain"}})
-    export = create_exports(results, coverage, max_loss_probability=limit)
+    export = create_exports(results, coverage, risk_policy=policy)
     included = {r["symbol"] for r in export["stocks"] if r["export_status"] == "available"}
     for row in results:
         if row["symbol"] in included and row["prediction"].get("candidate") in ("buy_review", "sell_review"):
@@ -155,16 +159,17 @@ def screen(args):
                           "instruction": "Review dated material events; see docs/AGENT_GUIDE.md."})
         else:
             row["event_review"] = "not_selected"
-    export = create_exports(results, coverage, max_loss_probability=limit)
+    export = create_exports(results, coverage, risk_policy=policy)
     out = Path(args.output)
     payload = {"schema_version": 2, "scope": "individual_stocks", "input_sha256": file_hash(args.input),
                "config_sha256": file_hash(args.config) if args.config else None,
+               "risk_policy_sha256": file_hash(risk_path) if risk_path else None,
                "coverage": coverage, "results": results, "export_policy": export["policy"],
                "run_archive": str(run_dir),
                "warning": "Model probabilities are uncalibrated research estimates, not confidence guarantees or orders."}
     write_json(out / "baseline.json", payload)
     write_json(out / "agent_queue.json", {"baseline_sha256": file_hash(out / "baseline.json"), "candidates": queue})
-    summary = write_exports(out, results, coverage, max_loss_probability=limit)
+    summary = write_exports(out, results, coverage, risk_policy=policy)
     lifecycle = finish_archive(args, run_dir, out, export, {"stage": "screen", "input_sha256": payload["input_sha256"]},
                                {"baseline": out / "baseline.json", "agent_queue": out / "agent_queue.json",
                                 "all_stocks": out / "all_stocks.json", "all_stocks_csv": out / "all_stocks.csv",
@@ -194,11 +199,12 @@ def adjust(args):
     if not isinstance(event_map, dict):
         raise DataError("events_by_symbol must be an object mapping symbol to event list")
     stock_scope([r.get("input", r.get("model", {"symbol": r["symbol"]})) for r in original["results"]])
+    original_policy = policy_from_export(original.get("export_policy"))
     limit = getattr(args, "exclude_loss_probability", None)
-    if limit is None:
-        limit = original.get("export_policy", {}).get("max_loss_probability", .25)
-    original_limit = original.get("export_policy", {}).get("max_loss_probability", .25)
-    prior_export = create_exports(original["results"], original.get("coverage", {}), max_loss_probability=original_limit)
+    policy = normalize_risk_policy(original_policy, max_loss_probability=limit)
+    if original_policy["version"] == 2 and policy != original_policy:
+        raise DataError("Changing the frozen risk policy requires a new screen; adjust must inherit it")
+    prior_export = create_exports(original["results"], original.get("coverage", {}), risk_policy=original_policy)
     eligible = {r["symbol"] for r in prior_export["stocks"] if r["export_status"] == "available"
                 and r["prediction"].get("candidate") in ("buy_review", "sell_review")}
     if set(event_map) - eligible:
@@ -209,10 +215,10 @@ def adjust(args):
         if symbol in event_map:
             model = apply_events(row["model"], event_map[symbol])
             results.append({**row, "baseline_prediction": row["prediction"], "model": model,
-                            "prediction": evaluate(model), "event_review": "reviewed"})
+                            "prediction": evaluate(model) if model["status"] == "ready" else blocked_prediction(model), "event_review": "reviewed"})
         else:
             results.append({**row, "event_review": "pending" if symbol in eligible else "not_selected"})
-    export = create_exports(results, original.get("coverage", {}), max_loss_probability=limit)
+    export = create_exports(results, original.get("coverage", {}), risk_policy=policy)
     run_dir = run_archive(args, {"baseline": args.baseline, "events": args.events})
     payload = {**original, "schema_version": 2, "scope": "individual_stocks", "results": results,
                "export_policy": export["policy"], "run_archive": str(run_dir),
@@ -220,7 +226,7 @@ def adjust(args):
                "events_sha256": file_hash(args.events)}
     out = Path(args.output)
     write_json(out / "adjusted.json", payload)
-    summary = write_exports(out, results, original.get("coverage", {}), max_loss_probability=limit)
+    summary = write_exports(out, results, original.get("coverage", {}), risk_policy=policy)
     finish_archive(args, run_dir, out, export, {"stage": "adjust", "baseline_sha256": payload["baseline_sha256"],
                                                "events_sha256": payload["events_sha256"]},
                    {"adjusted": out / "adjusted.json", "all_stocks": out / "all_stocks.json",
@@ -249,7 +255,9 @@ def main():
     p.add_argument("--universe", help="Audited dated membership CSV/JSON")
     p.add_argument("--config", help="JSON model parameter overrides")
     p.add_argument("--output", default="outputs/screen")
-    p.add_argument("--exclude-loss-probability", type=float, default=.25)
+    p.add_argument("--risk-policy", help="Versioned risk policy JSON; default is version 2 (10%% limit and 3 positive annual periods)")
+    p.add_argument("--exclude-loss-probability", type=float, default=None,
+                   help="Override this screen's probability limit; default 0.10 unless --risk-policy specifies another limit")
     lifecycle_options(p)
     p.set_defaults(func=screen)
     p = sub.add_parser("adjust", help="Apply evidence records to preliminary candidates only")

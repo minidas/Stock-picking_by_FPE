@@ -15,6 +15,7 @@ import math
 from pathlib import Path
 
 from .data import DataError
+from .risk import normalize_risk_policy, recheck_model_risk
 
 
 PROBABILITY_FIELDS = (
@@ -37,7 +38,7 @@ CSV_FIELDS = [
     "positive_conditional_eps_p05", "positive_conditional_eps_p95",
     "positive_conditional_ratio_median", "positive_conditional_ratio_p05",
     "positive_conditional_ratio_p95", "history_growth_observations", "annual_log_sigma",
-    "consensus_anchor_count", "flags_json", "source_json", "history_json", "consensus_json",
+    "consensus_anchor_count", "flags_json", "source_json", "history_json", "consensus_json", "risk_screen_json",
     "covariance_json", "baseline_prediction_json", "events_json", "download_status_json",
     "price_evidence_json", "annual_eps_evidence_json", "older_eps_observations_json", "raw_eps_split_observations_json",
 ] + [f"year_{year}_{field}" for year in range(1, 7) for field in ANNUAL_FIELDS]
@@ -55,7 +56,7 @@ def _mapping(value, label):
     return value
 
 
-def _classify(original, limit):
+def _classify(original, policy):
     row = deepcopy(original)
     snapshot = _mapping(row.get("input"), "result.input")
     model = _mapping(row.get("model"), "result.model")
@@ -70,21 +71,42 @@ def _classify(original, limit):
     if reason == "nonpositive_consensus_eps":
         reasons.append("nonpositive_consensus_eps")
     loss_known = _finite_number(p_loss) and 0 <= p_loss <= 1
-    if loss_known and p_loss >= limit:
+    if loss_known and p_loss >= policy["max_loss_probability"]:
         reasons.append("loss_probability_at_or_above_limit")
     if str(snapshot.get("risk_status", "")).strip().lower() == "high":
         reasons.append("explicit_high_risk")
+    risk = recheck_model_risk(model, policy) if model.get("risk_screen") is not None else None
+    if risk is not None:
+        row["risk_screen"] = risk
+        reasons.extend(r for r in risk["exclusion_reasons"] if r not in reasons)
+    risk_unknown = policy["version"] == 2 and (risk is None or risk["status"] == "not_assessed")
     # Invalid or missing model data are visible, not reclassified as risk-free.
     status = prediction.get("status", model.get("status"))
-    available = loss_known and status == "ready" and not row.get("error")
+    available = loss_known and status == "ready" and not row.get("error") and not risk_unknown
     row["export_status"] = "excluded" if reasons else ("available" if available else "data_unavailable")
     row["risk_assessment"] = "assessed" if reasons or available else "not_assessed"
     row["exclusion_reasons"] = reasons
     row["input_available"] = bool(snapshot)
+    if policy["version"] == 2 and row["export_status"] != "available":
+        # A strict export can be requested for a legacy or externally altered
+        # record. Do not leave stale valuation numbers available for sorting.
+        if any(prediction.get(key) is not None for key in PROBABILITY_FIELDS if key != "p_loss"):
+            row["withheld_valuation_prediction"] = deepcopy(prediction)
+        prediction = deepcopy(prediction)
+        prediction.update({key: None for key in PROBABILITY_FIELDS if key != "p_loss"})
+        prediction.update({key: None for key in prediction if key.startswith("positive_conditional_")})
+        prediction.update(candidate="abstain", annual=[])
+        prediction["status"] = "risk_excluded" if reasons else "risk_not_assessed"
+        row["prediction"] = prediction
+        if model:
+            model = deepcopy(model)
+            for key in ("annual", "terminal_log_eps_mean", "terminal_log_eps_variance"):
+                model.pop(key, None)
+            row["model"] = model
     return row
 
 
-def create_exports(results, coverage, *, max_loss_probability=.25):
+def create_exports(results, coverage, *, max_loss_probability=None, risk_policy=None):
     """Partition a one-date stock batch without hiding non-candidates or gaps.
 
     Exclusions: current EPS <= 0, model-abstained nonpositive consensus EPS,
@@ -93,8 +115,8 @@ def create_exports(results, coverage, *, max_loss_probability=.25):
     has already been decided by the dated model. Coverage-missing symbols are
     retained as main-table placeholders with no fabricated probabilities.
     """
-    if not _finite_number(max_loss_probability) or not 0 < max_loss_probability <= 1:
-        raise DataError("max_loss_probability must be a finite number in (0, 1]")
+    policy = normalize_risk_policy(risk_policy, legacy=risk_policy is None, max_loss_probability=max_loss_probability)
+    max_loss_probability = policy["max_loss_probability"]
     if not isinstance(results, list):
         raise DataError("results must be a list")
     coverage = deepcopy(_mapping(coverage, "coverage"))
@@ -114,7 +136,7 @@ def create_exports(results, coverage, *, max_loss_probability=.25):
                 raise DataError(f"Result identity differs from {label}")
         identities.add(symbol)
         dates.add(as_of)
-        row = _classify(original, max_loss_probability)
+        row = _classify(original, policy)
         (excluded if row["exclusion_reasons"] else stocks).append(row)
     if len(dates) > 1:
         raise DataError("A stock export requires one as_of date")
@@ -153,7 +175,7 @@ def create_exports(results, coverage, *, max_loss_probability=.25):
     result = {
         "schema_version": 1, "scope": "individual_stocks", "as_of": as_of,
         "coverage": coverage, "summary": summary,
-        "policy": {"max_loss_probability": max_loss_probability,
+        "policy": {"max_loss_probability": max_loss_probability, "risk_policy": policy,
                    "exclude_nonpositive_current_eps": True, "exclude_nonpositive_consensus_eps": True,
                    "exclude_explicit_high_risk": True, "include_non_candidates": True,
                    "include_missing_data_placeholders": True,
@@ -195,6 +217,7 @@ def _csv_row(row):
             flat[f"positive_conditional_{name}_p05"], flat[f"positive_conditional_{name}_p95"] = bounds
     for field, value in {
         "flags_json": prediction.get("flags", model.get("flags")), "source_json": snapshot.get("source", row.get("source")),
+        "risk_screen_json": row.get("risk_screen", model.get("risk_screen")),
         "history_json": snapshot.get("history"), "consensus_json": snapshot.get("consensus"),
         "covariance_json": model.get("annual_log_growth_covariance"),
         "baseline_prediction_json": row.get("baseline_prediction"), "events_json": model.get("events"),
@@ -214,9 +237,9 @@ def _csv_row(row):
             for key, value in flat.items()}
 
 
-def write_exports(output_dir, results, coverage, max_loss_probability=.25):
+def write_exports(output_dir, results, coverage, max_loss_probability=None, *, risk_policy=None):
     """Write the four stock artifacts and return counts plus relative filenames."""
-    product = create_exports(results, coverage, max_loss_probability=max_loss_probability)
+    product = create_exports(results, coverage, max_loss_probability=max_loss_probability, risk_policy=risk_policy)
     root = Path(output_dir)
     root.mkdir(parents=True, exist_ok=True)
     metadata = {key: value for key, value in product.items() if key not in ("stocks", "excluded_stocks")}

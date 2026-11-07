@@ -59,16 +59,25 @@ class ScoringTests(unittest.TestCase):
 
     def test_negative_zero_and_ratio_boundaries_have_correct_labels(self):
         snaps = [snapshot(symbol=symbol, price=price) for symbol, price in
-                 (("EXACT6", 60), ("EXACT65", 65), ("NEGATIVE", 60), ("ZERO", 60))]
-        labels = [outcome(snap, eps) for snap, eps in zip(snaps, [10, 10, -2, 0])]
+                 (("EXACT6", 60), ("BETWEEN", 62.5), ("EXACT65", 65), ("ABOVE65", 66),
+                  ("NEGATIVE", 60), ("ZERO", 60))]
+        labels = [outcome(snap, eps) for snap, eps in zip(snaps, [10, 10, 10, 10, -2, 0])]
         result = score_panel(snaps, labels, memberships(*(s["symbol"] for s in snaps)), "2026-11-06")
-        self.assertEqual(result["scored"], 4)
+        self.assertEqual(result["scored"], 6)
         rows = {r["symbol"]: r for r in result["records"]}
-        for name in ("EXACT6", "EXACT65"):
-            self.assertEqual((rows[name]["y_buy"], rows[name]["y_sell"], rows[name]["y_loss"]), (0, 0, 0))
+        for name in ("EXACT6", "BETWEEN"):
+            self.assertEqual((rows[name]["y_buy"], rows[name]["y_sell"], rows[name]["y_loss"]), (1, 0, 0))
+        self.assertEqual((rows["EXACT65"]["y_buy"], rows["EXACT65"]["y_sell"], rows["EXACT65"]["y_loss"]), (0, 0, 0))
+        self.assertEqual((rows["ABOVE65"]["y_buy"], rows["ABOVE65"]["y_sell"], rows["ABOVE65"]["y_loss"]), (0, 1, 0))
         for name in ("NEGATIVE", "ZERO"):
             self.assertEqual((rows[name]["y_buy"], rows[name]["y_sell"], rows[name]["y_loss"]), (0, 0, 1))
             self.assertIsNone(rows[name]["realized_fpe"])
+        for snap in snaps:
+            row, prediction = rows[snap["symbol"]], evaluate(build_baseline(snap))
+            self.assertEqual((row["buy_fpe_threshold"], row["sell_fpe_threshold"]), (6.5, 6.5))
+            self.assertEqual(row["p_buy"], prediction["p_below_buy_threshold"])
+            self.assertEqual(row["p_sell"], prediction["p_above_sell_threshold_positive"])
+            self.assertGreater(row["p_buy"], prediction["p_below_6"])
 
     def test_missing_immature_and_outside_universe_visible(self):
         missing = snapshot(symbol="MISSING")

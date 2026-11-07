@@ -1,8 +1,13 @@
 """Annual-history joins retain uncertainty and never invent splits or years."""
 from copy import deepcopy
+from functools import partial
 import unittest
 
-from stocking.history import HistoryError, extend_annual_history
+from stocking.history import HistoryError, extend_annual_history as extend_history
+
+# Explicit replay of the historical overlap workflow; latest-vintage behavior
+# has separate tests so these checks continue to protect archived semantics.
+extend_annual_history = partial(extend_history, conflict_policy="strict_overlap")
 
 
 def snapshot():

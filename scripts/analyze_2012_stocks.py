@@ -6,17 +6,19 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-from stocking.data import load_snapshots
+from stocking.data import load_json, load_snapshots
 from stocking.model import build_baseline, evaluate
 
+# Frozen 2012 reproduction; new tasks use the public screen defaults.
+LEGACY_CONFIG = load_json(ROOT / "examples/thresholds_legacy.json")
 
 def main():
     source = ROOT / "data/research_2012_snapshots.json"
     snapshots = load_snapshots(source)
     rows = []
     for snapshot in snapshots:
-        baseline = evaluate(build_baseline(snapshot))
-        diagnostic = evaluate(build_baseline(snapshot, {"allow_history_only_candidates": True}))
+        baseline = evaluate(build_baseline(snapshot, LEGACY_CONFIG))
+        diagnostic = evaluate(build_baseline(snapshot, {**LEGACY_CONFIG, "allow_history_only_candidates": True}))
         custom = evaluate(build_baseline(snapshot, {"allow_history_only_candidates": True,
                            "buy_fpe_threshold": 8.5, "sell_fpe_threshold": 10.5}))
         rows.append({"symbol": snapshot["symbol"], "price": snapshot["price"],

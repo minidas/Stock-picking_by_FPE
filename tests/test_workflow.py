@@ -46,9 +46,13 @@ class WorkflowTests(unittest.TestCase):
             for name in names]), encoding="utf-8")
         raw = root / "provider.raw.json"
         raw.write_bytes(b'{"untouched_provider_payload":true}')
+        # These tests describe the pre-risk-first workflow's historical export
+        # semantics. New defaults and early exclusion have dedicated tests.
+        policy = root / "legacy-risk-policy.json"
+        policy.write_text(json.dumps({"version": 1, "max_loss_probability": limit, "recent_positive_years": 0}), encoding="utf-8")
         return SimpleNamespace(input=str(source), universe=str(universe), config=None,
             output=str(root / "result"), archive_root=str(root / "archive"), mode=mode,
-            raw_input=[str(raw)], retention_days=7, exclude_loss_probability=limit)
+            raw_input=[str(raw)], retention_days=7, exclude_loss_probability=limit, risk_policy=str(policy))
 
     def execute_screen(self, args):
         with redirect_stdout(io.StringIO()):
@@ -86,6 +90,9 @@ class WorkflowTests(unittest.TestCase):
             self.assertEqual((run / provider["path"]).read_bytes(), Path(args.raw_input[0]).read_bytes())
             self.assertEqual(provider["sha256"], hashlib.sha256(Path(args.raw_input[0]).read_bytes()).hexdigest())
             self.assertTrue(manifest["metadata"]["model_configurations"])
+            for row in baseline["results"]:
+                self.assertEqual(row["model"]["config"]["buy_fpe_threshold"], 6.5)
+                self.assertEqual(row["prediction"]["buy_fpe_threshold"], 6.5)
             self.assertIn("model.py", manifest["metadata"]["code_sha256"])
             self.assertTrue(any(r["category"] == "working" for r in manifest["files"]))
             self.assertTrue(any(r["category"] == "audit" for r in manifest["files"]))

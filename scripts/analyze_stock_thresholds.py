@@ -16,9 +16,12 @@ from scipy.stats import norm
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-from stocking.data import load_snapshots
+from stocking.data import load_json, load_snapshots
 from stocking.model import DEFAULT_CONFIG, build_baseline, evaluate
 
+# Frozen sensitivity experiment; new tasks use the public screen defaults.
+LEGACY_CONFIG_PATH = ROOT / "examples/thresholds_legacy.json"
+LEGACY_MODEL_CONFIG = {**DEFAULT_CONFIG, **load_json(LEGACY_CONFIG_PATH)}
 THRESHOLDS = (6.0, 8.5, 10.0, 12.0, 16.0)
 REQUIRED_RETURN = 0.10
 
@@ -84,7 +87,7 @@ def analyze_stock(snapshot: dict, thresholds=THRESHOLDS) -> dict:
             or str(snapshot["symbol"]).startswith("^")
             or snapshot.get("share_basis") == "index_points"):
         raise ValueError("Only individual-stock snapshots are supported")
-    baseline = build_baseline(snapshot)
+    baseline = build_baseline(snapshot, LEGACY_MODEL_CONFIG)
     default_evaluation = evaluate(baseline)
     distribution, history = None, None
     if baseline["status"] == "ready":
@@ -148,11 +151,12 @@ def make_report(source: Path) -> dict:
             "model_sha256": hashlib.sha256((ROOT / "src/stocking/model.py").read_bytes()).hexdigest(),
             "script_path": "scripts/analyze_stock_thresholds.py",
             "script_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+            "legacy_thresholds_sha256": hashlib.sha256(LEGACY_CONFIG_PATH.read_bytes()).hexdigest(),
             "python_version": platform.python_version(),
             "numpy_version": np.__version__,
             "scipy_version": scipy.__version__,
         },
-        "default_config": deepcopy(DEFAULT_CONFIG),
+        "default_config": deepcopy(LEGACY_MODEL_CONFIG),
         "thresholds": list(THRESHOLDS),
         "auxiliary_sell_threshold_rule": "max(default sell threshold, buy threshold + 0.5); sell strategy not evaluated",
         "user_selected_annual_price_return": REQUIRED_RETURN,

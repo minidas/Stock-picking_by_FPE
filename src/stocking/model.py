@@ -14,6 +14,7 @@ import numpy as np
 from scipy.stats import norm
 
 from .ttm import TTMError, validate_annual_history, validate_ttm_snapshot
+from .risk import assess_history_risk, historical_loss_probability, normalize_risk_policy, recheck_model_risk
 
 
 class ModelError(ValueError):
@@ -35,7 +36,7 @@ DEFAULT_CONFIG = {
     "loss_prior_strength": 10.0,
     "buy_probability": 0.70,
     "sell_probability": 0.80,
-    "buy_fpe_threshold": 6.0,
+    "buy_fpe_threshold": 6.5,
     "sell_fpe_threshold": 6.5,
     "max_buy_loss_probability": 0.10,
     "sell_loss_probability": 0.25,
@@ -104,8 +105,8 @@ def _config(overrides):
         raise ModelError("Consensus weight floor exceeds cap")
     if result["min_annual_log_sigma"] > result["max_annual_log_sigma"]:
         raise ModelError("Annual volatility floor exceeds cap")
-    if result["buy_fpe_threshold"] >= result["sell_fpe_threshold"]:
-        raise ModelError("buy_fpe_threshold must be strictly below sell_fpe_threshold")
+    if result["buy_fpe_threshold"] > result["sell_fpe_threshold"]:
+        raise ModelError("buy_fpe_threshold must not exceed sell_fpe_threshold")
     if not -0.25 <= result["long_run_log_growth"] <= 0.25:
         raise ModelError("long_run_log_growth must lie in [-0.25, .25]")
     return result
@@ -179,7 +180,7 @@ def _refresh(model):
     return model
 
 
-def build_baseline(snapshot: dict, config: dict | None = None) -> dict:
+def build_baseline(snapshot: dict, config: dict | None = None, *, risk_policy: dict | None = None) -> dict:
     """Construct an auditable baseline using only data available on ``as_of``.
 
     Institution EPS level anchors are shrunk toward historical growth; beyond
@@ -189,6 +190,7 @@ def build_baseline(snapshot: dict, config: dict | None = None) -> dict:
     a tradable backtest must execute no earlier than the following session.
     """
     cfg = _config(config)
+    policy = normalize_risk_policy(risk_policy) if risk_policy is not None else None
     required = ("symbol", "as_of", "price", "price_date", "eps0", "eps_period_end",
                 "eps_available_at", "currency", "eps_basis", "share_basis")
     missing = [k for k in required if k not in snapshot]
@@ -236,9 +238,19 @@ def build_baseline(snapshot: dict, config: dict | None = None) -> dict:
         flags.add("ttm_declared_latest_period_external_completeness_unverified")
         if snapshot["ttm_provenance"]["method"] == "four_quarter_diluted_eps_sum":
             flags.add("ttm_quarterly_eps_sum_not_recomputed_annual_gaap")
-    if eps0 <= 0:
+    if eps0 <= 0 and policy is None:
         return dict(model, status="abstain", reason="nonpositive_base_eps", flags=sorted(flags))
     history, rates = _history(snapshot, asof, flags)
+    p_loss = historical_loss_probability(history, cfg)
+    if not history:
+        flags.add("loss_probability_prior_only")
+    if policy is not None:
+        risk = assess_history_risk(history, eps0=eps0, asof=asof, config=cfg, policy=policy,
+                                   explicit_high=str(snapshot.get("risk_status", "")).strip().lower() == "high")
+        model.update(risk_screen=risk, loss_probability=float(p_loss), history_growth_observations=len(rates))
+        if risk["status"] != "passed":
+            return dict(model, status="risk_excluded" if risk["status"] == "excluded" else "risk_not_assessed",
+                        reason=(risk["exclusion_reasons"] or risk["missing_reasons"])[0], flags=sorted(flags))
     # Median is insensitive to isolated restructuring/rebound years. Annual
     # growth rates are winsorized, but no observed loss is turned into growth.
     sample_weight = len(rates) / (len(rates) + cfg["history_shrinkage_years"])
@@ -248,10 +260,6 @@ def build_baseline(snapshot: dict, config: dict | None = None) -> dict:
     sigma = min(sigma, cfg["max_annual_log_sigma"])
     if len(rates) < 3:
         flags.add("sparse_earnings_history")
-    losses = sum(e <= 0 for _, e in history)
-    p_loss = (losses + cfg["loss_prior_probability"] * cfg["loss_prior_strength"]) / (len(history) + cfg["loss_prior_strength"])
-    if not history:
-        flags.add("loss_probability_prior_only")
     targets = [_year_after(asof, i) for i in range(1, 7)]
     times = np.array([(t - period).days / 365.2425 for t in targets])
     durations = np.diff(np.r_[0.0, times])
@@ -275,7 +283,11 @@ def build_baseline(snapshot: dict, config: dict | None = None) -> dict:
         n = _number(row.get("analysts"), "consensus.analysts", positive=True)
         if int(n) != n:
             raise ModelError("consensus.analysts must be an integer")
-        if eps <= 0:
+        if eps <= 0 and (policy is None or policy["version"] == 1):
+            if policy is not None:
+                model["risk_screen"] = assess_history_risk(history, eps0=eps0, asof=asof, config=cfg,
+                                                           policy=policy, nonpositive_consensus=True)
+                return dict(model, status="risk_excluded", reason="nonpositive_consensus_eps", flags=sorted(flags))
             return dict(model, status="abstain", reason="nonpositive_consensus_eps", flags=sorted(flags))
         deviation = row.get("eps_std")
         if deviation is not None:
@@ -288,6 +300,14 @@ def build_baseline(snapshot: dict, config: dict | None = None) -> dict:
             anchors[target] = record
         elif published == previous[0] and record != previous:
             raise ModelError("Conflicting consensus records with identical dates")
+    # Strict admission checks the latest eligible vintage for each fiscal
+    # target. A superseded negative forecast must not override a newer positive
+    # one; future updates were already removed above. Legacy replay retains its
+    # historical early-abstention semantics.
+    if policy is not None and policy["version"] == 2 and any(record[1] <= 0 for record in anchors.values()):
+        model["risk_screen"] = assess_history_risk(history, eps0=eps0, asof=asof, config=cfg,
+                                                   policy=policy, nonpositive_consensus=True)
+        return dict(model, status="risk_excluded", reason="nonpositive_consensus_eps", flags=sorted(flags))
     anchor_times, anchor_levels, weights = [0.0], [0.0], []
     for target, (published, eps, n, deviation) in sorted(anchors.items()):
         t = (target - period).days / 365.2425
@@ -334,6 +354,27 @@ def build_baseline(snapshot: dict, config: dict | None = None) -> dict:
     return _refresh(model)
 
 
+def blocked_prediction(model: dict, risk=None) -> dict:
+    """Describe a withheld valuation without executing the valuation branch."""
+    basic = {k: model[k] for k in ("symbol", "as_of", "target_date", "status", "probability_status")}
+    basic["flags"] = list(model.get("flags", []))
+    cfg = model["config"]
+    basic.update(buy_fpe_threshold=cfg.get("buy_fpe_threshold", 6.0),
+                 sell_fpe_threshold=cfg.get("sell_fpe_threshold", 6.5))
+    risk = model.get("risk_screen") if risk is None else risk
+    if risk is not None and risk["status"] != "passed":
+        basic["status"] = "risk_excluded" if risk["status"] == "excluded" else "risk_not_assessed"
+        reason = (risk["exclusion_reasons"] or risk["missing_reasons"])[0]
+    else:
+        reason = model.get("reason")
+    return dict(basic, candidate="abstain", reason=reason,
+                p_below_6=None, p_above_6_5_positive=None,
+                p_loss=model.get("loss_probability") if risk is not None else None,
+                p_between_6_6_5=None, p_risk_or_above_6_5=None,
+                p_below_buy_threshold=None, p_above_sell_threshold_positive=None,
+                p_between_thresholds=None, p_risk_or_above_sell_threshold=None)
+
+
 def evaluate(model: dict) -> dict:
     """Return fixed and configurable ratio-event probabilities and review flags.
 
@@ -341,6 +382,9 @@ def evaluate(model: dict) -> dict:
     configuration. Candidate selection uses the explicit threshold-named fields.
     """
     basic = {k: model[k] for k in ("symbol", "as_of", "target_date", "status", "probability_status")}
+    risk = recheck_model_risk(model)
+    if risk is not None and risk["status"] != "passed":
+        basic["status"] = "risk_excluded" if risk["status"] == "excluded" else "risk_not_assessed"
     basic["flags"] = list(model.get("flags", []))
     cfg = model["config"]
     # Preserve compatibility with baseline JSON archived before custom cutoffs.
@@ -348,12 +392,8 @@ def evaluate(model: dict) -> dict:
     sell_threshold = cfg.get("sell_fpe_threshold", 6.5)
     basic["buy_fpe_threshold"] = buy_threshold
     basic["sell_fpe_threshold"] = sell_threshold
-    if model["status"] != "ready":
-        return dict(basic, candidate="abstain", reason=model.get("reason"),
-                    p_below_6=None, p_above_6_5_positive=None, p_loss=None,
-                    p_between_6_6_5=None, p_risk_or_above_6_5=None,
-                    p_below_buy_threshold=None, p_above_sell_threshold_positive=None,
-                    p_between_thresholds=None, p_risk_or_above_sell_threshold=None)
+    if basic["status"] != "ready":
+        return blocked_prediction(model, risk)
     mu = model["terminal_log_eps_mean"]
     variance = model["terminal_log_eps_variance"]
     sd = math.sqrt(variance)
@@ -466,4 +506,15 @@ def apply_events(baseline: dict, events: list[dict]) -> dict:
     result["loss_probability"] = float(np.clip(result["loss_probability"] + loss_delta, 0.01, 0.95))
     result["events"] = audit
     result["flags"] = sorted(set(result["flags"]) | {"ai_adjusted_uncalibrated_scenario"})
+    risk = recheck_model_risk(result)
+    if risk is not None:
+        result["risk_screen"] = risk
+        if risk["status"] != "passed":
+            result["status"] = "risk_excluded" if risk["status"] == "excluded" else "risk_not_assessed"
+            result["reason"] = (risk["exclusion_reasons"] or risk["missing_reasons"])[0]
+            # The inherited valuation summaries describe the pre-event model;
+            # do not expose them as a valuation of a now-ineligible company.
+            for key in ("terminal_log_eps_mean", "terminal_log_eps_variance", "annual"):
+                result.pop(key, None)
+            return result
     return _refresh(result)

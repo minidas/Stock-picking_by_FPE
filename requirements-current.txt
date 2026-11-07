@@ -1,0 +1,2 @@
+# Optional, isolated current-public-data collector; core model requirements unchanged.
+yfinance==1.8.0

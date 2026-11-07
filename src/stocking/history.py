@@ -17,6 +17,7 @@ from .ttm import FULL_YEAR_DAYS, TTMError, validate_annual_history
 
 EPS_TAGS = {"EarningsPerShareDiluted", "EarningsPerShareBasicAndDiluted"}
 JOIN_ASSUMPTION = "overlap_consistent_unverified_assumption"
+LATEST_ASSUMPTION = "latest_available_financial_vintage_unverified_comparability"
 
 
 class HistoryError(ValueError):
@@ -82,7 +83,7 @@ def _mapping(mapping, snapshot, asof):
     return factor, published, tolerance, explanation
 
 
-def _prepare_filing(filing, snapshot, cutoff, first_year, last_period, bridge):
+def _prepare_filing(filing, snapshot, cutoff, first_year, last_period, bridge, *, financial_vintage=False):
     """Normalize one whole filing or leave it pending; never select a conflict."""
     if filing.get("identity_join_allowed") is not True:
         raise HistoryError("issuer_identity_not_explicitly_approved")
@@ -153,8 +154,24 @@ def _prepare_filing(filing, snapshot, cutoff, first_year, last_period, bridge):
         row_publication = _date(raw.get("available_at", filing["available_at"]), "history.available_at")
         if period > row_publication:
             raise HistoryError("source_period_follows_its_publication")
-        financial_publication = max(publication, row_publication)
-        if financial_publication > cutoff:
+        access_publication = max(publication, row_publication)
+        financial_publication = access_publication
+        if financial_vintage:
+            explicit_row_date = any(raw.get(key) for key in ("financial_filed_date", "source_financial_available_at")) or raw.get("history_extension_provenance", {}).get("source_financial_available_at")
+            explicit_filing_date = any(filing.get(key) for key in ("financial_filed_date", "source_financial_available_at"))
+            if explicit_row_date:
+                financial_publication = _financial_available(raw)
+                if explicit_filing_date:
+                    financial_publication = max(financial_publication, _financial_available(filing))
+            elif explicit_filing_date:
+                financial_publication = _financial_available(filing)
+            elif "retriev" in str(filing.get("availability_rule", "") + raw.get("availability_rule", "")).lower():
+                raise HistoryError("financial_publication_date_required_for_latest_selection")
+        if financial_publication > access_publication:
+            raise HistoryError("financial_publication_after_history_availability")
+        if period > financial_publication:
+            raise HistoryError("source_period_follows_financial_publication")
+        if access_publication > cutoff or financial_publication > cutoff:
             raise HistoryError("future_history_observation_or_restatement")
         value = _number(raw.get("eps"), "history.eps")
         if "period_start" in raw:
@@ -168,12 +185,14 @@ def _prepare_filing(filing, snapshot, cutoff, first_year, last_period, bridge):
             raise HistoryError("mapped_eps_not_finite")
         previous = selected.get(period)
         if previous is not None:
+            if previous.get("period_start") != raw.get("period_start"):
+                raise HistoryError("conflicting_annual_period_within_filing")
             if not _same(previous["eps"], transformed):
                 raise HistoryError("conflicting_same_period_eps_within_filing")
             continue
         item = deepcopy(raw)
         item.update(eps=transformed, period_end=period.isoformat(),
-                    available_at=max(financial_publication, mapping_publication).isoformat(),
+                    available_at=max(access_publication, mapping_publication).isoformat(),
                     eps_basis=snapshot["eps_basis"], share_basis=snapshot["share_basis"],
                     currency="USD", share_basis_verified=False,
                     source_url=raw.get("source_url", filing["source_url"]), accession=filing["accession"])
@@ -198,7 +217,7 @@ def _prepare_filing(filing, snapshot, cutoff, first_year, last_period, bridge):
     return selected, out_of_window, publication, tolerance, tolerance_rationale
 
 
-def extend_annual_history(snapshot, candidate_filings, *, as_of=None, max_years=11, reviewed_bridges=None):
+def _extend_strict_annual_history(snapshot, candidate_filings, *, as_of=None, max_years=11, reviewed_bridges=None):
     """Return ``(history, audit)`` without changing snapshot, filings or TTM.
 
     Filings require exact CIK, identity_join_allowed=True, canonical eps_basis,
@@ -386,3 +405,265 @@ def extend_annual_history(snapshot, candidate_filings, *, as_of=None, max_years=
         ],
     }
     return result, audit
+
+
+def _financial_available(row):
+    provenance = row.get("history_extension_provenance", {})
+    if provenance.get("source_financial_available_at"):
+        return _date(provenance["source_financial_available_at"], "source_financial_available_at")
+    if row.get("source_financial_available_at"):
+        return _date(row["source_financial_available_at"], "source_financial_available_at")
+    if row.get("financial_filed_date"):
+        from datetime import timedelta
+        return _date(row["financial_filed_date"], "financial_filed_date") + timedelta(days=1)
+    if "retriev" in str(row.get("availability_rule", "")).lower():
+        raise HistoryError("financial_publication_date_required_for_latest_selection")
+    return _date(row.get("available_at"), "history.available_at")
+
+
+def _observation_summary(row):
+    return {"period_start": row.get("period_start"), "period_end": row["period_end"], "eps": row["eps"],
+            "available_at": row["available_at"], "source_financial_available_at": _financial_available(row).isoformat(),
+            "source_accession": row.get("accession", "current_snapshot"), "source_url": row.get("source_url"),
+            "history_extension_provenance": deepcopy(row.get("history_extension_provenance"))}
+
+
+def _entity_boundary(start, evidence, cutoff):
+    if start is None:
+        if evidence is not None:
+            raise HistoryError("entity_basis_evidence_without_boundary")
+        return None
+    boundary = _date(start, "entity_basis_start")
+    if not isinstance(evidence, dict) or not _url(evidence.get("source_url")):
+        raise HistoryError("entity_basis_boundary_requires_evidence_url")
+    if _date(evidence.get("available_at"), "entity_basis_evidence.available_at") > cutoff:
+        raise HistoryError("future_entity_basis_evidence")
+    if not isinstance(evidence.get("rationale"), str) or not evidence["rationale"].strip():
+        raise HistoryError("entity_basis_boundary_requires_rationale")
+    if boundary > cutoff:
+        raise HistoryError("entity_basis_boundary_after_decision_date")
+    return boundary
+
+
+def _extend_latest_annual_history(snapshot, candidate_filings, *, as_of=None, max_years=11,
+                                  reviewed_bridges=None, entity_basis_start=None, entity_basis_evidence=None):
+    if not isinstance(snapshot, dict) or not isinstance(candidate_filings, list):
+        raise HistoryError("snapshot must be an object and candidate_filings a list")
+    if isinstance(max_years, bool) or not isinstance(max_years, int) or not 1 <= max_years <= 11:
+        raise HistoryError("max_years must be an integer from 1 to 11")
+    cutoff = _date(as_of or snapshot.get("as_of"), "as_of")
+    if snapshot.get("as_of") and cutoff.isoformat() != snapshot["as_of"]:
+        raise HistoryError("as_of must match the snapshot decision date")
+    for field in ("eps_basis", "share_basis"):
+        if not isinstance(snapshot.get(field), str) or not snapshot[field]:
+            raise HistoryError(f"snapshot requires {field}")
+    boundary = _entity_boundary(entity_basis_start, entity_basis_evidence, cutoff)
+    observations, current_periods, future_current, entity_excluded, share_excluded = {}, set(), [], [], []
+
+    def add_observation(row, *, filing=None):
+        item = deepcopy(row)
+        period = _date(item.get("period_end"), "history.period_end")
+        available = _date(item.get("available_at"), "history.available_at")
+        financial = _financial_available(item)
+        if financial > available:
+            raise HistoryError("financial_publication_after_history_availability")
+        if available > cutoff or financial > cutoff:
+            future_current.append(item)
+            return False
+        if period > financial:
+            raise HistoryError("Current history period follows publication")
+        item["eps"] = _number(item.get("eps"), "history.eps")
+        for field in ("eps_basis", "share_basis", "currency"):
+            expected = snapshot.get(field, "USD" if field == "currency" else None)
+            if item.get(field, expected) != expected:
+                raise HistoryError(f"Current history {field} mismatch")
+        try:
+            validate_annual_history({"history": [item]}, cutoff)
+        except TTMError as exc:
+            raise HistoryError(str(exc)) from exc
+        if boundary is not None:
+            if not item.get("period_start"):
+                raise HistoryError("entity_basis_boundary_requires_actual_annual_period_start")
+            if _date(item["period_start"], "history.period_start") < boundary:
+                entity_excluded.append({**_observation_summary(item), "reason": "annual_period_before_entity_basis_start",
+                                        "entity_basis_start": boundary.isoformat()})
+                return False
+        guard = (filing or {}).get("history_extension_guard")
+        if guard is not None:
+            allowed = guard.get("allowed_period_ends") if isinstance(guard, dict) else None
+            if not isinstance(allowed, list) or not isinstance(guard.get("evidence"), list) or not guard["evidence"]:
+                raise HistoryError("invalid_history_extension_share_basis_guard")
+            if period.isoformat() not in allowed:
+                share_excluded.append({**_observation_summary(item), "reason": "share_basis_review_required",
+                                       "evidence": deepcopy(guard["evidence"])})
+                return False
+        observations.setdefault(period, []).append(item)
+        return True
+
+    raw_current = snapshot.get("history", [])
+    if not isinstance(raw_current, list):
+        raise HistoryError("history must be a list")
+    for row in raw_current:
+        if not isinstance(row, dict):
+            raise HistoryError("current history row must be an object")
+        if add_observation(row):
+            current_periods.add(_date(row["period_end"], "history.period_end"))
+    if not current_periods:
+        raise HistoryError("no_current_annual_history_to_anchor_window")
+    last_period = max(current_periods)
+    first_year = last_period.year - max_years + 1
+    outside_current = [deepcopy(r) for p, rows in observations.items() if p.year < first_year for r in rows]
+    observations = {p: rows for p, rows in observations.items() if p.year >= first_year}
+    bridges = {}
+    for bridge in reviewed_bridges or []:
+        accession = bridge.get("source_accession")
+        if not accession or accession in bridges:
+            raise HistoryError("Reviewed bridges require unique source_accession")
+        bridges[accession] = bridge
+    records, seen = [], set()
+    for filing in candidate_filings:
+        if not isinstance(filing, dict) or not filing.get("accession"):
+            raise HistoryError("Each candidate filing requires an accession")
+        accession = filing["accession"]
+        if accession in seen:
+            raise HistoryError("Duplicate candidate accession; consolidate raw duplicates upstream")
+        seen.add(accession)
+        record = {"source_accession": accession, "source_filing": deepcopy(filing), "status": "pending",
+                  "reasons": [], "added_periods": [], "selected_periods": []}
+        records.append(record)
+        try:
+            if snapshot.get("entity_basis") and filing.get("entity_basis", snapshot["entity_basis"]) != snapshot["entity_basis"]:
+                raise HistoryError("economic_entity_basis_mismatch")
+            values, outside, _, _, _ = _prepare_filing(filing, snapshot, cutoff, first_year, last_period, bridges.get(accession), financial_vintage=True)
+            record["outside_window_periods"] = outside
+            before_share, before_entity = len(share_excluded), len(entity_excluded)
+            accepted = []
+            for period, item in values.items():
+                if first_year <= period.year and period <= last_period:
+                    item["history_extension_provenance"]["method"] = LATEST_ASSUMPTION
+                    if add_observation(item, filing=filing):
+                        accepted.append(period.isoformat())
+            record["eligible_periods"] = accepted
+            if accepted:
+                record.update(status="accepted_unverified", reasons=[])
+            elif len(share_excluded) > before_share:
+                record["reasons"] = ["share_basis_review_required"]
+            elif len(entity_excluded) > before_entity:
+                record["reasons"] = ["annual_period_before_entity_basis_start"]
+            else:
+                record["reasons"] = ["no_period_inside_annual_window"]
+        except (HistoryError, TypeError) as exc:
+            record["reasons"] = [str(exc)]
+            if str(exc) in {"source_filing_has_unresolved_conflicts", "conflicting_same_period_eps_within_filing",
+                            "conflicting_annual_period_within_filing"}:
+                # Keep valid conflicting rows visible: latest ambiguity must
+                # leave a gap, never silently fall back to a superseded filing.
+                for raw in filing.get("history", []):
+                    isolated = deepcopy(filing)
+                    isolated.pop("conflicts", None)
+                    isolated["history"] = [raw]
+                    try:
+                        values, _, _, _, _ = _prepare_filing(isolated, snapshot, cutoff, first_year, last_period, bridges.get(accession), financial_vintage=True)
+                        for period, item in values.items():
+                            if first_year <= period.year and period <= last_period:
+                                item["history_extension_provenance"]["method"] = LATEST_ASSUMPTION
+                                add_observation(item, filing=filing)
+                    except (HistoryError, TypeError):
+                        continue
+    result, selections, revisions, pending_periods = [], [], [], []
+    for period, rows in sorted(observations.items()):
+        if not first_year <= period.year or period > last_period:
+            continue
+        newest_date = max(_financial_available(row) for row in rows)
+        newest = [row for row in rows if _financial_available(row) == newest_date]
+        starts = {row["period_start"] for row in rows if row.get("period_start")}
+        # Equal end dates do not prove equal fiscal periods when starts differ.
+        reason = "annual_period_definition_conflict" if len(starts) > 1 else None
+        if any(not _same(row["eps"], newest[0]["eps"]) for row in newest[1:]):
+            reason = "same_day_latest_annual_eps_conflict"
+        all_rows = sorted((_observation_summary(r) for r in rows),
+                          key=lambda r: (r["source_financial_available_at"], r["source_accession"], r["eps"]))
+        if reason:
+            pending_periods.append({"period_end": period.isoformat(), "reason": reason,
+                                    "latest_financial_available_at": newest_date.isoformat(), "observations": all_rows})
+            selections.append({"period_end": period.isoformat(), "status": "pending", "reason": reason,
+                               "selected": None, "all_observations": all_rows})
+            for record in records:
+                if record["source_accession"] in {r.get("accession") for r in newest}:
+                    record["status"] = "pending"
+                    record["reasons"] = sorted(set(record["reasons"] + [reason]))
+            continue  # Never fall back to an older value when latest is ambiguous.
+        selected = max(newest, key=lambda r: (str(r.get("accession", "current_snapshot")), r["available_at"]))
+        summary = _observation_summary(selected)
+        result.append(deepcopy(selected))
+        selections.append({"period_end": period.isoformat(), "status": "selected", "selected": summary,
+                           "all_observations": all_rows})
+        for old in rows:
+            if old is selected:
+                continue
+            before = _observation_summary(old)
+            revisions.append({"period_end": period.isoformat(), "before": before, "after": deepcopy(summary),
+                              "reason": "latest_available_financial_publication" if _financial_available(old) < newest_date else "equivalent_same_day_stable_provenance",
+                              "value_changed": not _same(old["eps"], selected["eps"])})
+        for record in records:
+            if record["source_accession"] == selected.get("accession"):
+                record["selected_periods"].append(period.isoformat())
+                if period not in current_periods:
+                    record["added_periods"].append(period.isoformat())
+    # Cross-period validation still applies; latest does not authorize annual
+    # overlap, short periods, missing-year interpolation, or synthetic growth.
+    try:
+        validate_annual_history({"history": result}, cutoff)
+    except TTMError as exc:
+        raise HistoryError("selected_annual_period_overlap_or_invalid_duration: " + str(exc)) from exc
+    result = result[-max_years:]
+    kept_periods = {row["period_end"] for row in result}
+    for selection in selections:
+        selection["kept_in_history"] = selection["period_end"] in kept_periods
+        if selection["status"] == "selected" and not selection["kept_in_history"]:
+            selection["status"] = "excluded_by_observation_cap"
+    probe = deepcopy(snapshot)
+    probe["history"] = result
+    history, growth = _history(probe, cutoff, set())
+    kept_years = {d.year for d, _ in history}
+    audit = {"method": LATEST_ASSUMPTION, "conflict_policy": "latest_available", "share_basis_verified": False,
+             "as_of": cutoff.isoformat(), "max_years": max_years, "latest_annual_period_end": last_period.isoformat(),
+             "first_calendar_year_in_window": first_year, "protected_current_periods": [],
+             "history_count": len(result), "history_growth_observations": len(growth),
+             "historical_nonpositive_observations": sum(e <= 0 for _, e in history),
+             "coverage_start": history[0][0].isoformat() if history else None,
+             "coverage_end": history[-1][0].isoformat() if history else None,
+             "missing_calendar_years_in_window": [y for y in range(first_year, last_period.year + 1) if y not in kept_years],
+             "added_periods": [d.isoformat() for d, _ in history if d not in current_periods],
+             "discarded_current_future_vintages": future_current, "discarded_current_outside_window": outside_current,
+             "revision_audit": revisions, "period_selection_audit": selections, "pending_periods": pending_periods,
+             "entity_basis_start": entity_basis_start, "entity_basis_evidence": deepcopy(entity_basis_evidence),
+             "entity_boundary_exclusions": entity_excluded, "share_basis_exclusions": share_excluded,
+             "filing_audit": records,
+             "pending_filings": [{"source_accession": r["source_accession"], "reasons": r["reasons"]}
+                                 for r in records if r["status"] == "pending"],
+             "limitations": ["Latest available selects financial publication vintages, not retrieval or mapping dates.",
+                             "Mixed financial vintages can retain accounting-method differences; latest does not certify comparability.",
+                             "Issuer, accounting, annual-period, unit and share/context contracts still apply; no split ratio is inferred.",
+                             "Missing or ambiguous annual periods remain absent; negative EPS is retained and TTM/price are unchanged."]}
+    return result, audit
+
+
+def extend_annual_history(snapshot, candidate_filings, *, as_of=None, max_years=11, reviewed_bridges=None,
+                          conflict_policy="latest_available", entity_basis_start=None, entity_basis_evidence=None):
+    """Choose annual financial vintages; retain strict overlap for old research.
+
+    Latest selection is limited to explicitly compatible issuer/share/accounting
+    contexts. It never establishes split comparability from EPS ratios. An
+    evidenced economic-entity boundary can exclude obsolete standalone years.
+    """
+    if conflict_policy == "strict_overlap":
+        if entity_basis_start is not None or entity_basis_evidence is not None:
+            raise HistoryError("entity boundary requires latest_available; strict_overlap is unchanged replay")
+        return _extend_strict_annual_history(snapshot, candidate_filings, as_of=as_of, max_years=max_years,
+                                             reviewed_bridges=reviewed_bridges)
+    if conflict_policy != "latest_available":
+        raise HistoryError("conflict_policy must be latest_available or strict_overlap")
+    return _extend_latest_annual_history(snapshot, candidate_filings, as_of=as_of, max_years=max_years,
+                                         reviewed_bridges=reviewed_bridges, entity_basis_start=entity_basis_start,
+                                         entity_basis_evidence=entity_basis_evidence)

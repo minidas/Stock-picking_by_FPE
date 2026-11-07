@@ -15,6 +15,7 @@ import os
 from pathlib import Path, PurePosixPath
 import re
 import stat
+import time
 from uuid import uuid4
 
 from .data import DataError, load_json
@@ -83,7 +84,19 @@ def _replace_json(path, value, root):
         stream.write(_json_bytes(value))
     # Recheck containment immediately before replacing a manifest, not any user file.
     _checked(target, within=root, exists=True)
-    os.replace(temporary, target)
+    # Windows sync clients and antivirus scanners can briefly hold a manifest
+    # open without delete sharing. Keep atomic replacement and containment
+    # checks; only retry the specific transient Windows access/sharing errors.
+    for attempt in range(9):
+        try:
+            os.replace(temporary, target)
+            break
+        except PermissionError as exc:
+            if getattr(exc, "winerror", None) not in {5, 32, 33} or attempt == 8:
+                raise
+            time.sleep(min(.05 * 2 ** attempt, .8))
+            _checked(target, within=root, exists=True)
+            _checked(temporary, within=root, exists=True)
 
 
 def _root(root, create=False):

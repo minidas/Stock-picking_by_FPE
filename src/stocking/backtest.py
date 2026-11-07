@@ -91,14 +91,17 @@ def score_panel(snapshots, outcomes, memberships, evaluation_date):
         except (ModelError, ValueError, KeyError) as exc:
             exclude("model_error: " + str(exc))
             continue
-        if pred.get("p_below_6") is None:
+        if pred.get("p_below_buy_threshold") is None:
             exclude("model_abstained")
             continue
         ratio = snapshot["price"] / eps if eps > 0 else None
+        buy_threshold = pred["buy_fpe_threshold"]
+        sell_threshold = pred["sell_fpe_threshold"]
         row = {"symbol": key[0], "as_of": key[1], "label_available_at": known,
                "target_date": target, "eps6": eps, "realized_fpe": ratio,
-               "p_buy": pred["p_below_6"], "y_buy": int(eps > 0 and ratio < 6),
-               "p_sell": pred["p_above_6_5_positive"], "y_sell": int(eps > 0 and ratio > 6.5),
+               "buy_fpe_threshold": buy_threshold, "sell_fpe_threshold": sell_threshold,
+               "p_buy": pred["p_below_buy_threshold"], "y_buy": int(eps > 0 and ratio < buy_threshold),
+               "p_sell": pred["p_above_sell_threshold_positive"], "y_sell": int(eps > 0 and ratio > sell_threshold),
                "p_loss": pred["p_loss"], "y_loss": int(eps <= 0),
                "forecast_mode": pred.get("forecast_mode", "see_model"),
                "synthetic": snapshot.get("synthetic", False)}

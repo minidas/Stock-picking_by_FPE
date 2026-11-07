@@ -28,6 +28,9 @@ from stocking.ttm import TTMError, prepare_ttm_snapshot, validate_annual_history
 from stocking.retention import archive_run, finalize_run
 from analyze_stock_thresholds import THRESHOLDS, minimum_threshold, threshold_diagnostics
 
+# Frozen 2012 reproduction; new tasks use the public screen defaults.
+LEGACY_CONFIG_PATH = ROOT / "examples/thresholds_legacy.json"
+LEGACY_MODEL_CONFIG = {**DEFAULT_CONFIG, **load_json(LEGACY_CONFIG_PATH)}
 AS_OF = "2012-12-31"
 SCENARIO = "as_reported_unverified_research_scenario"
 LIMITATIONS = [
@@ -64,7 +67,7 @@ def fresh_anchor(company):
     if company.get("period_end") and latest["period_end"] != company["period_end"]:
         return None
     age = (date.fromisoformat(AS_OF) - date.fromisoformat(latest["period_end"])).days
-    return latest if age <= DEFAULT_CONFIG["max_eps_age_days"] else None
+    return latest if age <= LEGACY_MODEL_CONFIG["max_eps_age_days"] else None
 
 
 def history_loss_prior(snapshot):
@@ -74,7 +77,7 @@ def history_loss_prior(snapshot):
     if not history:
         return None, flags
     losses = sum(eps <= 0 for _, eps in history)
-    cfg = DEFAULT_CONFIG
+    cfg = LEGACY_MODEL_CONFIG
     value = (losses + cfg["loss_prior_probability"] * cfg["loss_prior_strength"]) / (len(history) + cfg["loss_prior_strength"])
     return value, flags
 
@@ -358,14 +361,14 @@ def assemble(members, prices, companies, manual, *, adjustments=None, supplement
                 elif not blockers:
                     # A complete snapshot with no history uses the model's
                     # prior-only risk state; genuinely missing inputs stay unknown.
-                    prior = DEFAULT_CONFIG["loss_prior_probability"]
+                    prior = LEGACY_MODEL_CONFIG["loss_prior_probability"]
                     row["loss_probability"] = prior
                     row["loss_probability_origin"] = "default_endpoint_loss_prior_only"
                     flags.add("loss_probability_prior_only")
                 if prior is not None and prior >= loss_cutoff:
                     row["computation_status"] = "not_tested_high_loss"
                 elif not blockers:
-                    model = build_baseline(snapshot)
+                    model = build_baseline(snapshot, LEGACY_MODEL_CONFIG)
                     prediction = evaluate(model)
                     row.update(model=model, prediction=prediction)
                     flags.update(model.get("flags", []))
@@ -602,12 +605,12 @@ def main():
             row["flags"] = sorted(set(row["flags"]) | {"corporate_scope_change_not_reconciled"})
     args.output.mkdir(parents=True, exist_ok=True)
     config_path = args.output / "research_config.json"
-    config_path.write_text(json.dumps({"model_defaults": DEFAULT_CONFIG, "thresholds": THRESHOLDS,
+    config_path.write_text(json.dumps({"model_defaults": LEGACY_MODEL_CONFIG, "thresholds": THRESHOLDS,
                                       "loss_exclusion_cutoff": args.exclude_loss_probability,
                                       "eps_anchor_mode": args.eps_anchor,
                                       "history_mode": args.history_mode,
                                       "research_scenario": SCENARIO, "limitations": LIMITATIONS}, indent=2) + "\n", encoding="utf-8")
-    inputs.update(config=config_path, analysis_script=Path(__file__),
+    inputs.update(config=config_path, legacy_thresholds=LEGACY_CONFIG_PATH, analysis_script=Path(__file__),
                   threshold_script=ROOT / "scripts/analyze_stock_thresholds.py", model_source=ROOT / "src/stocking/model.py",
                   ttm_source=ROOT / "src/stocking/ttm.py", history_source=ROOT / "src/stocking/history.py")
     if args.history_mode == "expanded":

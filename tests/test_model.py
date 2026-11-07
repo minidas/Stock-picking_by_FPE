@@ -41,8 +41,25 @@ class ModelTests(unittest.TestCase):
         self.assertGreater(low["p_below_6"], high["p_below_6"])
         self.assertLess(low["p_above_6_5_positive"], high["p_above_6_5_positive"])
 
-    def test_default_thresholds_preserve_fixed_probabilities(self):
-        model = build_baseline(snapshot())
+    def test_default_threshold_6_5_has_complementary_positive_events(self):
+        model = build_baseline(snapshot(40))
+        result = evaluate(model)
+        self.assertEqual(result["buy_fpe_threshold"], 6.5)
+        self.assertEqual(result["sell_fpe_threshold"], 6.5)
+        self.assertGreater(result["p_below_buy_threshold"], result["p_below_6"])
+        self.assertAlmostEqual(result["p_below_buy_threshold"] +
+                               result["p_above_sell_threshold_positive"] + result["p_loss"], 1)
+        self.assertAlmostEqual(result["p_between_thresholds"], 0)
+        self.assertEqual(result["p_above_sell_threshold_positive"], result["p_above_6_5_positive"])
+        # The new default must affect actual screening, not only a report label.
+        old = evaluate(build_baseline(snapshot(40), {"buy_fpe_threshold": 6.0}))
+        cutoff = (result["p_below_buy_threshold"] + old["p_below_buy_threshold"]) / 2
+        self.assertEqual(evaluate(build_baseline(snapshot(40), {"buy_probability": cutoff}))["candidate"], "buy_review")
+        self.assertNotEqual(evaluate(build_baseline(snapshot(40),
+                            {"buy_probability": cutoff, "buy_fpe_threshold": 6.0}))["candidate"], "buy_review")
+
+    def test_legacy_thresholds_preserve_fixed_probabilities(self):
+        model = build_baseline(snapshot(), {"buy_fpe_threshold": 6.0, "sell_fpe_threshold": 6.5})
         result = evaluate(model)
         pairs = [("p_below_6", "p_below_buy_threshold"),
                  ("p_above_6_5_positive", "p_above_sell_threshold_positive"),
@@ -87,7 +104,7 @@ class ModelTests(unittest.TestCase):
         cases = [{"buy_fpe_threshold": 0}, {"buy_fpe_threshold": -1},
                  {"sell_fpe_threshold": 0}, {"buy_fpe_threshold": float("nan")},
                  {"sell_fpe_threshold": float("inf")}, {"buy_fpe_threshold": True},
-                 {"buy_fpe_threshold": 6.5}, {"sell_fpe_threshold": 6},
+                 {"buy_fpe_threshold": 6.6}, {"sell_fpe_threshold": 6},
                  {"buy_fpe_threshold": 10, "sell_fpe_threshold": 9}]
         for config in cases:
             with self.subTest(config=config), self.assertRaises(ModelError):

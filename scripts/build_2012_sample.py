@@ -23,6 +23,8 @@ from stocking.retention import archive_run, finalize_run
 
 AS_OF = "2012-12-31"
 OUT = ROOT / "outputs/stocks_2012_full"
+# Frozen 2012 reproduction; new tasks use the public screen defaults.
+LEGACY_CONFIG = load_json(ROOT / "examples/thresholds_legacy.json")
 
 
 def unique_by(rows, key):
@@ -92,7 +94,7 @@ def assemble(members, prices, companies, manual, legacy, retrieval_complete=Fals
         blockers = []
         if symbol in audited:
             snapshot = audited[symbol]
-            model = build_baseline(snapshot)
+            model = build_baseline(snapshot, LEGACY_CONFIG)
             result = {"symbol": symbol, "as_of": AS_OF, "input": snapshot,
                       "model": model, "prediction": evaluate(model), "event_review": "not_selected"}
         else:
