@@ -1,7 +1,6 @@
 """Check threshold inversion and the independent screening gates."""
 from copy import deepcopy
 import importlib.util
-import json
 from pathlib import Path
 import unittest
 
@@ -12,9 +11,18 @@ spec.loader.exec_module(thresholds)
 
 
 def fixture(consensus=False):
-    snapshot = json.loads((ROOT / "data/research_2012_snapshots.json").read_text(encoding="utf-8"))["snapshots"][0]
-    snapshot["symbol"] = "SYNTHETIC_GATE_TEST"
-    snapshot["synthetic"] = True
+    # The gates need three positive annual observations, not a real issuer's
+    # archived research data. One loss below deliberately crosses the 10% gate.
+    snapshot = {
+        "symbol": "SYNTHETIC_GATE_TEST", "synthetic": True, "asset_type": "stock",
+        "as_of": "2012-12-31", "price": 120.0, "price_date": "2012-12-31",
+        "currency": "USD", "eps0": 12.0, "eps_period_end": "2011-12-31",
+        "eps_available_at": "2012-02-01", "eps_basis": "GAAP_diluted",
+        "share_basis": "synthetic_constant_shares",
+        "history": [{"period_end": f"{year}-12-31", "available_at": "2012-02-01", "eps": eps}
+                    for year, eps in zip((2009, 2010, 2011), (10.0, 11.0, 12.0))],
+        "consensus": [], "source": {"provider": "synthetic unit-test fixture"},
+    }
     if consensus:
         snapshot["consensus"] = [{"target_date": "2013-12-31", "available_at": "2012-12-30",
                                   "eps_mean": 50.0, "eps_std": 5.0, "analysts": 10,

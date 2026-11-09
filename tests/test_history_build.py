@@ -16,6 +16,15 @@ def read(name):
     return json.loads((ROOT / "data" / name).read_text(encoding="utf-8"))
 
 
+HISTORICAL_FIXTURES = (
+    "universe_2012_members.json", "research_2012_prices.json", "research_2012_sec_eps.json",
+    "research_2012_history_supplements.json", "research_2012_share_adjustments.json",
+    "research_2012_supplemental_eps.json",
+)
+
+
+@unittest.skipUnless(all((ROOT / "data" / name).is_file() for name in HISTORICAL_FIXTURES),
+                     "Archived 2012 integration fixtures are not installed")
 class HistoryBuildTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):

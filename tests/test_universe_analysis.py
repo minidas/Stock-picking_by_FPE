@@ -1,6 +1,5 @@
 from copy import deepcopy
 import importlib.util
-import json
 from pathlib import Path
 import unittest
 
@@ -29,8 +28,20 @@ def company(eps=(2.0, 2.5, 3.0), symbol="TEST", cik="0000000001"):
 
 class UniverseResearchTests(unittest.TestCase):
     def test_manual_snapshot_retains_its_own_price_and_history(self):
-        manual = json.loads((ROOT / "data/research_2012_snapshots.json").read_text(encoding="utf-8"))["snapshots"][0]
-        row = analysis.assemble([member("AAPL")], [price("AAPL")], [company(symbol="AAPL")], [manual])[0]
+        # Deliberately differ from the bulk price/history; no historical issuer
+        # dataset is needed to check that the supplied manual snapshot wins.
+        manual = {
+            "symbol": "MANUAL_TEST", "synthetic": True, "asset_type": "stock",
+            "as_of": "2012-12-31", "price": 75.0, "price_date": "2012-12-31",
+            "currency": "USD", "eps0": 5.0, "eps_period_end": "2011-12-31",
+            "eps_available_at": "2012-02-01", "eps_basis": "GAAP_diluted",
+            "share_basis": "synthetic_constant_shares",
+            "history": [{"period_end": f"{year}-12-31", "available_at": "2012-02-01", "eps": eps}
+                        for year, eps in zip((2009, 2010, 2011), (3.0, 4.0, 5.0))],
+            "consensus": [], "source": {"provider": "synthetic unit-test fixture"},
+        }
+        row = analysis.assemble([member("MANUAL_TEST")], [price("MANUAL_TEST")],
+                                [company(symbol="MANUAL_TEST")], [manual])[0]
         self.assertEqual(row["input"], manual)
         self.assertNotEqual(row["input"]["price"], row["price_evidence"]["price"])
         self.assertEqual(row["input_status"], "manually_checked_snapshot")
